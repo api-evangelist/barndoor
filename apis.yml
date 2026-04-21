@@ -18,7 +18,7 @@ tags:
   - Security
 url: https://raw.githubusercontent.com/api-evangelist/barndoor/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-04-19'
+modified: '2026-04-21'
 specificationVersion: '0.19'
 apis: []
 common:
@@ -40,6 +40,14 @@ common:
   - type: Security
     url: https://barndoor.ai/security/
     name: Security
+  - type: SpectralRules
+    url: rules/barndoor-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/barndoor-vocabulary.yaml
+  - type: NaftikoCapability
+    url: capabilities/ai-governance.yaml
+  - type: JSON-LD
+    url: json-ld/barndoor-context.jsonld
   - name: Features
     type: Features
     data:

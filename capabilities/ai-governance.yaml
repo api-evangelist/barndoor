@@ -1,0 +1,89 @@
+name: AI Agent Governance
+description: >-
+  Naftiko capability for Barndoor AI: enterprise control plane providing secure
+  access governance, runtime policy enforcement, and audit trails for AI agents
+  and Model Context Protocol (MCP) servers.
+version: '1.0'
+provider: Barndoor AI
+category: AI Governance
+tags:
+  - AI Agents
+  - AI Governance
+  - MCP
+  - Model Context Protocol
+  - Security
+  - Access Control
+humanURL: https://barndoor.ai/
+actions:
+  - name: Enforce Access Policy
+    description: Evaluate and enforce an access policy before an AI agent executes a tool call.
+    inputs:
+      - name: agentId
+        type: string
+        required: true
+      - name: toolCall
+        type: ToolCall
+        required: true
+      - name: context
+        type: object
+        required: false
+    outputs:
+      - name: allowed
+        type: boolean
+      - name: reason
+        type: string
+  - name: Connect to MCP Server
+    description: Establish a governed connection from an AI agent to an MCP server with scoped permissions.
+    inputs:
+      - name: agentId
+        type: string
+        required: true
+      - name: mcpServerId
+        type: string
+        required: true
+      - name: permissions
+        type: array
+        items: string
+        required: true
+    outputs:
+      - name: connectionId
+        type: string
+      - name: scopedToken
+        type: string
+  - name: Get Audit Log
+    description: Retrieve the audit trail of AI agent actions and policy decisions.
+    inputs:
+      - name: agentId
+        type: string
+        required: false
+      - name: fromDateTime
+        type: string
+        format: date-time
+        required: false
+      - name: toDateTime
+        type: string
+        format: date-time
+        required: false
+    outputs:
+      - name: entries
+        type: array
+        items: AuditEntry
+  - name: Discover Shadow AI
+    description: Scan for unauthorized AI applications and agents operating within the organization.
+    inputs:
+      - name: organizationId
+        type: string
+        required: true
+    outputs:
+      - name: shadowApps
+        type: array
+        items: ShadowAIApp
+sdks:
+  - language: Python
+    url: https://docs.barndoor.ai/sdks/python
+  - language: TypeScript
+    url: https://docs.barndoor.ai/sdks/typescript
+deploymentOptions:
+  - SaaS
+  - Private Cloud
+  - On-Premises

@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/barndoor/json-schema/aiagent-schema.json",
+  "title": "AIAgent",
+  "description": "An AI agent registered and governed by the Barndoor control plane.",
+  "type": "object",
+  "properties": {
+    "agentId": {
+      "type": "string",
+      "description": "Unique identifier for the AI agent."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the agent."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the agent's purpose and capabilities."
+    },
+    "model": {
+      "type": "string",
+      "description": "AI model powering the agent (e.g., claude-3-5-sonnet, gpt-4o)."
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Organization the agent belongs to."
+    },
+    "userId": {
+      "type": "string",
+      "description": "User who owns or created the agent."
+    },
+    "mcpConnections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "mcpServerId": {
+            "type": "string"
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["mcpServerId", "permissions"]
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "paused", "revoked"],
+      "description": "Current governance status of the agent."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["agentId", "name", "organizationId", "status"]
+}

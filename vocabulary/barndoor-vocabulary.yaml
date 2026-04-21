@@ -1,0 +1,34 @@
+vocabulary:
+  name: Barndoor AI Vocabulary
+  description: Terms and concepts used in the Barndoor AI agentic control plane and MCP governance platform.
+  terms:
+    - term: MCP
+      definition: Model Context Protocol - an open standard for connecting AI models to external tools and data sources.
+    - term: MCP Server
+      definition: A service that exposes tools and resources to AI agents via the Model Context Protocol.
+    - term: Agentic AI
+      definition: AI systems that can autonomously plan, reason, and take actions to complete multi-step tasks.
+    - term: Control Plane
+      definition: The infrastructure layer that manages, governs, and orchestrates AI agent operations and MCP connections.
+    - term: Runtime Policy Enforcement
+      definition: The application of access control rules and governance policies at the moment an AI agent attempts to take an action.
+    - term: Access Policy
+      definition: A rule defining what actions, tools, or data an AI agent is permitted to access under specific conditions.
+    - term: AI Agent
+      definition: An autonomous software system powered by a language model that can use tools and take actions to accomplish goals.
+    - term: Tool Call
+      definition: An action taken by an AI agent to invoke an external tool or function exposed via MCP.
+    - term: Context Filtering
+      definition: Selective presentation of information to AI agents to prevent overload and maintain focused, accurate responses.
+    - term: Audit Trail
+      definition: A comprehensive log of all AI agent actions, tool calls, and policy decisions for accountability and compliance.
+    - term: Shadow AI
+      definition: Unauthorized AI applications or agents operating within an organization without IT governance or oversight.
+    - term: MCP Catalog
+      definition: Barndoor's directory of governed MCP servers available for AI agents to connect to.
+    - term: SDK
+      definition: Software Development Kit - Barndoor provides Python and TypeScript SDKs for connecting agents to governed MCP servers.
+    - term: Scoped Permission
+      definition: A fine-grained access control granting an AI agent only the minimum required access for a specific task.
+    - term: Private Cloud Deployment
+      definition: A Barndoor deployment model where the control plane runs within the customer's own cloud environment.

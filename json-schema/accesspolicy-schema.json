@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/barndoor/json-schema/accesspolicy-schema.json",
+  "title": "AccessPolicy",
+  "description": "A Barndoor AI governance policy defining what actions an AI agent is permitted to take.",
+  "type": "object",
+  "properties": {
+    "policyId": {
+      "type": "string",
+      "description": "Unique identifier for the policy."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for the policy."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of what the policy governs."
+    },
+    "effect": {
+      "type": "string",
+      "enum": ["allow", "deny"],
+      "description": "Whether the policy allows or denies matching actions."
+    },
+    "principals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Agent IDs or user IDs this policy applies to."
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "MCP server IDs or tool names this policy applies to."
+    },
+    "conditions": {
+      "type": "object",
+      "description": "Optional conditions under which this policy applies.",
+      "properties": {
+        "timeOfDay": {
+          "type": "object",
+          "properties": {
+            "start": {"type": "string"},
+            "end": {"type": "string"}
+          }
+        },
+        "ipRanges": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["policyId", "name", "effect", "principals", "resources"]
+}

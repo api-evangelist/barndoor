@@ -1,0 +1,46 @@
+rules:
+  barndoor-api-has-documentation:
+    description: All Barndoor API entries must have a Documentation property.
+    message: "{{description}}"
+    severity: error
+    given: "$.apis[*]"
+    then:
+      field: properties
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            type: object
+            properties:
+              type:
+                const: Documentation
+            required:
+              - type
+
+  barndoor-api-has-description:
+    description: All Barndoor API entries must have a description.
+    message: "{{description}}"
+    severity: error
+    given: "$.apis[*]"
+    then:
+      field: description
+      function: truthy
+
+  barndoor-api-has-name:
+    description: All Barndoor API entries must have a name.
+    message: "{{description}}"
+    severity: error
+    given: "$.apis[*]"
+    then:
+      field: name
+      function: truthy
+
+  barndoor-apis-json-has-description:
+    description: Barndoor APIs.json must have a description.
+    message: "{{description}}"
+    severity: error
+    given: "$"
+    then:
+      field: description
+      function: truthy

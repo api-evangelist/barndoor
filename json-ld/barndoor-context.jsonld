@@ -1,0 +1,67 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "barndoor": "https://barndoor.ai/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AIAgent": {
+      "@id": "barndoor:AIAgent",
+      "@type": "@id"
+    },
+    "MCPServer": {
+      "@id": "barndoor:MCPServer",
+      "@type": "@id"
+    },
+    "AccessPolicy": {
+      "@id": "barndoor:AccessPolicy",
+      "@type": "@id"
+    },
+    "ToolCall": {
+      "@id": "barndoor:ToolCall",
+      "@type": "@id"
+    },
+    "AuditEntry": {
+      "@id": "barndoor:AuditEntry",
+      "@type": "@id"
+    },
+    "Connection": {
+      "@id": "barndoor:Connection",
+      "@type": "@id"
+    },
+    "agentId": {
+      "@id": "barndoor:agentId",
+      "@type": "xsd:string"
+    },
+    "mcpServerId": {
+      "@id": "barndoor:mcpServerId",
+      "@type": "xsd:string"
+    },
+    "policyId": {
+      "@id": "barndoor:policyId",
+      "@type": "xsd:string"
+    },
+    "allowed": {
+      "@id": "barndoor:allowed",
+      "@type": "xsd:boolean"
+    },
+    "toolName": {
+      "@id": "barndoor:toolName",
+      "@type": "xsd:string"
+    },
+    "timestamp": {
+      "@id": "barndoor:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "userId": {
+      "@id": "barndoor:userId",
+      "@type": "xsd:string"
+    },
+    "organizationId": {
+      "@id": "barndoor:organizationId",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url"
+  }
+}

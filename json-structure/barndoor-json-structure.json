@@ -1,0 +1,51 @@
+{
+  "name": "Barndoor AI Control Plane Structure",
+  "description": "Core data structures for Barndoor AI's agentic governance control plane.",
+  "structure": {
+    "AgentRegistration": {
+      "agentId": "string - Unique agent identifier",
+      "name": "string - Human-readable name",
+      "model": "string - AI model identifier",
+      "organizationId": "string - Organization identifier",
+      "mcpConnections": [
+        {
+          "mcpServerId": "string - MCP server identifier",
+          "permissions": ["string - Tool or resource permission"]
+        }
+      ],
+      "status": "string - active | paused | revoked"
+    },
+    "PolicyEvaluationRequest": {
+      "agentId": "string",
+      "toolCall": {
+        "toolName": "string - Name of tool being called",
+        "mcpServerId": "string - MCP server hosting the tool",
+        "parameters": "object - Tool call parameters"
+      },
+      "context": {
+        "userId": "string - User who triggered the agent",
+        "sessionId": "string - Session identifier",
+        "timestamp": "string - ISO 8601 datetime"
+      }
+    },
+    "PolicyEvaluationResponse": {
+      "allowed": "boolean - Whether the action is permitted",
+      "reason": "string - Explanation of the decision",
+      "appliedPolicyId": "string - ID of the policy that determined the outcome",
+      "auditId": "string - Audit trail reference"
+    },
+    "AuditEntry": {
+      "auditId": "string - Unique audit entry identifier",
+      "agentId": "string",
+      "userId": "string",
+      "toolCall": {
+        "toolName": "string",
+        "mcpServerId": "string"
+      },
+      "allowed": "boolean",
+      "appliedPolicyId": "string",
+      "timestamp": "string - ISO 8601 datetime",
+      "sessionId": "string"
+    }
+  }
+}
