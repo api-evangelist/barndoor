@@ -1,0 +1,14 @@
+{
+  "response": [
+    {
+      "id": "example",
+      "label": "example",
+      "options": [
+        {
+          "value": null,
+          "label": null
+        }
+      ]
+    }
+  ]
+}

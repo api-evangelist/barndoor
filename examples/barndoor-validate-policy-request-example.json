@@ -1,0 +1,8 @@
+{
+  "name": "example",
+  "mcp_server_id": "example",
+  "application_ids": [
+    "example"
+  ],
+  "exclude_policy_id": "example"
+}

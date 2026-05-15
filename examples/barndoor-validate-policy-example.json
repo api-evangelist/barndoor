@@ -1,0 +1,17 @@
+{
+  "request": {
+    "name": "example",
+    "mcp_server_id": "example",
+    "application_ids": [
+      "example"
+    ],
+    "exclude_policy_id": "example"
+  },
+  "response": {
+    "name_is_unique": true,
+    "no_overlap_if_active": true,
+    "overlapping_policy_names": [
+      "example"
+    ]
+  }
+}

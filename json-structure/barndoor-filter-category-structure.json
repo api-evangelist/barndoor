@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "FilterCategory",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "options": {
+      "items": {
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "label"
+        ]
+      },
+      "type": "array"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "label"
+  ]
+}

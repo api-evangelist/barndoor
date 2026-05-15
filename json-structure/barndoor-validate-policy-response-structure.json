@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ValidatePolicyResponse",
+  "properties": {
+    "name_is_unique": {
+      "type": "boolean"
+    },
+    "no_overlap_if_active": {
+      "type": "boolean"
+    },
+    "overlapping_policy_names": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name_is_unique",
+    "no_overlap_if_active"
+  ]
+}

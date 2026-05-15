@@ -1,0 +1,213 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Barndoor
+providerId: barndoor
+created: '2026-05-15'
+modified: '2026-05-15'
+reconciled: true
+tags:
+  - AI Agents
+  - AI Governance
+  - MCP
+  - Control Plane
+  - Plans
+description: >-
+  Barndoor publishes a four-tier commercial model on barndoor.ai/pricing: a free
+  Trial, a self-described Team plan at $500/month billed annually, and Pro and
+  Enterprise tiers with custom pricing through sales consultation. All tiers
+  ship the AI & MCP Registry with automatic tool discovery, RBAC/ABAC policy
+  enforcement, audit dashboards and activity logs, and identity-provider
+  integration. The major dimensional differentiator is the non-human-identity
+  (NHI / agent) seat limit (unlimited on Trial -> 250 Team -> 1,000 Pro ->
+  custom on Enterprise). Pro and Enterprise additionally unlock the Platform
+  API, log streaming, custom MCP servers, and private deployment, with
+  Enterprise adding 24/7 dedicated support. No per-call consumption metering
+  is published.
+sources:
+  - https://barndoor.ai/pricing
+  - https://docs.barndoor.ai/api-reference/introduction
+plans:
+  - id: barndoor-trial
+    name: Trial (Free)
+    type: free
+    description: >-
+      Self-service free trial aimed at teams evaluating AI action controls in
+      test or production environments. Unlimited non-human identities during
+      the evaluation period. Email support only. Sign up at
+      https://app.barndoor.ai/auth/signup/trial.
+    entries:
+      - label: Price
+        name: price
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Non-Human Identities (Agents)
+        name: non_human_identities
+        type: subscription
+        metric: agent
+        limit: -1
+        timeFrame: month
+        unit: 1
+        price: included
+        userMultiplied: false
+      - label: Support
+        name: support
+        type: subscription
+        metric: support_tier
+        limit: 1
+        timeFrame: month
+        unit: 1
+        price: email
+        userMultiplied: false
+    elements:
+      - name: AI & MCP Registry with Automatic Tool Discovery
+      - name: RBAC/ABAC Policy Enforcement
+      - name: Audit Dashboards and Activity Logs
+      - name: Identity Provider Integration
+      - name: Email Support
+  - id: barndoor-team
+    name: Team
+    type: subscription
+    description: >-
+      Production-team tier for groups operating AI systems in production.
+      Listed at $500/month when billed annually. Includes up to 250 non-human
+      identities (agents). Email support. Does not include Platform API,
+      log streaming, custom MCP servers, or private deployment.
+    entries:
+      - label: Price
+        name: price
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        unit: 1
+        price: '500'
+        userMultiplied: false
+      - label: Non-Human Identities (Agents)
+        name: non_human_identities
+        type: subscription
+        metric: agent
+        limit: 250
+        timeFrame: month
+        unit: 1
+        price: included
+        userMultiplied: false
+      - label: Support
+        name: support
+        type: subscription
+        metric: support_tier
+        limit: 1
+        timeFrame: month
+        unit: 1
+        price: email
+        userMultiplied: false
+    elements:
+      - name: AI & MCP Registry with Automatic Tool Discovery
+      - name: RBAC/ABAC Policy Enforcement
+      - name: Audit Dashboards and Activity Logs
+      - name: Identity Provider Integration
+      - name: Email Support
+  - id: barndoor-pro
+    name: Pro
+    type: custom
+    description: >-
+      Standardize AI controls across multiple teams. Custom pricing through
+      sales consultation. Includes up to 1,000 non-human identities, plus
+      Platform API access, log streaming to external SIEM / object storage,
+      custom MCP server registration, and chat + email support.
+    entries:
+      - label: Price
+        name: price
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        unit: 1
+        price: custom (contact sales)
+        userMultiplied: false
+      - label: Non-Human Identities (Agents)
+        name: non_human_identities
+        type: subscription
+        metric: agent
+        limit: 1000
+        timeFrame: month
+        unit: 1
+        price: included
+        userMultiplied: false
+      - label: Support
+        name: support
+        type: subscription
+        metric: support_tier
+        limit: 1
+        timeFrame: month
+        unit: 1
+        price: chat_and_email
+        userMultiplied: false
+    elements:
+      - name: AI & MCP Registry with Automatic Tool Discovery
+      - name: RBAC/ABAC Policy Enforcement
+      - name: Audit Dashboards and Activity Logs
+      - name: Identity Provider Integration
+      - name: Platform API Access
+      - name: Log Streaming / Audit Log Export
+      - name: Custom MCP Servers
+      - name: Chat and Email Support
+  - id: barndoor-enterprise
+    name: Enterprise
+    type: enterprise
+    description: >-
+      Security and platform teams governing AI actions at scale. Custom
+      pricing through sales consultation. Includes custom non-human-identity
+      ceiling, private deployment (private cloud / on-premises), all Pro
+      features, and 24/7 dedicated support.
+    entries:
+      - label: Price
+        name: price
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        unit: 1
+        price: custom (contact sales)
+        userMultiplied: false
+      - label: Non-Human Identities (Agents)
+        name: non_human_identities
+        type: subscription
+        metric: agent
+        limit: -1
+        timeFrame: month
+        unit: 1
+        price: custom
+        userMultiplied: false
+      - label: Support
+        name: support
+        type: subscription
+        metric: support_tier
+        limit: 1
+        timeFrame: month
+        unit: 1
+        price: 24x7_dedicated
+        userMultiplied: false
+    elements:
+      - name: AI & MCP Registry with Automatic Tool Discovery
+      - name: RBAC/ABAC Policy Enforcement
+      - name: Audit Dashboards and Activity Logs
+      - name: Identity Provider Integration
+      - name: Platform API Access
+      - name: Log Streaming / Audit Log Export
+      - name: Custom MCP Servers
+      - name: Private Cloud / On-Premises Deployment
+      - name: Dedicated 24x7 Support
+notes: >-
+  Pro and Enterprise prices are not published; both require a sales
+  consultation. The $500 Team listed price is the public anchor. No
+  per-call or per-event consumption meters are published; the public surface
+  is seat-style (non-human identities) and feature gating only.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

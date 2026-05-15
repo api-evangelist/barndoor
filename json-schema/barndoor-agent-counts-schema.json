@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentCounts",
+  "properties": {
+    "all": {
+      "type": "integer",
+      "title": "All"
+    },
+    "internal": {
+      "type": "integer",
+      "title": "Internal"
+    },
+    "external": {
+      "type": "integer",
+      "title": "External"
+    }
+  },
+  "type": "object",
+  "required": [
+    "all",
+    "internal",
+    "external"
+  ]
+}

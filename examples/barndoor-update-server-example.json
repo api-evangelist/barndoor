@@ -1,0 +1,10 @@
+{
+  "request": {
+    "name": "example",
+    "slug": "example",
+    "client_id": "example",
+    "client_secret": "example",
+    "meta": {}
+  },
+  "response": null
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentPayload",
+  "properties": {
+    "application_directory_id": {
+      "type": "string",
+      "title": "Agent Directory Id"
+    }
+  },
+  "type": "object",
+  "required": [
+    "application_directory_id"
+  ]
+}

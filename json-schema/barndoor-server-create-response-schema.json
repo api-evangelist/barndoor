@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ServerCreateResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "ID of the newly created server"
+    },
+    "connection_id": {
+      "type": "string",
+      "nullable": true,
+      "description": "Connection ID if a connection was created"
+    },
+    "auth_url": {
+      "type": "string",
+      "nullable": true,
+      "description": "OAuth authorization URL if authentication is required"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name_is_unique": true,
+  "no_overlap_if_active": true,
+  "overlapping_policy_names": [
+    "example"
+  ]
+}

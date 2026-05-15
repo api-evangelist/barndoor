@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ServerUpdateRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for the server",
+      "example": "My Salesforce Instance"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly identifier",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "OAuth client ID (provide actual value, not obfuscated)"
+    },
+    "client_secret": {
+      "type": "string",
+      "description": "OAuth client secret (provide actual value, not obfuscated)"
+    },
+    "meta": {
+      "type": "object",
+      "description": "Additional metadata for the server",
+      "additionalProperties": true
+    }
+  }
+}

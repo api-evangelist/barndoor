@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Updated At"
+    },
+    "organization_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Organization Id"
+    },
+    "application_directory_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Agent Directory Id"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "updated_at",
+    "organization_id",
+    "application_directory_id"
+  ]
+}

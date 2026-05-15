@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConnectionStatusResponse",
+  "type": "object",
+  "required": [
+    "status"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "pending",
+        "connected",
+        "error"
+      ],
+      "description": "Current connection status",
+      "example": "connected"
+    }
+  }
+}

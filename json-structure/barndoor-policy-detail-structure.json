@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "PolicyDetail",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "support_contact": {
+      "type": "string"
+    },
+    "mcp_server_id": {
+      "type": "string"
+    },
+    "application_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "rules": {
+      "items": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "authorized": {
+            "type": "boolean"
+          },
+          "actions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "roles_groups": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "condition": {
+            "properties": {
+              "match": {}
+            },
+            "type": "object",
+            "required": [
+              "match"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "created_by_user_id": {
+      "type": "string"
+    },
+    "updated_by_user_id": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "organization_id",
+    "name",
+    "status",
+    "mcp_server_id",
+    "created_at",
+    "updated_at",
+    "created_by_user_id",
+    "updated_by_user_id"
+  ]
+}

@@ -1,0 +1,161 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Barndoor
+providerId: barndoor
+created: '2026-05-15'
+modified: '2026-05-15'
+reconciled: false
+tags:
+  - AI Agents
+  - AI Governance
+  - MCP
+  - Control Plane
+  - FinOps
+  - FOCUS
+description: >-
+  FOCUS 1.3-aligned FinOps for Barndoor. Public pricing is seat-style (non-
+  human identities) and feature-gated by plan tier, not consumption-metered.
+  The pricing page shows $500/month Team, custom Pro and Enterprise, and free
+  Trial. The likely commercial meters are: registered agents (seats),
+  governed MCP server registrations, OAuth connection events, governance /
+  policy decisions, and proxied MCP / SSE requests, but only the agent seat
+  ceiling is published. Cost is currently fixed-per-plan; reconciled:false
+  until a real customer contract confirms add-on or overage line items.
+sources:
+  - https://barndoor.ai/pricing
+  - https://docs.barndoor.ai/api-reference/introduction
+  - https://docs.barndoor.ai/how-tos/log-export
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Barndoor AI, Inc.
+serviceCategory: AI Governance / Control Plane
+billingModel:
+  pricingCategory: Subscription (Plan-Based Seats + Feature Tiers)
+  billingFrequency: Monthly (Annual Commit Available)
+  billingCurrency: USD
+  chargeCategories:
+    - Purchase
+    - Usage
+    - Adjustment
+    - Tax
+    - Credit
+focusColumns:
+  ServiceName: Barndoor Platform
+  ServiceCategory: AI Governance / Control Plane
+  ProviderName: Barndoor
+  PublisherName: Barndoor AI, Inc.
+  InvoiceIssuerName: Barndoor AI, Inc.
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+meters:
+  - name: plan_subscription
+    description: >-
+      Recurring monthly subscription per plan tier (Trial / Team / Pro /
+      Enterprise). Team is published at $500/month billed annually; Pro and
+      Enterprise are custom.
+    unit: month
+    aggregation: sum
+    dimensions:
+      - organization_id
+      - plan_tier
+  - name: non_human_identities
+    description: >-
+      Registered agents (non-human identities). The published structural
+      quota: Trial unlimited, Team 250, Pro 1,000, Enterprise custom. Likely
+      acts as a seat license rather than a per-call meter.
+    unit: agent
+    aggregation: max
+    dimensions:
+      - organization_id
+      - agent_type
+  - name: mcp_server_registrations
+    description: >-
+      Registered MCP server instances under the organization. Not separately
+      priced today; included in the plan.
+    unit: mcp_server
+    aggregation: max
+    dimensions:
+      - organization_id
+      - server_type
+  - name: oauth_connections
+    description: >-
+      OAuth connections established from agents to backend SaaS through
+      Barndoor's connection broker. Not separately priced today.
+    unit: connection
+    aggregation: sum
+    dimensions:
+      - organization_id
+      - mcp_server_id
+      - status
+  - name: governance_events
+    description: >-
+      Policy decisions emitted by the runtime enforcement engine (Cerbos PDP)
+      against agent actions. Surfaced through audit logs and dashboards; not
+      separately priced today.
+    unit: decision
+    aggregation: sum
+    dimensions:
+      - organization_id
+      - policy_id
+      - authorized
+  - name: mcp_proxy_requests
+    description: >-
+      Requests proxied through Barndoor's MCP / SSE endpoints
+      (`/mcp/{server}`, `/sse/{server}`) to backend MCP servers. Not
+      separately priced today.
+    unit: request
+    aggregation: sum
+    dimensions:
+      - organization_id
+      - mcp_server_id
+      - agent_id
+  - name: audit_log_events_exported
+    description: >-
+      Audit events exported to S3-compatible storage. Batched every 30
+      seconds or per 100 events. Not separately priced today; included in
+      Pro and Enterprise.
+    unit: event
+    aggregation: sum
+    dimensions:
+      - organization_id
+      - bucket
+  - name: private_deployment
+    description: >-
+      Private cloud / on-premises deployment add-on (Enterprise only).
+      Custom-quoted.
+    unit: month
+    aggregation: max
+    dimensions:
+      - organization_id
+principles:
+  - name: Visibility
+    description: >-
+      Use Barndoor's audit dashboards plus the audit-log export to S3 /
+      Datadog-compatible JSON to reconcile policy decisions and proxied MCP
+      requests against agent attribution. Pull `getAgentCounts` for current
+      seat utilization.
+  - name: Allocation
+    description: >-
+      Tag agents by team / product via `application_directory_id` so MCP
+      proxy and policy-decision volume flows back to the right cost center.
+      Maintain separate test and production organizations to keep development
+      activity off the production seat count.
+  - name: Optimization
+    description: >-
+      Right-size the plan tier to actual agent count (Trial -> Team -> Pro
+      -> Enterprise). Archive or unregister unused agents to stay within the
+      tier ceiling. Use ABAC conditions to scope tool exposure narrowly so
+      agents only consume the MCP tools they need.
+  - name: Accountability
+    description: >-
+      Assign an AI Governance owner per organization. Review SOC 2 evidence
+      and audit-log export config quarterly; track plan-tier renewals
+      against the agent seat trend.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ServerDetail",
+  "allOf": [
+    {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "slug",
+        "connection_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the server",
+          "example": "123e4567-e89b-12d3-a456-426614174000"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name of the server",
+          "example": "Salesforce Production"
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-friendly identifier used in API paths",
+          "pattern": "^[a-z0-9-]+$",
+          "example": "salesforce"
+        },
+        "provider": {
+          "type": "string",
+          "nullable": true,
+          "description": "Third-party provider name",
+          "example": "salesforce"
+        },
+        "connection_status": {
+          "type": "string",
+          "enum": [
+            "available",
+            "pending",
+            "connected",
+            "error"
+          ],
+          "description": "Current connection status:\n- `available`: Server is available but not connected\n- `pending`: Connection is in progress or credentials missing\n- `connected`: Server is connected and ready to use\n- `error`: Connection failed or encountered an error\n",
+          "example": "connected"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "nullable": true,
+          "description": "MCP base URL from the server directory",
+          "example": "https://api.salesforce.com/mcp"
+        }
+      }
+    }
+  ]
+}

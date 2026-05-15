@@ -1,0 +1,23 @@
+{
+  "response": {
+    "data": [
+      {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "policy_id": "00000000-0000-0000-0000-000000000000",
+        "changes": {},
+        "changes_summary": null,
+        "revised_at": "2026-05-15T12:00:00Z",
+        "revised_by": "example",
+        "revised_by_name": null
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 1,
+      "total": 1,
+      "pages": 1,
+      "previous_page": 1,
+      "next_page": 1
+    }
+  }
+}

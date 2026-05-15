@@ -1,0 +1,9 @@
+{
+  "request": {
+    "event_types": [
+      "example"
+    ],
+    "filters": {}
+  },
+  "response": "example"
+}

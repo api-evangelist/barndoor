@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "PolicyRevisionSummary",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "policy_id": {
+      "type": "string"
+    },
+    "changes": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "changes_summary": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "revised_at": {
+      "type": "string"
+    },
+    "revised_by": {
+      "type": "string"
+    },
+    "revised_by_name": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "policy_id",
+    "changes",
+    "revised_at",
+    "revised_by"
+  ]
+}

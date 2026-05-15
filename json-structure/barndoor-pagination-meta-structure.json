@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "PaginationMeta",
+  "properties": {
+    "page": {
+      "type": "integer"
+    },
+    "limit": {
+      "type": "integer"
+    },
+    "total": {
+      "type": "integer"
+    },
+    "pages": {
+      "type": "integer"
+    },
+    "previous_page": {
+      "type": "integer"
+    },
+    "next_page": {
+      "type": "integer"
+    }
+  },
+  "type": "object",
+  "required": [
+    "page",
+    "limit",
+    "total",
+    "pages",
+    "previous_page",
+    "next_page"
+  ]
+}

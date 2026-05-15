@@ -1,0 +1,21 @@
+{
+  "name": "example",
+  "description": "example",
+  "support_contact": "example",
+  "tags": [
+    "example"
+  ],
+  "status": "DRAFT",
+  "application_ids": [
+    "example"
+  ],
+  "rules": [
+    {
+      "name": null,
+      "authorized": null,
+      "actions": null,
+      "roles_groups": null,
+      "condition": null
+    }
+  ]
+}

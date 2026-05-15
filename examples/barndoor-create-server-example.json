@@ -1,0 +1,15 @@
+{
+  "request": {
+    "name": "example",
+    "mcp_server_directory_id": "00000000-0000-0000-0000-000000000000",
+    "slug": "example",
+    "client_id": "example",
+    "client_secret": "example",
+    "meta": {}
+  },
+  "response": {
+    "id": "00000000-0000-0000-0000-000000000000",
+    "connection_id": "example",
+    "auth_url": "example"
+  }
+}

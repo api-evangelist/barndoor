@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolicyRuleCondition",
+  "properties": {
+    "match": {
+      "oneOf": [
+        {
+          "properties": {
+            "expr": {
+              "type": "string",
+              "title": "Expr"
+            }
+          },
+          "type": "object",
+          "required": [
+            "expr"
+          ],
+          "title": "Expression"
+        },
+        {
+          "properties": {
+            "all": {
+              "properties": {
+                "of": {
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array",
+                  "title": "Of"
+                }
+              },
+              "type": "object",
+              "required": [
+                "of"
+              ],
+              "title": "ConditionOf"
+            }
+          },
+          "type": "object",
+          "required": [
+            "all"
+          ],
+          "title": "OperatorAll"
+        },
+        {
+          "properties": {
+            "any": {
+              "properties": {
+                "of": {
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array",
+                  "title": "Of"
+                }
+              },
+              "type": "object",
+              "required": [
+                "of"
+              ],
+              "title": "ConditionOf"
+            }
+          },
+          "type": "object",
+          "required": [
+            "any"
+          ],
+          "title": "OperatorAny"
+        },
+        {
+          "properties": {
+            "none": {
+              "properties": {
+                "of": {
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array",
+                  "title": "Of"
+                }
+              },
+              "type": "object",
+              "required": [
+                "of"
+              ],
+              "title": "ConditionOf"
+            }
+          },
+          "type": "object",
+          "required": [
+            "none"
+          ],
+          "title": "OperatorNone"
+        }
+      ],
+      "title": "Match"
+    }
+  },
+  "type": "object",
+  "required": [
+    "match"
+  ]
+}

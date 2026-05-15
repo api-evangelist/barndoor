@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ServerCreateResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "connection_id": {
+      "type": "string",
+      "nullable": true
+    },
+    "auth_url": {
+      "type": "string",
+      "nullable": true
+    }
+  }
+}

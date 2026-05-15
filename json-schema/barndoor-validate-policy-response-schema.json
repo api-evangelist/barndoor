@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ValidatePolicyResponse",
+  "properties": {
+    "name_is_unique": {
+      "type": "boolean",
+      "title": "Name Is Unique",
+      "description": "Whether the policy name is unique within the organization"
+    },
+    "no_overlap_if_active": {
+      "type": "boolean",
+      "title": "No Overlap If Active",
+      "description": "Whether the policy would overlap with existing active policies"
+    },
+    "overlapping_policy_names": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Overlapping Policy Names",
+      "description": "Names of overlapping active policies, if any"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name_is_unique",
+    "no_overlap_if_active"
+  ],
+  "description": "Response for policy validation."
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "AgentResponse",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "application_directory_id": {
+      "type": "string"
+    },
+    "application_directory": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "organization_id": {
+          "type": "string"
+        },
+        "external_id": {
+          "type": "string"
+        },
+        "public": {
+          "type": "boolean"
+        },
+        "dcr": {
+          "type": "boolean"
+        },
+        "post_login_success": {
+          "type": "boolean"
+        },
+        "callbacks": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "created_at",
+        "updated_at",
+        "name",
+        "description",
+        "organization_id",
+        "external_id",
+        "public",
+        "dcr",
+        "post_login_success",
+        "callbacks"
+      ]
+    },
+    "agent_type": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "external"
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "updated_at",
+    "organization_id",
+    "application_directory_id",
+    "application_directory",
+    "agent_type"
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentDirectoryBase",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Created At"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Updated At"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description"
+    },
+    "organization_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Organization Id"
+    },
+    "external_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "External Id"
+    },
+    "public": {
+      "type": "boolean",
+      "title": "Public"
+    },
+    "dcr": {
+      "type": "boolean",
+      "title": "Dcr"
+    },
+    "post_login_success": {
+      "type": "boolean",
+      "title": "Post Login Success"
+    },
+    "callbacks": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Callbacks",
+      "description": "OAuth callback URLs stored in alphanumeric ascending order"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "updated_at",
+    "name",
+    "description",
+    "organization_id",
+    "external_id",
+    "public",
+    "dcr",
+    "post_login_success",
+    "callbacks"
+  ]
+}

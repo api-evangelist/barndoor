@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdatePolicy",
+  "properties": {
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "Human-friendly policy name, unique within an organization"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": "Longer description of the policy."
+    },
+    "support_contact": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Support Contact",
+      "description": "Primary point of contact associated with the policy."
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tags",
+      "description": "Tags for categorizing the policy."
+    },
+    "status": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "DRAFT",
+            "ACTIVE",
+            "INACTIVE",
+            "ARCHIVED"
+          ],
+          "title": "PolicyStatus",
+          "description": "Policy lifecycle status."
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The current lifecycle status of the policy."
+    },
+    "application_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Application Ids",
+      "description": "List of application (agent) identifiers to which this policy applies."
+    },
+    "rules": {
+      "anyOf": [
+        {
+          "items": {
+            "properties": {
+              "name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Name",
+                "description": "Optional display name for the rule",
+                "default": ""
+              },
+              "authorized": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Authorized",
+                "description": "Determines if the actions are allowed (True) or denied (False)",
+                "default": false
+              },
+              "actions": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Actions",
+                "description": "Actions this rule applies to"
+              },
+              "roles_groups": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Roles Groups",
+                "description": "Roles or groups this rule applies to"
+              },
+              "condition": {
+                "anyOf": [
+                  {
+                    "properties": {
+                      "match": {
+                        "oneOf": [
+                          {
+                            "type": "object"
+                          },
+                          {
+                            "type": "object"
+                          },
+                          {
+                            "type": "object"
+                          },
+                          {
+                            "type": "object"
+                          }
+                        ],
+                        "title": "Match"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "match"
+                    ],
+                    "title": "PolicyRuleCondition"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Optional condition that must be met for the rule to apply"
+              }
+            },
+            "type": "object",
+            "title": "PolicyRule",
+            "description": "Represents a single policy rule with compatible conditions."
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Rules",
+      "description": "Full set of rules that govern the policy."
+    }
+  },
+  "type": "object",
+  "description": "Request body for partial updates to an existing policy."
+}

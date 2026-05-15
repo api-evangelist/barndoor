@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolicyRevisionSummary",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+    },
+    "policy_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Policy Id"
+    },
+    "changes": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Changes",
+      "description": "Changes made in this revision"
+    },
+    "changes_summary": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Changes Summary",
+      "description": "Human-readable list of change descriptions"
+    },
+    "revised_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Revised At"
+    },
+    "revised_by": {
+      "type": "string",
+      "title": "Revised By"
+    },
+    "revised_by_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Revised By Name",
+      "description": "Name of the user who made the revision"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "policy_id",
+    "changes",
+    "revised_at",
+    "revised_by"
+  ],
+  "description": "Summary of a policy revision."
+}

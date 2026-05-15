@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ValidatePolicyRequest",
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 255,
+      "minLength": 1
+    },
+    "mcp_server_id": {
+      "type": "string"
+    },
+    "application_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "exclude_policy_id": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name"
+  ]
+}

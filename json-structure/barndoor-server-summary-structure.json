@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ServerSummary",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "slug",
+    "connection_status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "provider": {
+      "type": "string",
+      "nullable": true
+    },
+    "connection_status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "pending",
+        "connected",
+        "error"
+      ]
+    }
+  }
+}

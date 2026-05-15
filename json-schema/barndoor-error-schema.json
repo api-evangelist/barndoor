@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Error",
+  "type": "object",
+  "required": [
+    "error",
+    "message"
+  ],
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error type identifier",
+      "example": "ServerNotFound"
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable error message",
+      "example": "Server with ID '123' not found"
+    },
+    "details": {
+      "type": "object",
+      "description": "Additional error details",
+      "additionalProperties": true
+    }
+  }
+}

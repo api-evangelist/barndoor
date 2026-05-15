@@ -1,0 +1,13 @@
+{
+  "name": "example",
+  "authorized": true,
+  "actions": [
+    "example"
+  ],
+  "roles_groups": [
+    "example"
+  ],
+  "condition": {
+    "match": null
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "name": "example",
+  "status": "example",
+  "mcp_server_id": "example",
+  "mcp_server_name": "example",
+  "application_ids": [
+    "example"
+  ],
+  "application_names": [
+    "example"
+  ],
+  "tags": [
+    "example"
+  ],
+  "updated_at": "2026-05-15T12:00:00Z",
+  "updated_by_user_id": "example",
+  "updated_by_user_name": "example",
+  "description": "example",
+  "rules_count": 0
+}

@@ -1,0 +1,112 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Barndoor
+providerId: barndoor
+created: '2026-05-15'
+modified: '2026-05-15'
+reconciled: false
+tags:
+  - AI Agents
+  - MCP
+  - Rate Limiting
+  - Throttling
+  - Egress
+description: >-
+  Barndoor does not publish numeric per-second or per-minute rate limits for
+  the Platform API in public documentation. Several adjacent policies that
+  effectively shape throughput are documented: a pool of five static egress
+  IPs is shared across all customers for outbound MCP traffic, JWT bearer
+  tokens are short-lived and refreshed by the SDK (Auth0 PKCE flow), and the
+  audit-log export pipeline batches events every 30 seconds or per 100 events
+  (whichever first). Pagination on list endpoints is bounded (page >= 1,
+  limit <= 100). Per-plan agent (non-human identity) ceilings act as a
+  structural quota: Trial unlimited, Team 250, Pro 1,000, Enterprise custom.
+  Numeric request-rate ceilings remain unpublished - reconciled:false until
+  Barndoor Support confirms them.
+sources:
+  - https://docs.barndoor.ai/api-reference/introduction
+  - https://docs.barndoor.ai/how-tos/ip-whitelisting
+  - https://docs.barndoor.ai/how-tos/log-export
+  - https://barndoor.ai/pricing
+responseCodes:
+  throttled: 429
+  unauthorized: 401
+  validation: 422
+  serverError: 5xx
+limits:
+  - name: Per-Customer Platform API Throttle
+    scope: customer
+    metric: requests
+    limit: undocumented
+    timeFrame: minute
+    notes: >-
+      Numeric rate limit not published. Per-customer throttling is presumed at
+      the Platform API edge; on excessive throughput expect HTTP 429.
+  - name: List-Endpoint Page Size
+    scope: request
+    metric: items_per_page
+    limit: 100
+    timeFrame: request
+    notes: >-
+      List operations (listAgents, listServers, listPolicies, listPolicyRevisions)
+      cap `limit` at 100 items per page; `page` is 1-based with default 10.
+  - name: Static Egress IP Pool (Outbound to MCP Servers)
+    scope: platform
+    metric: egress_ip
+    limit: 5
+    timeFrame: persistent
+    notes: >-
+      Outbound MCP traffic from Barndoor exits via a fixed pool of five
+      shared IPs (136.114.185.55, 34.121.81.24, 34.172.10.253, 35.226.250.15,
+      35.188.204.49) with automatic failover. Customers whitelist these on
+      MCP server firewalls.
+  - name: Audit-Log Export Batch
+    scope: tenant
+    metric: events_per_batch
+    limit: 100
+    timeFrame: 30s
+    notes: >-
+      Audit batches flush every 30 seconds or every 100 events (whichever
+      first); events land in the destination bucket within ~1 minute.
+  - name: Audit-Log Buffer During Pause
+    scope: tenant
+    metric: buffer_days
+    limit: 30
+    timeFrame: day
+    notes: >-
+      While the audit-log export stream is paused, events buffer for up to 30
+      days; older events are dropped if the stream stays paused.
+  - name: Non-Human Identities Quota
+    scope: tenant
+    metric: agents
+    limit: plan-based
+    notes: >-
+      Trial unlimited, Team 250, Pro 1,000, Enterprise custom. Acts as a
+      structural ceiling on the number of registered agents.
+policies:
+  - name: 429 Throttling
+    description: >-
+      Excessive request volume returns HTTP 429 Too Many Requests. Clients
+      should back off before retrying.
+  - name: Backoff Strategy
+    description: >-
+      Implement exponential backoff with jitter on 429 / 5xx responses. The
+      SDK handles transparent retries on transient failures.
+  - name: JWT Lifecycle
+    description: >-
+      Bearer tokens are short-lived JWTs issued by Auth0 PKCE; the SDK's
+      `loginInteractive()` refreshes them. Do not cache tokens past their
+      `exp` claim.
+  - name: Egress Whitelisting
+    description: >-
+      Allow inbound traffic from the five Barndoor egress IPs on the MCP
+      server side; rotate firewall rules to keep the full pool open to
+      tolerate failover.
+  - name: Audit Export Backpressure
+    description: >-
+      Avoid pausing the audit-log export stream for more than 30 days;
+      buffered events past that window are dropped.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

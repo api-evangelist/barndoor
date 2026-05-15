@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ValidatePolicyRequest",
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 255,
+      "minLength": 1,
+      "title": "Name",
+      "description": "Policy name to validate"
+    },
+    "mcp_server_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Mcp Server Id",
+      "description": "MCP server ID to check for overlaps"
+    },
+    "application_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Application Ids",
+      "description": "Application IDs to check for overlaps"
+    },
+    "exclude_policy_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Exclude Policy Id",
+      "description": "Policy ID to exclude from validation (for edit mode)"
+    }
+  },
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "description": "Request body for validating a policy before creation."
+}

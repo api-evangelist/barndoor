@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConnectionInitiationResponse",
+  "type": "object",
+  "properties": {
+    "auth_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "OAuth authorization URL to redirect user to",
+      "example": "https://login.salesforce.com/services/oauth2/authorize?..."
+    }
+  },
+  "additionalProperties": true
+}

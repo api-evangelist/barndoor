@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "FilterOption",
+  "properties": {
+    "value": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "value",
+    "label"
+  ]
+}

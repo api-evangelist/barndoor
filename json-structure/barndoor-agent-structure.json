@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Agent",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "application_directory_id": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "updated_at",
+    "organization_id",
+    "application_directory_id"
+  ]
+}

@@ -1,9 +1,119 @@
+extends:
+  - spectral:oas
+
 rules:
-  barndoor-api-has-documentation:
-    description: All Barndoor API entries must have a Documentation property.
-    message: "{{description}}"
+  info-title-required:
+    description: Info title must be present.
     severity: error
-    given: "$.apis[*]"
+    given: $.info
+    then:
+      field: title
+      function: truthy
+
+  info-description-required:
+    description: Info description must be present.
+    severity: error
+    given: $.info
+    then:
+      field: description
+      function: truthy
+
+  info-contact-required:
+    description: Info contact must be present.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  operation-operationid-required:
+    description: Every operation must have an operationId.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+
+  operation-summary-required:
+    description: Every operation must have a summary.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-title-case:
+    description: Operation summaries should be in Title Case.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  operation-tags-required:
+    description: Every operation must have at least one tag.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  response-description-required:
+    description: Every response must have a description.
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
+    then:
+      field: description
+      function: truthy
+
+  no-empty-descriptions:
+    description: Descriptions must not be empty.
+    severity: error
+    given: $..description
+    then:
+      function: truthy
+
+  bearer-auth-jwt:
+    description: BearerAuth security scheme should declare bearerFormat as JWT for Barndoor.
+    severity: warn
+    given: $.components.securitySchemes.BearerAuth
+    then:
+      field: bearerFormat
+      function: pattern
+      functionOptions:
+        match: "JWT"
+
+  servers-required:
+    description: At least one server must be declared.
+    severity: error
+    given: $
+    then:
+      field: servers
+      function: truthy
+
+  organization-id-variable:
+    description: Server URLs should use the {organization_id} template variable.
+    severity: warn
+    given: $.servers[*]
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: "{organization_id}"
+
+  apis-json-description:
+    description: Barndoor APIs.json must have a description.
+    severity: error
+    given: $
+    then:
+      field: description
+      function: truthy
+
+  api-has-documentation:
+    description: All Barndoor API entries must have a Documentation property.
+    severity: error
+    given: $.apis[*]
     then:
       field: properties
       function: schema
@@ -17,30 +127,3 @@ rules:
                 const: Documentation
             required:
               - type
-
-  barndoor-api-has-description:
-    description: All Barndoor API entries must have a description.
-    message: "{{description}}"
-    severity: error
-    given: "$.apis[*]"
-    then:
-      field: description
-      function: truthy
-
-  barndoor-api-has-name:
-    description: All Barndoor API entries must have a name.
-    message: "{{description}}"
-    severity: error
-    given: "$.apis[*]"
-    then:
-      field: name
-      function: truthy
-
-  barndoor-apis-json-has-description:
-    description: Barndoor APIs.json must have a description.
-    message: "{{description}}"
-    severity: error
-    given: "$"
-    then:
-      field: description
-      function: truthy

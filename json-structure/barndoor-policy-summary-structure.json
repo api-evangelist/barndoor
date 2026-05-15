@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "PolicySummary",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "mcp_server_id": {
+      "type": "string"
+    },
+    "mcp_server_name": {
+      "type": "string"
+    },
+    "application_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "application_names": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "updated_by_user_id": {
+      "type": "string"
+    },
+    "updated_by_user_name": {
+      "type": "string"
+    },
+    "rules_count": {
+      "type": "integer"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "status",
+    "mcp_server_id",
+    "updated_at",
+    "updated_by_user_id"
+  ]
+}

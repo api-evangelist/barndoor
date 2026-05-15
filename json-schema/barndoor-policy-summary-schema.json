@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolicySummary",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "Id"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status"
+    },
+    "mcp_server_id": {
+      "type": "string",
+      "title": "Mcp Server Id"
+    },
+    "mcp_server_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Mcp Server Name"
+    },
+    "application_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Application Ids"
+    },
+    "application_names": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Application Names"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Tags"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Updated At"
+    },
+    "updated_by_user_id": {
+      "type": "string",
+      "title": "Updated By User Id"
+    },
+    "updated_by_user_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Updated By User Name"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description"
+    },
+    "rules_count": {
+      "type": "integer",
+      "title": "Rules Count",
+      "default": 0
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "status",
+    "mcp_server_id",
+    "updated_at",
+    "updated_by_user_id"
+  ],
+  "description": "Summary row used for policy list views."
+}

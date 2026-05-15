@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FilterCategory",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Id"
+    },
+    "label": {
+      "type": "string",
+      "title": "Label"
+    },
+    "options": {
+      "items": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "label"
+        ],
+        "title": "FilterOption",
+        "description": "Individual filter option."
+      },
+      "type": "array",
+      "title": "Options"
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "label"
+  ],
+  "description": "Category of filter options for the advanced filter UI."
+}

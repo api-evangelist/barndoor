@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ServerCreateRequest",
+  "type": "object",
+  "required": [
+    "name",
+    "mcp_server_directory_id"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for the server",
+      "example": "My Salesforce Instance"
+    },
+    "mcp_server_directory_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "ID of the server directory template to create from"
+    },
+    "slug": {
+      "type": "string",
+      "description": "Optional URL-friendly identifier (auto-generated if not provided)",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "OAuth client ID (for OAuth-enabled servers)"
+    },
+    "client_secret": {
+      "type": "string",
+      "description": "OAuth client secret (for OAuth-enabled servers)"
+    },
+    "meta": {
+      "type": "object",
+      "description": "Additional metadata for the server",
+      "additionalProperties": true
+    }
+  }
+}
