@@ -1,0 +1,168 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  title: Barndoor OAuth Broker
+  description: >-
+    Routes Naftiko consume-side OAuth handshakes through Barndoor's OAuth
+    Connection Broker so the Naftiko engine never holds long-lived tokens.
+    The Naftiko capability spec declares the SaaS dependency (Salesforce,
+    GitHub, Notion, etc.); Barndoor brokers the credentials. Solves the
+    "where do tokens live" problem for governed AI integration.
+  tags:
+    - Naftiko
+    - Barndoor
+    - Partnership
+    - OAuth
+    - Credentials
+    - Identity
+  created: '2026-05-15'
+  modified: '2026-05-15'
+
+binds:
+  - namespace: barndoor-env
+    description: Barndoor Platform credentials.
+    keys:
+      BARNDOOR_TOKEN: BARNDOOR_TOKEN
+      BARNDOOR_ORG: BARNDOOR_ORG
+
+capability:
+  consumes:
+    - namespace: barndoor
+      type: http
+      baseUri: 'https://{{BARNDOOR_ORG}}.platform.barndoor.ai'
+      authentication:
+        type: bearer
+        token: '{{BARNDOOR_TOKEN}}'
+      resources:
+        - name: connect-server
+          path: '/api/servers/{{server_id}}/connect'
+          operations:
+            - name: initiate-connection
+              method: POST
+              inputParameters:
+                - name: server_id
+                  in: path
+                  required: true
+        - name: connection-status
+          path: '/api/servers/{{server_id}}/connection'
+          operations:
+            - name: get-connection-status
+              method: GET
+              inputParameters:
+                - name: server_id
+                  in: path
+                  required: true
+            - name: delete-connection
+              method: DELETE
+              inputParameters:
+                - name: server_id
+                  in: path
+                  required: true
+        - name: agent-connections
+          path: '/api/agents/{{agent_id}}/connections'
+          operations:
+            - name: list-agent-connections
+              method: GET
+              inputParameters:
+                - name: agent_id
+                  in: path
+                  required: true
+
+  exposes:
+    - type: rest
+      address: 0.0.0.0
+      port: 8080
+      namespace: barndoor-oauth-broker-rest
+      description: REST surface for brokering OAuth via Barndoor.
+      resources:
+        - name: initiate-connection
+          path: '/connections/initiate/{server_id}'
+          operations:
+            - name: initiate-connection
+              method: POST
+              inputParameters:
+                - name: server_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.initiate-connection
+        - name: connection-status
+          path: '/connections/status/{server_id}'
+          operations:
+            - name: get-connection-status
+              method: GET
+              inputParameters:
+                - name: server_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.get-connection-status
+        - name: delete-connection
+          path: '/connections/delete/{server_id}'
+          operations:
+            - name: delete-connection
+              method: DELETE
+              inputParameters:
+                - name: server_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.delete-connection
+        - name: agent-connections
+          path: '/connections/agent/{agent_id}'
+          operations:
+            - name: list-agent-connections
+              method: GET
+              inputParameters:
+                - name: agent_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.list-agent-connections
+
+    - type: mcp
+      address: 0.0.0.0
+      port: 3010
+      namespace: barndoor-oauth-broker-mcp
+      description: MCP server for brokering OAuth connections through Barndoor.
+      tools:
+        - name: initiate-connection
+          description: Initiate an OAuth 2.0 handshake to a backend SaaS via Barndoor.
+          hints:
+            destructiveHint: false
+          inputParameters:
+            - name: server_id
+              type: string
+              required: true
+              description: Barndoor MCP server UUID for the backend SaaS.
+          call: barndoor.initiate-connection
+        - name: get-connection-status
+          description: Check the OAuth connection status for an MCP server.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: server_id
+              type: string
+              required: true
+              description: Barndoor MCP server UUID.
+          call: barndoor.get-connection-status
+        - name: delete-connection
+          description: Revoke an OAuth connection to an MCP server.
+          hints:
+            destructiveHint: true
+          inputParameters:
+            - name: server_id
+              type: string
+              required: true
+              description: Barndoor MCP server UUID.
+          call: barndoor.delete-connection
+        - name: list-agent-connections
+          description: List all OAuth connections currently held by an agent.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: agent_id
+              type: string
+              required: true
+              description: Barndoor agent UUID.
+          call: barndoor.list-agent-connections

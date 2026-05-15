@@ -1,0 +1,141 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  title: Barndoor Shadow AI Bridge
+  description: >-
+    Pulls Barndoor's Shadow AI Discovery output into Naftiko Signals as
+    a "shadow agents detected by Barndoor" signal on company landing
+    pages. Enriches Naftiko's GTM-side intelligence with concrete
+    runtime evidence of unauthorized AI agents operating inside an
+    organization — a high-signal datapoint for enterprise AI buyers.
+  tags:
+    - Naftiko
+    - Barndoor
+    - Partnership
+    - Shadow-AI
+    - Signals
+    - Discovery
+    - GTM
+  created: '2026-05-15'
+  modified: '2026-05-15'
+
+binds:
+  - namespace: barndoor-env
+    description: Barndoor Platform credentials.
+    keys:
+      BARNDOOR_TOKEN: BARNDOOR_TOKEN
+      BARNDOOR_ORG: BARNDOOR_ORG
+
+capability:
+  consumes:
+    - namespace: barndoor
+      type: http
+      baseUri: 'https://{{BARNDOOR_ORG}}.platform.barndoor.ai'
+      authentication:
+        type: bearer
+        token: '{{BARNDOOR_TOKEN}}'
+      resources:
+        - name: shadow-ai-discovery
+          path: '/api/shadow-ai/discovered'
+          operations:
+            - name: list-shadow-ai
+              method: GET
+              inputParameters:
+                - name: since
+                  in: query
+                  type: string
+                  required: false
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+        - name: shadow-ai-summary
+          path: '/api/shadow-ai/summary'
+          operations:
+            - name: get-shadow-ai-summary
+              method: GET
+        - name: shadow-ai-detail
+          path: '/api/shadow-ai/discovered/{{discovery_id}}'
+          operations:
+            - name: get-shadow-ai-detail
+              method: GET
+              inputParameters:
+                - name: discovery_id
+                  in: path
+                  required: true
+
+  exposes:
+    - type: rest
+      address: 0.0.0.0
+      port: 8080
+      namespace: barndoor-shadow-ai-bridge-rest
+      description: REST surface for Naftiko Signals to ingest Shadow AI Discovery output.
+      resources:
+        - name: list-shadow-ai
+          path: '/shadow-ai'
+          operations:
+            - name: list-shadow-ai
+              method: GET
+              inputParameters:
+                - name: since
+                  in: query
+                  type: string
+                  required: false
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+              call: barndoor.list-shadow-ai
+        - name: get-shadow-ai-summary
+          path: '/shadow-ai/summary'
+          operations:
+            - name: get-shadow-ai-summary
+              method: GET
+              call: barndoor.get-shadow-ai-summary
+        - name: get-shadow-ai-detail
+          path: '/shadow-ai/{discovery_id}'
+          operations:
+            - name: get-shadow-ai-detail
+              method: GET
+              inputParameters:
+                - name: discovery_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.get-shadow-ai-detail
+
+    - type: mcp
+      address: 0.0.0.0
+      port: 3010
+      namespace: barndoor-shadow-ai-bridge-mcp
+      description: MCP server for security/GTM agents to query Barndoor's Shadow AI Discovery.
+      tools:
+        - name: list-shadow-ai
+          description: List shadow AI applications and agents detected by Barndoor.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: since
+              type: string
+              required: false
+              description: ISO 8601 timestamp lower bound.
+            - name: status
+              type: string
+              required: false
+              description: Filter by discovery status (e.g. new, triaged, sanctioned, blocked).
+          call: barndoor.list-shadow-ai
+        - name: get-shadow-ai-summary
+          description: Aggregate summary of Barndoor's Shadow AI Discovery (counts by status / app / source).
+          hints:
+            readOnly: true
+          call: barndoor.get-shadow-ai-summary
+        - name: get-shadow-ai-detail
+          description: Get detail for a single Shadow AI discovery record.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: discovery_id
+              type: string
+              required: true
+              description: Barndoor Shadow AI Discovery record UUID.
+          call: barndoor.get-shadow-ai-detail

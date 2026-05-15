@@ -1,0 +1,144 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  title: Barndoor Policy Sync
+  description: >-
+    Pulls Barndoor RBAC/ABAC policies and revisions from the Barndoor
+    Platform API and exposes them to a Naftiko Fleet — so every Naftiko
+    capability that ships an MCP server can surface the matching Barndoor
+    policy that governs its agent traffic. Closes the loop between
+    "I shipped an MCP" and "this is the policy that governs it."
+  tags:
+    - Naftiko
+    - Barndoor
+    - Partnership
+    - Policy
+    - Governance
+    - MCP
+    - Discovery
+  created: '2026-05-15'
+  modified: '2026-05-15'
+
+binds:
+  - namespace: barndoor-env
+    description: Barndoor Platform credentials.
+    keys:
+      BARNDOOR_TOKEN: BARNDOOR_TOKEN
+      BARNDOOR_ORG: BARNDOOR_ORG
+
+capability:
+  consumes:
+    - namespace: barndoor
+      type: http
+      baseUri: 'https://{{BARNDOOR_ORG}}.platform.barndoor.ai'
+      authentication:
+        type: bearer
+        token: '{{BARNDOOR_TOKEN}}'
+      resources:
+        - name: list-policies
+          path: '/api/v2/policies'
+          operations:
+            - name: list-policies
+              method: GET
+        - name: get-policy
+          path: '/api/v2/policies/{{policy_id}}'
+          operations:
+            - name: get-policy
+              method: GET
+              inputParameters:
+                - name: policy_id
+                  in: path
+                  required: true
+        - name: list-policy-revisions
+          path: '/api/v2/policies/{{policy_id}}/revisions'
+          operations:
+            - name: list-policy-revisions
+              method: GET
+              inputParameters:
+                - name: policy_id
+                  in: path
+                  required: true
+        - name: policy-summary
+          path: '/api/v2/policies/summary'
+          operations:
+            - name: policy-summary
+              method: GET
+
+  exposes:
+    - type: rest
+      address: 0.0.0.0
+      port: 8080
+      namespace: barndoor-policy-sync-rest
+      description: REST surface for Naftiko Fleet to discover Barndoor policies.
+      resources:
+        - name: list-policies
+          path: '/policies'
+          operations:
+            - name: list-policies
+              method: GET
+              call: barndoor.list-policies
+        - name: get-policy
+          path: '/policies/{policy_id}'
+          operations:
+            - name: get-policy
+              method: GET
+              inputParameters:
+                - name: policy_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.get-policy
+        - name: list-policy-revisions
+          path: '/policies/{policy_id}/revisions'
+          operations:
+            - name: list-policy-revisions
+              method: GET
+              inputParameters:
+                - name: policy_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.list-policy-revisions
+        - name: policy-summary
+          path: '/policies/summary'
+          operations:
+            - name: policy-summary
+              method: GET
+              call: barndoor.policy-summary
+
+    - type: mcp
+      address: 0.0.0.0
+      port: 3010
+      namespace: barndoor-policy-sync-mcp
+      description: MCP server exposing Barndoor policy discovery to agents.
+      tools:
+        - name: list-policies
+          description: List all Barndoor RBAC/ABAC policies in the org.
+          hints:
+            readOnly: true
+          call: barndoor.list-policies
+        - name: get-policy
+          description: Get a single Barndoor policy by ID.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: policy_id
+              type: string
+              required: true
+              description: Barndoor policy UUID.
+          call: barndoor.get-policy
+        - name: list-policy-revisions
+          description: List all revisions for a Barndoor policy.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: policy_id
+              type: string
+              required: true
+              description: Barndoor policy UUID.
+          call: barndoor.list-policy-revisions
+        - name: policy-summary
+          description: Aggregate summary of Barndoor policies (counts + status).
+          hints:
+            readOnly: true
+          call: barndoor.policy-summary

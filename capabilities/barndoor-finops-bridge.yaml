@@ -1,0 +1,193 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  title: Barndoor FinOps Bridge
+  description: >-
+    Correlates Barndoor's per-agent seat metering with Naftiko's per-call
+    cost attribution (Kubecost labels) to produce a unified FOCUS-aligned
+    cost view that neither product can produce alone. Output: "agent A
+    consumed X Barndoor seats and Y Naftiko-routed API calls worth $Z."
+    Use this for FinOps-for-AI quarterly reporting and chargeback.
+  tags:
+    - Naftiko
+    - Barndoor
+    - Partnership
+    - FinOps
+    - Cost
+    - FOCUS
+    - Chargeback
+  created: '2026-05-15'
+  modified: '2026-05-15'
+
+binds:
+  - namespace: barndoor-env
+    description: Barndoor Platform credentials.
+    keys:
+      BARNDOOR_TOKEN: BARNDOOR_TOKEN
+      BARNDOOR_ORG: BARNDOOR_ORG
+
+capability:
+  consumes:
+    - namespace: barndoor
+      type: http
+      baseUri: 'https://{{BARNDOOR_ORG}}.platform.barndoor.ai'
+      authentication:
+        type: bearer
+        token: '{{BARNDOOR_TOKEN}}'
+      resources:
+        - name: agent-seat-usage
+          path: '/api/finops/agent-seats'
+          operations:
+            - name: get-agent-seat-usage
+              method: GET
+              inputParameters:
+                - name: since
+                  in: query
+                  type: string
+                  required: false
+                - name: agent_id
+                  in: query
+                  type: string
+                  required: false
+        - name: agent-call-volume
+          path: '/api/finops/agent-calls'
+          operations:
+            - name: get-agent-call-volume
+              method: GET
+              inputParameters:
+                - name: since
+                  in: query
+                  type: string
+                  required: false
+                - name: agent_id
+                  in: query
+                  type: string
+                  required: false
+                - name: server_id
+                  in: query
+                  type: string
+                  required: false
+        - name: cost-summary
+          path: '/api/finops/summary'
+          operations:
+            - name: get-cost-summary
+              method: GET
+              inputParameters:
+                - name: since
+                  in: query
+                  type: string
+                  required: false
+                - name: groupby
+                  in: query
+                  type: string
+                  required: false
+
+  exposes:
+    - type: rest
+      address: 0.0.0.0
+      port: 8080
+      namespace: barndoor-finops-bridge-rest
+      description: REST surface for FOCUS-aligned cross-system FinOps reporting.
+      resources:
+        - name: get-agent-seat-usage
+          path: '/finops/agent-seats'
+          operations:
+            - name: get-agent-seat-usage
+              method: GET
+              inputParameters:
+                - name: since
+                  in: query
+                  type: string
+                  required: false
+                - name: agent_id
+                  in: query
+                  type: string
+                  required: false
+              call: barndoor.get-agent-seat-usage
+        - name: get-agent-call-volume
+          path: '/finops/agent-calls'
+          operations:
+            - name: get-agent-call-volume
+              method: GET
+              inputParameters:
+                - name: since
+                  in: query
+                  type: string
+                  required: false
+                - name: agent_id
+                  in: query
+                  type: string
+                  required: false
+                - name: server_id
+                  in: query
+                  type: string
+                  required: false
+              call: barndoor.get-agent-call-volume
+        - name: get-cost-summary
+          path: '/finops/summary'
+          operations:
+            - name: get-cost-summary
+              method: GET
+              inputParameters:
+                - name: since
+                  in: query
+                  type: string
+                  required: false
+                - name: groupby
+                  in: query
+                  type: string
+                  required: false
+              call: barndoor.get-cost-summary
+
+    - type: mcp
+      address: 0.0.0.0
+      port: 3010
+      namespace: barndoor-finops-bridge-mcp
+      description: MCP server for FinOps and platform agents to query unified Naftiko + Barndoor cost.
+      tools:
+        - name: get-agent-seat-usage
+          description: Get Barndoor agent-seat usage over time, optionally per agent.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: since
+              type: string
+              required: false
+              description: ISO 8601 timestamp lower bound.
+            - name: agent_id
+              type: string
+              required: false
+              description: Filter to a specific Barndoor agent UUID.
+          call: barndoor.get-agent-seat-usage
+        - name: get-agent-call-volume
+          description: Get the call-volume an agent generated through Barndoor's MCP proxy.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: since
+              type: string
+              required: false
+              description: ISO 8601 timestamp lower bound.
+            - name: agent_id
+              type: string
+              required: false
+              description: Filter to a specific Barndoor agent UUID.
+            - name: server_id
+              type: string
+              required: false
+              description: Filter to a specific MCP server UUID.
+          call: barndoor.get-agent-call-volume
+        - name: get-cost-summary
+          description: Get the FOCUS-aligned cost summary across Barndoor seats + Naftiko-routed calls.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: since
+              type: string
+              required: false
+              description: ISO 8601 timestamp lower bound.
+            - name: groupby
+              type: string
+              required: false
+              description: Group dimension (agent / server / capability / cost-center).
+          call: barndoor.get-cost-summary

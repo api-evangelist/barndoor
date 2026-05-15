@@ -1,0 +1,145 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  title: Barndoor Policy as Code
+  description: >-
+    Authors Cerbos-style RBAC/ABAC policies in Barndoor through Naftiko's
+    declarative spec layer. The Naftiko capability YAML carries the policy
+    intent (allowed actions, agent groups, conditions); this capability
+    creates, validates, clones, updates, and publishes the corresponding
+    Barndoor policies via the Platform API. One spec, one deploy, two
+    systems wired up.
+  tags:
+    - Naftiko
+    - Barndoor
+    - Partnership
+    - Policy
+    - Policy-as-Code
+    - Cerbos
+    - Governance
+  created: '2026-05-15'
+  modified: '2026-05-15'
+
+binds:
+  - namespace: barndoor-env
+    description: Barndoor Platform credentials.
+    keys:
+      BARNDOOR_TOKEN: BARNDOOR_TOKEN
+      BARNDOOR_ORG: BARNDOOR_ORG
+
+capability:
+  consumes:
+    - namespace: barndoor
+      type: http
+      baseUri: 'https://{{BARNDOOR_ORG}}.platform.barndoor.ai'
+      authentication:
+        type: bearer
+        token: '{{BARNDOOR_TOKEN}}'
+      resources:
+        - name: create-policy
+          path: '/api/v2/policies'
+          operations:
+            - name: create-policy
+              method: POST
+        - name: update-policy
+          path: '/api/v2/policies/{{policy_id}}'
+          operations:
+            - name: update-policy
+              method: PATCH
+              inputParameters:
+                - name: policy_id
+                  in: path
+                  required: true
+        - name: validate-policy
+          path: '/api/v2/policies/validate'
+          operations:
+            - name: validate-policy
+              method: POST
+        - name: clone-policy
+          path: '/api/v2/policies/{{policy_id}}/clone'
+          operations:
+            - name: clone-policy
+              method: POST
+              inputParameters:
+                - name: policy_id
+                  in: path
+                  required: true
+
+  exposes:
+    - type: rest
+      address: 0.0.0.0
+      port: 8080
+      namespace: barndoor-policy-as-code-rest
+      description: REST surface for authoring Barndoor policies as code.
+      resources:
+        - name: create-policy
+          path: '/policies'
+          operations:
+            - name: create-policy
+              method: POST
+              call: barndoor.create-policy
+        - name: update-policy
+          path: '/policies/{policy_id}'
+          operations:
+            - name: update-policy
+              method: PATCH
+              inputParameters:
+                - name: policy_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.update-policy
+        - name: validate-policy
+          path: '/policies/validate'
+          operations:
+            - name: validate-policy
+              method: POST
+              call: barndoor.validate-policy
+        - name: clone-policy
+          path: '/policies/{policy_id}/clone'
+          operations:
+            - name: clone-policy
+              method: POST
+              inputParameters:
+                - name: policy_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.clone-policy
+
+    - type: mcp
+      address: 0.0.0.0
+      port: 3010
+      namespace: barndoor-policy-as-code-mcp
+      description: MCP server for authoring Barndoor policies from agent workflows.
+      tools:
+        - name: create-policy
+          description: Create a new Barndoor RBAC/ABAC policy in DRAFT status.
+          hints:
+            destructiveHint: false
+          call: barndoor.create-policy
+        - name: update-policy
+          description: Patch an existing Barndoor policy by ID.
+          hints:
+            destructiveHint: true
+          inputParameters:
+            - name: policy_id
+              type: string
+              required: true
+              description: Barndoor policy UUID.
+          call: barndoor.update-policy
+        - name: validate-policy
+          description: Validate a Barndoor policy spec without persisting it.
+          hints:
+            readOnly: true
+          call: barndoor.validate-policy
+        - name: clone-policy
+          description: Clone an existing Barndoor policy as a new DRAFT.
+          hints:
+            destructiveHint: false
+          inputParameters:
+            - name: policy_id
+              type: string
+              required: true
+              description: Barndoor policy UUID to clone.
+          call: barndoor.clone-policy

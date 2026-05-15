@@ -1,0 +1,155 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  title: Barndoor MCP Proxy Register
+  description: >-
+    Registers a Naftiko-built MCP server with Barndoor's MCP Servers Registry
+    so Barndoor can govern agent traffic to it. Round-trips the Barndoor
+    server ID back into the Naftiko capability metadata so the rest of the
+    Fleet pipeline can reference it. Use this when an `exposes: mcp` Naftiko
+    capability ships into a Barndoor-governed environment.
+  tags:
+    - Naftiko
+    - Barndoor
+    - Partnership
+    - MCP
+    - Registry
+    - Governance
+  created: '2026-05-15'
+  modified: '2026-05-15'
+
+binds:
+  - namespace: barndoor-env
+    description: Barndoor Platform credentials.
+    keys:
+      BARNDOOR_TOKEN: BARNDOOR_TOKEN
+      BARNDOOR_ORG: BARNDOOR_ORG
+
+capability:
+  consumes:
+    - namespace: barndoor
+      type: http
+      baseUri: 'https://{{BARNDOOR_ORG}}.platform.barndoor.ai'
+      authentication:
+        type: bearer
+        token: '{{BARNDOOR_TOKEN}}'
+      resources:
+        - name: list-servers
+          path: '/api/servers'
+          operations:
+            - name: list-servers
+              method: GET
+            - name: register-server
+              method: POST
+        - name: get-server
+          path: '/api/servers/{{server_id}}'
+          operations:
+            - name: get-server
+              method: GET
+              inputParameters:
+                - name: server_id
+                  in: path
+                  required: true
+            - name: update-server
+              method: PATCH
+              inputParameters:
+                - name: server_id
+                  in: path
+                  required: true
+            - name: delete-server
+              method: DELETE
+              inputParameters:
+                - name: server_id
+                  in: path
+                  required: true
+
+  exposes:
+    - type: rest
+      address: 0.0.0.0
+      port: 8080
+      namespace: barndoor-mcp-proxy-register-rest
+      description: REST surface for managing the MCP server registry in Barndoor.
+      resources:
+        - name: servers
+          path: '/servers'
+          operations:
+            - name: list-servers
+              method: GET
+              call: barndoor.list-servers
+            - name: register-server
+              method: POST
+              call: barndoor.register-server
+        - name: server
+          path: '/servers/{server_id}'
+          operations:
+            - name: get-server
+              method: GET
+              inputParameters:
+                - name: server_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.get-server
+            - name: update-server
+              method: PATCH
+              inputParameters:
+                - name: server_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.update-server
+            - name: delete-server
+              method: DELETE
+              inputParameters:
+                - name: server_id
+                  in: path
+                  type: string
+                  required: true
+              call: barndoor.delete-server
+
+    - type: mcp
+      address: 0.0.0.0
+      port: 3010
+      namespace: barndoor-mcp-proxy-register-mcp
+      description: MCP server for managing Barndoor's MCP server registry from agents.
+      tools:
+        - name: list-servers
+          description: List all MCP servers registered with Barndoor.
+          hints:
+            readOnly: true
+          call: barndoor.list-servers
+        - name: register-server
+          description: Register a new MCP server with Barndoor (typically a Naftiko-built MCP).
+          hints:
+            destructiveHint: false
+          call: barndoor.register-server
+        - name: get-server
+          description: Get a single Barndoor-registered MCP server by ID.
+          hints:
+            readOnly: true
+          inputParameters:
+            - name: server_id
+              type: string
+              required: true
+              description: Barndoor MCP server UUID.
+          call: barndoor.get-server
+        - name: update-server
+          description: Update a Barndoor-registered MCP server.
+          hints:
+            destructiveHint: true
+          inputParameters:
+            - name: server_id
+              type: string
+              required: true
+              description: Barndoor MCP server UUID.
+          call: barndoor.update-server
+        - name: delete-server
+          description: Deregister an MCP server from Barndoor.
+          hints:
+            destructiveHint: true
+          inputParameters:
+            - name: server_id
+              type: string
+              required: true
+              description: Barndoor MCP server UUID.
+          call: barndoor.delete-server
