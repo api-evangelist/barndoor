@@ -1,7 +1,7 @@
 aid: barndoor
 url: https://raw.githubusercontent.com/api-evangelist/barndoor/refs/heads/main/apis.yml
 name: Barndoor
-x-type: company
+kind: company
 description: >-
   Barndoor AI is the control plane for agentic AI, providing secure access and
   governance for AI agents and Model Context Protocol (MCP) servers. Founded in
@@ -199,7 +199,7 @@ common:
   - type: Portal
     url: https://app.barndoor.ai/
     name: Barndoor App
-  - type: Signup
+  - type: SignUp
     url: https://app.barndoor.ai/auth/signup/trial
     name: Barndoor Free Trial Signup
   - type: TokensManagement
@@ -247,7 +247,7 @@ common:
   - type: NaftikoCapability
     url: capabilities/ai-governance.yaml
     name: Naftiko AI Governance Capability
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/barndoor-context.jsonld
     name: Barndoor JSON-LD Context
   - name: Features
