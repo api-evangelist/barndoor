@@ -2,381 +2,366 @@ aid: barndoor
 url: https://raw.githubusercontent.com/api-evangelist/barndoor/refs/heads/main/apis.yml
 name: Barndoor
 kind: company
-description: >-
-  Barndoor AI is the control plane for agentic AI, providing secure access and
-  governance for AI agents and Model Context Protocol (MCP) servers. Founded in
-  2024 by Oren Michels (founder of Mashery), Barndoor enables enterprise IT,
-  security, and developer teams to register agents, govern MCP server access
-  through policy, broker OAuth connections to backend SaaS, and proxy MCP
-  traffic with runtime policy enforcement and full audit trails. The Barndoor
-  Platform REST API manages servers, connections, policies, agents, and MCP /
-  SSE request proxying. Python, TypeScript, and Go SDKs are published on GitHub
-  alongside Rust SDKs (Cerbos, official MCP, MCP OAuth compliance suite) and a
-  Crew AI example. Deployment options include SaaS (trial), private cloud, and
-  on-premises (Enterprise).
+description: Barndoor AI is the control plane for agentic AI, providing secure access and governance for AI agents and Model
+  Context Protocol (MCP) servers. Founded in 2024 by Oren Michels (founder of Mashery), Barndoor enables enterprise IT, security,
+  and developer teams to register agents, govern MCP server access through policy, broker OAuth connections to backend SaaS,
+  and proxy MCP traffic with runtime policy enforcement and full audit trails. The Barndoor Platform REST API manages servers,
+  connections, policies, agents, and MCP / SSE request proxying. Python, TypeScript, and Go SDKs are published on GitHub alongside
+  Rust SDKs (Cerbos, official MCP, MCP OAuth compliance suite) and a Crew AI example. Deployment options include SaaS (trial),
+  private cloud, and on-premises (Enterprise).
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - AI Agents
-  - AI Governance
-  - Agentic AI
-  - MCP
-  - Model Context Protocol
-  - Policy Enforcement
-  - OAuth
-  - Identity
-  - Security
-  - Audit
-  - Control Plane
+- AI Agents
+- AI Governance
+- Agentic AI
+- MCP
+- Model Context Protocol
+- Policy Enforcement
+- OAuth
+- Identity
+- Security
+- Audit
+- Control Plane
 created: '2026-03-16'
-modified: '2026-05-15'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: barndoor:platform-api
-    name: Barndoor Platform API
-    description: >-
-      REST API for the Barndoor Platform. Manage MCP server registrations,
-      OAuth connections from agents to backend SaaS, access-control policies
-      (with rules, restrictions, revisions, validation), AI agent
-      registrations, and proxy live MCP requests (`/mcp/{server_name}`) and
-      SSE streams (`/sse/{server_name}`) through Barndoor's policy enforcement
-      and audit pipeline. JWT Bearer authentication via Auth0 OAuth 2.0 with
-      PKCE; the SDK's `loginInteractive()` handles the OAuth flow.
-    humanURL: https://docs.barndoor.ai/api-reference/introduction
-    baseURL: https://{organization_id}.platform.barndoor.ai
-    tags:
-      - Platform API
-      - MCP
-      - Policy
-      - Agents
-      - Servers
-      - Connections
-      - Proxy
-    properties:
-      - type: Documentation
-        url: https://docs.barndoor.ai/api-reference/introduction
-      - type: OpenAPI
-        url: openapi/barndoor-openapi.yml
-      - type: Authentication
-        url: https://docs.barndoor.ai/api-reference/introduction
-      - type: SDK
-        url: https://docs.barndoor.ai/sdks/introduction
-  - aid: barndoor:python-sdk
-    name: Barndoor Python SDK
-    description: >-
-      Python SDK for the Barndoor AI Platform. Wraps the Platform REST API,
-      handles Auth0 PKCE login (`loginInteractive()`), discovers governed MCP
-      tools, brokers OAuth connections to backend SaaS, and exposes the
-      catalog through Pythonic helpers compatible with OpenAI tool-calling
-      and frameworks such as Crew AI.
-    humanURL: https://docs.barndoor.ai/sdks/python
-    baseURL: https://github.com/barndoor-ai/barndoor-python-sdk
-    tags:
-      - Python SDK
-      - SDK
-      - MCP
-    properties:
-      - type: Documentation
-        url: https://docs.barndoor.ai/sdks/python
-      - type: Repository
-        url: https://github.com/barndoor-ai/barndoor-python-sdk
-  - aid: barndoor:typescript-sdk
-    name: Barndoor TypeScript SDK
-    description: >-
-      TypeScript SDK for the Barndoor AI Platform. Browser- and Node-friendly
-      client for Auth0 PKCE login, governed MCP tool discovery, OAuth
-      connection initiation, and proxying MCP / SSE requests through Barndoor.
-    humanURL: https://docs.barndoor.ai/sdks/typescript
-    baseURL: https://github.com/barndoor-ai/barndoor-ts-sdk
-    tags:
-      - TypeScript SDK
-      - SDK
-      - MCP
-    properties:
-      - type: Documentation
-        url: https://docs.barndoor.ai/sdks/typescript
-      - type: Repository
-        url: https://github.com/barndoor-ai/barndoor-ts-sdk
-  - aid: barndoor:go-sdk
-    name: Barndoor Go SDK
-    description: >-
-      Go SDK for the Barndoor AI Platform. Server-side client for registering
-      agents, managing MCP servers and policies, brokering OAuth connections,
-      and proxying MCP requests from Go services.
-    humanURL: https://github.com/barndoor-ai/barndoor-go-sdk
-    baseURL: https://github.com/barndoor-ai/barndoor-go-sdk
-    tags:
-      - Go SDK
-      - SDK
-      - MCP
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/barndoor-go-sdk
-  - aid: barndoor:official-mcp-rust-sdk
-    name: Official MCP Rust SDK
-    description: >-
-      The official Rust SDK for the Model Context Protocol. Maintained under
-      the Barndoor AI GitHub organization; provides primitives to build MCP
-      clients and servers in Rust.
-    humanURL: https://github.com/barndoor-ai/official-mcp-rust-sdk
-    baseURL: https://github.com/barndoor-ai/official-mcp-rust-sdk
-    tags:
-      - MCP
-      - Rust
-      - SDK
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/official-mcp-rust-sdk
-  - aid: barndoor:cerbos-sdk-rust
-    name: Cerbos Rust SDK
-    description: >-
-      Rust SDK for Cerbos, the policy-decision-point used by Barndoor for
-      attribute-based access control. Lets Rust services request policy
-      decisions from a Cerbos PDP.
-    humanURL: https://github.com/barndoor-ai/cerbos-sdk-rust
-    baseURL: https://github.com/barndoor-ai/cerbos-sdk-rust
-    tags:
-      - Cerbos
-      - ABAC
-      - Policy
-      - Rust
-      - SDK
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/cerbos-sdk-rust
-  - aid: barndoor:mcp-auth-compliance
-    name: MCP OAuth Compliance Suite
-    description: >-
-      Rust test suite that validates remote MCP servers against the MCP
-      authorization specification - RFC 9728 (Protected Resource Metadata),
-      RFC 8414 (Authorization Server Metadata), RFC 7591 (Dynamic Client
-      Registration), and OAuth 2.1. Useful for vendors and customers
-      verifying MCP server conformance before onboarding to Barndoor.
-    humanURL: https://github.com/barndoor-ai/mcp-auth-compliance
-    baseURL: https://github.com/barndoor-ai/mcp-auth-compliance
-    tags:
-      - MCP
-      - OAuth
-      - Compliance
-      - Rust
-      - Conformance
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/mcp-auth-compliance
-  - aid: barndoor:crew-ai-example
-    name: Barndoor + Crew AI Example
-    description: >-
-      Reference Python demo application showing how to plug Barndoor-governed
-      MCP tools into a Crew AI multi-agent workflow.
-    humanURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
-    baseURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
-    tags:
-      - Crew AI
-      - Python
-      - Example
-      - MCP
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
-common:
-  - type: Website
-    url: https://barndoor.ai/
-    name: Barndoor AI
+- aid: barndoor:platform-api
+  name: Barndoor Platform API
+  description: REST API for the Barndoor Platform. Manage MCP server registrations, OAuth connections from agents to backend
+    SaaS, access-control policies (with rules, restrictions, revisions, validation), AI agent registrations, and proxy live
+    MCP requests (`/mcp/{server_name}`) and SSE streams (`/sse/{server_name}`) through Barndoor's policy enforcement and audit
+    pipeline. JWT Bearer authentication via Auth0 OAuth 2.0 with PKCE; the SDK's `loginInteractive()` handles the OAuth flow.
+  humanURL: https://docs.barndoor.ai/api-reference/introduction
+  baseURL: https://{organization_id}.platform.barndoor.ai
+  tags:
+  - Platform API
+  - MCP
+  - Policy
+  - Agents
+  - Servers
+  - Connections
+  - Proxy
+  properties:
   - type: Documentation
-    url: https://docs.barndoor.ai/
-    name: Barndoor Developer Documentation
-  - type: APIReference
     url: https://docs.barndoor.ai/api-reference/introduction
-    name: Barndoor API Reference
   - type: OpenAPI
     url: openapi/barndoor-openapi.yml
-    name: Barndoor Platform API OpenAPI
   - type: Authentication
     url: https://docs.barndoor.ai/api-reference/introduction
-    name: Authentication (Auth0 OAuth 2.0 with PKCE)
   - type: SDK
     url: https://docs.barndoor.ai/sdks/introduction
-    name: Barndoor SDKs (Python, TypeScript, Go)
-  - type: Portal
-    url: https://app.barndoor.ai/
-    name: Barndoor App
-  - type: SignUp
-    url: https://app.barndoor.ai/auth/signup/trial
-    name: Barndoor Free Trial Signup
-  - type: TokensManagement
-    url: https://app.barndoor.ai/settings/tokens
-    name: Platform API Tokens
-  - type: Pricing
-    url: https://barndoor.ai/pricing
-    name: Barndoor Pricing
-  - type: Plans
-    url: plans/barndoor-plans-pricing.yml
-    name: Barndoor Plans (API Commons)
-  - type: RateLimits
-    url: rate-limits/barndoor-rate-limits.yml
-    name: Barndoor Rate Limits (API Commons)
-  - type: FinOps
-    url: finops/barndoor-finops.yml
-    name: Barndoor FinOps (FOCUS 1.3)
-  - type: GitHub
-    url: https://github.com/barndoor-ai
-    name: Barndoor AI GitHub Org
-  - type: Security
-    url: https://barndoor.ai/security/
-    name: Barndoor Security
-  - type: TrustCenter
-    url: https://trust.barndoor.ai
-    name: Barndoor Trust Center
-  - type: About
-    url: https://barndoor.ai/about-us/
-    name: About Barndoor AI
-  - type: MCPCatalog
-    url: https://docs.barndoor.ai/mcp-servers/servers
-    name: Barndoor MCP Catalog (60+ servers)
-  - type: IPAllowlist
-    url: https://docs.barndoor.ai/how-tos/ip-whitelisting
-    name: Static Egress IPs for MCP Servers
-  - type: LogExport
-    url: https://docs.barndoor.ai/how-tos/log-export
-    name: Audit Log Export to S3-Compatible Storage
-  - type: SpectralRules
-    url: rules/barndoor-spectral-rules.yml
-    name: Spectral Ruleset
-  - type: Vocabulary
-    url: vocabulary/barndoor-vocabulary.yaml
-    name: Barndoor Vocabulary
   - type: NaftikoCapability
-    url: capabilities/ai-governance.yaml
-    name: Naftiko AI Governance Capability
-  - type: JSONLD
-    url: json-ld/barndoor-context.jsonld
-    name: Barndoor JSON-LD Context
-  - name: Features
-    type: Features
-    data:
-      - name: MCP Governance
-        description: Secure access control and policy enforcement for Model Context Protocol servers.
-      - name: Runtime Policy Enforcement
-        description: Continuous governance applied at the moment AI agents act, not just at login.
-      - name: Right-Sized Permissions
-        description: Precise, scoped access for agents - not broad human-level permissions.
-      - name: Context Filtering
-        description: Dynamically surface only policy-compliant MCP tools, optimizing the context window.
-      - name: AI Agent Registry
-        description: Register internal and external agents, group them, and track activity.
-      - name: OAuth Connection Brokering
-        description: Initiate and manage OAuth 2.0 connections from agents to backend SaaS.
-      - name: MCP / SSE Proxying
-        description: Streaming proxy that injects credentials and enforces policy on every MCP and SSE request.
-      - name: Policy Authoring (RBAC/ABAC)
-        description: Create, clone, version, validate, and apply Cerbos-based RBAC and ABAC policies.
-      - name: Audit Dashboards and Activity Logs
-        description: Complete audit trails for every AI action, applied policy, and outcome.
-      - name: Audit Log Export
-        description: Stream audit events as gzipped JSON Lines to S3 / GCS / MinIO / SeaweedFS buckets.
-      - name: Shadow AI Discovery
-        description: Centralized visibility into unauthorized AI apps and agents in the environment.
-      - name: Identity Provider Integration
-        description: Connect to existing enterprise IdPs (Keycloak-based) for SSO and identity.
-      - name: Static Egress IPs
-        description: Five dedicated outbound IPs for whitelisting Barndoor traffic at MCP servers.
-      - name: Private and On-Prem Deployment
-        description: SaaS, private cloud, and on-premises deployment options for sensitive environments.
-  - name: Use Cases
-    type: UseCases
-    data:
-      - name: Enterprise AI Governance
-        description: Apply access policies and governance to AI agents across the organization.
-      - name: MCP Server Management
-        description: Centrally register, secure, and manage MCP server deployments for AI agents.
-      - name: Agentic Workflow Orchestration
-        description: Coordinate multi-agent workflows with security and accountability controls.
-      - name: AI Security and Data Exfiltration Prevention
-        description: Prevent unauthorized AI agent actions and limit data exfiltration.
-      - name: Shadow AI Discovery
-        description: Surface unauthorized AI apps and agents already running in the environment.
-      - name: Developer Tooling for Governed Agents
-        description: Build agents safely with end-to-end policy enforcement via SDKs.
-      - name: Microsoft 365 Agent Governance
-        description: Govern agents that work across Microsoft 365 (Excel, Outlook, Teams, OneDrive).
-  - name: Solutions
-    type: Solutions
-    data:
-      - name: IT & Security Teams
-        description: Centralize AI governance, manage shadow AI, and enforce real-time access controls at scale.
-      - name: Developers
-        description: Deploy agents safely without custom security logic, with end-to-end policy across dev, staging, and prod.
-  - name: Compliance
-    type: Compliance
-    data:
-      - name: SOC 2 Type II
-        description: Barndoor holds a SOC 2 Type II attestation for security controls effectiveness over time.
+    url: capabilities/barndoor-general.yaml
+  - type: NaftikoCapability
+    url: capabilities/barndoor-agents.yaml
+  - type: NaftikoCapability
+    url: capabilities/barndoor-connections.yaml
+  - type: NaftikoCapability
+    url: capabilities/barndoor-mcp-proxy.yaml
+  - type: NaftikoCapability
+    url: capabilities/barndoor-servers.yaml
+- aid: barndoor:python-sdk
+  name: Barndoor Python SDK
+  description: Python SDK for the Barndoor AI Platform. Wraps the Platform REST API, handles Auth0 PKCE login (`loginInteractive()`),
+    discovers governed MCP tools, brokers OAuth connections to backend SaaS, and exposes the catalog through Pythonic helpers
+    compatible with OpenAI tool-calling and frameworks such as Crew AI.
+  humanURL: https://docs.barndoor.ai/sdks/python
+  baseURL: https://github.com/barndoor-ai/barndoor-python-sdk
+  tags:
+  - Python SDK
+  - SDK
+  - MCP
+  properties:
+  - type: Documentation
+    url: https://docs.barndoor.ai/sdks/python
+  - type: Repository
+    url: https://github.com/barndoor-ai/barndoor-python-sdk
+- aid: barndoor:typescript-sdk
+  name: Barndoor TypeScript SDK
+  description: TypeScript SDK for the Barndoor AI Platform. Browser- and Node-friendly client for Auth0 PKCE login, governed
+    MCP tool discovery, OAuth connection initiation, and proxying MCP / SSE requests through Barndoor.
+  humanURL: https://docs.barndoor.ai/sdks/typescript
+  baseURL: https://github.com/barndoor-ai/barndoor-ts-sdk
+  tags:
+  - TypeScript SDK
+  - SDK
+  - MCP
+  properties:
+  - type: Documentation
+    url: https://docs.barndoor.ai/sdks/typescript
+  - type: Repository
+    url: https://github.com/barndoor-ai/barndoor-ts-sdk
+- aid: barndoor:go-sdk
+  name: Barndoor Go SDK
+  description: Go SDK for the Barndoor AI Platform. Server-side client for registering agents, managing MCP servers and policies,
+    brokering OAuth connections, and proxying MCP requests from Go services.
+  humanURL: https://github.com/barndoor-ai/barndoor-go-sdk
+  baseURL: https://github.com/barndoor-ai/barndoor-go-sdk
+  tags:
+  - Go SDK
+  - SDK
+  - MCP
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/barndoor-go-sdk
+- aid: barndoor:official-mcp-rust-sdk
+  name: Official MCP Rust SDK
+  description: The official Rust SDK for the Model Context Protocol. Maintained under the Barndoor AI GitHub organization;
+    provides primitives to build MCP clients and servers in Rust.
+  humanURL: https://github.com/barndoor-ai/official-mcp-rust-sdk
+  baseURL: https://github.com/barndoor-ai/official-mcp-rust-sdk
+  tags:
+  - MCP
+  - Rust
+  - SDK
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/official-mcp-rust-sdk
+- aid: barndoor:cerbos-sdk-rust
+  name: Cerbos Rust SDK
+  description: Rust SDK for Cerbos, the policy-decision-point used by Barndoor for attribute-based access control. Lets Rust
+    services request policy decisions from a Cerbos PDP.
+  humanURL: https://github.com/barndoor-ai/cerbos-sdk-rust
+  baseURL: https://github.com/barndoor-ai/cerbos-sdk-rust
+  tags:
+  - Cerbos
+  - ABAC
+  - Policy
+  - Rust
+  - SDK
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/cerbos-sdk-rust
+- aid: barndoor:mcp-auth-compliance
+  name: MCP OAuth Compliance Suite
+  description: Rust test suite that validates remote MCP servers against the MCP authorization specification - RFC 9728 (Protected
+    Resource Metadata), RFC 8414 (Authorization Server Metadata), RFC 7591 (Dynamic Client Registration), and OAuth 2.1. Useful
+    for vendors and customers verifying MCP server conformance before onboarding to Barndoor.
+  humanURL: https://github.com/barndoor-ai/mcp-auth-compliance
+  baseURL: https://github.com/barndoor-ai/mcp-auth-compliance
+  tags:
+  - MCP
+  - OAuth
+  - Compliance
+  - Rust
+  - Conformance
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/mcp-auth-compliance
+- aid: barndoor:crew-ai-example
+  name: Barndoor + Crew AI Example
+  description: Reference Python demo application showing how to plug Barndoor-governed MCP tools into a Crew AI multi-agent
+    workflow.
+  humanURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
+  baseURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
+  tags:
+  - Crew AI
+  - Python
+  - Example
+  - MCP
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/barndoor-ai
+- type: Website
+  url: https://barndoor.ai/
+  name: Barndoor AI
+- type: Documentation
+  url: https://docs.barndoor.ai/
+  name: Barndoor Developer Documentation
+- type: APIReference
+  url: https://docs.barndoor.ai/api-reference/introduction
+  name: Barndoor API Reference
+- type: OpenAPI
+  url: openapi/barndoor-openapi.yml
+  name: Barndoor Platform API OpenAPI
+- type: Authentication
+  url: https://docs.barndoor.ai/api-reference/introduction
+  name: Authentication (Auth0 OAuth 2.0 with PKCE)
+- type: SDK
+  url: https://docs.barndoor.ai/sdks/introduction
+  name: Barndoor SDKs (Python, TypeScript, Go)
+- type: Portal
+  url: https://app.barndoor.ai/
+  name: Barndoor App
+- type: SignUp
+  url: https://app.barndoor.ai/auth/signup/trial
+  name: Barndoor Free Trial Signup
+- type: TokensManagement
+  url: https://app.barndoor.ai/settings/tokens
+  name: Platform API Tokens
+- type: Pricing
+  url: https://barndoor.ai/pricing
+  name: Barndoor Pricing
+- type: Plans
+  url: plans/barndoor-plans-pricing.yml
+  name: Barndoor Plans (API Commons)
+- type: RateLimits
+  url: rate-limits/barndoor-rate-limits.yml
+  name: Barndoor Rate Limits (API Commons)
+- type: FinOps
+  url: finops/barndoor-finops.yml
+  name: Barndoor FinOps (FOCUS 1.3)
+- type: GitHub
+  url: https://github.com/barndoor-ai
+  name: Barndoor AI GitHub Org
+- type: Security
+  url: https://barndoor.ai/security/
+  name: Barndoor Security
+- type: TrustCenter
+  url: https://trust.barndoor.ai
+  name: Barndoor Trust Center
+- type: About
+  url: https://barndoor.ai/about-us/
+  name: About Barndoor AI
+- type: MCPCatalog
+  url: https://docs.barndoor.ai/mcp-servers/servers
+  name: Barndoor MCP Catalog (60+ servers)
+- type: IPAllowlist
+  url: https://docs.barndoor.ai/how-tos/ip-whitelisting
+  name: Static Egress IPs for MCP Servers
+- type: LogExport
+  url: https://docs.barndoor.ai/how-tos/log-export
+  name: Audit Log Export to S3-Compatible Storage
+- type: SpectralRules
+  url: rules/barndoor-spectral-rules.yml
+  name: Spectral Ruleset
+- type: Vocabulary
+  url: vocabulary/barndoor-vocabulary.yaml
+  name: Barndoor Vocabulary
+- type: JSONLD
+  url: json-ld/barndoor-context.jsonld
+  name: Barndoor JSON-LD Context
+- name: Features
+  type: Features
+  data:
+  - name: MCP Governance
+    description: Secure access control and policy enforcement for Model Context Protocol servers.
+  - name: Runtime Policy Enforcement
+    description: Continuous governance applied at the moment AI agents act, not just at login.
+  - name: Right-Sized Permissions
+    description: Precise, scoped access for agents - not broad human-level permissions.
+  - name: Context Filtering
+    description: Dynamically surface only policy-compliant MCP tools, optimizing the context window.
+  - name: AI Agent Registry
+    description: Register internal and external agents, group them, and track activity.
+  - name: OAuth Connection Brokering
+    description: Initiate and manage OAuth 2.0 connections from agents to backend SaaS.
+  - name: MCP / SSE Proxying
+    description: Streaming proxy that injects credentials and enforces policy on every MCP and SSE request.
+  - name: Policy Authoring (RBAC/ABAC)
+    description: Create, clone, version, validate, and apply Cerbos-based RBAC and ABAC policies.
+  - name: Audit Dashboards and Activity Logs
+    description: Complete audit trails for every AI action, applied policy, and outcome.
+  - name: Audit Log Export
+    description: Stream audit events as gzipped JSON Lines to S3 / GCS / MinIO / SeaweedFS buckets.
+  - name: Shadow AI Discovery
+    description: Centralized visibility into unauthorized AI apps and agents in the environment.
+  - name: Identity Provider Integration
+    description: Connect to existing enterprise IdPs (Keycloak-based) for SSO and identity.
+  - name: Static Egress IPs
+    description: Five dedicated outbound IPs for whitelisting Barndoor traffic at MCP servers.
+  - name: Private and On-Prem Deployment
+    description: SaaS, private cloud, and on-premises deployment options for sensitive environments.
+- name: Use Cases
+  type: UseCases
+  data:
+  - name: Enterprise AI Governance
+    description: Apply access policies and governance to AI agents across the organization.
+  - name: MCP Server Management
+    description: Centrally register, secure, and manage MCP server deployments for AI agents.
+  - name: Agentic Workflow Orchestration
+    description: Coordinate multi-agent workflows with security and accountability controls.
+  - name: AI Security and Data Exfiltration Prevention
+    description: Prevent unauthorized AI agent actions and limit data exfiltration.
+  - name: Shadow AI Discovery
+    description: Surface unauthorized AI apps and agents already running in the environment.
+  - name: Developer Tooling for Governed Agents
+    description: Build agents safely with end-to-end policy enforcement via SDKs.
+  - name: Microsoft 365 Agent Governance
+    description: Govern agents that work across Microsoft 365 (Excel, Outlook, Teams, OneDrive).
+- name: Solutions
+  type: Solutions
+  data:
+  - name: IT & Security Teams
+    description: Centralize AI governance, manage shadow AI, and enforce real-time access controls at scale.
+  - name: Developers
+    description: Deploy agents safely without custom security logic, with end-to-end policy across dev, staging, and prod.
+- name: Compliance
+  type: Compliance
+  data:
+  - name: SOC 2 Type II
+    description: Barndoor holds a SOC 2 Type II attestation for security controls effectiveness over time.
 integrations:
-  - name: Salesforce
-  - name: Notion
-  - name: GitHub
-  - name: GitLab
-  - name: Slack
-  - name: HubSpot
-  - name: Microsoft 365
-  - name: Microsoft Teams
-  - name: Microsoft Excel
-  - name: Microsoft Word
-  - name: OneDrive
-  - name: OneNote
-  - name: PowerPoint
-  - name: Outlook Mail
-  - name: Outlook Calendar
-  - name: Microsoft Planner
-  - name: Microsoft Dynamics
-  - name: SharePoint
-  - name: Gmail
-  - name: Google Calendar
-  - name: Google Docs
-  - name: Google Sheets
-  - name: Google Slides
-  - name: Google Drive
-  - name: Atlassian
-  - name: Linear
-  - name: Asana
-  - name: Monday
-  - name: Basecamp
-  - name: Aha!
-  - name: Box
-  - name: Dropbox
-  - name: Figma
-  - name: Airtable
-  - name: Snowflake
-  - name: Hex
-  - name: Amplitude
-  - name: SonarQube
-  - name: Datadog
-  - name: Grafana
-  - name: Sentry
-  - name: Harness
-  - name: Finch
-  - name: ServiceNow
-  - name: Zendesk
-  - name: Freshdesk
-  - name: Intercom
-  - name: Zoom
-  - name: Fireflies.ai
-  - name: Granola
-  - name: Otter
-  - name: Apollo
-  - name: Attio
-  - name: Close
-  - name: Gong
-  - name: Shopify
-  - name: Zoho CRM
-  - name: Stripe
-  - name: Plaid
-  - name: QuickBooks
-  - name: Xero
-  - name: Octagon
-  - name: Crew AI
-  - name: Auth0
-  - name: Keycloak
-  - name: Cerbos
+- name: Salesforce
+- name: Notion
+- name: GitHub
+- name: GitLab
+- name: Slack
+- name: HubSpot
+- name: Microsoft 365
+- name: Microsoft Teams
+- name: Microsoft Excel
+- name: Microsoft Word
+- name: OneDrive
+- name: OneNote
+- name: PowerPoint
+- name: Outlook Mail
+- name: Outlook Calendar
+- name: Microsoft Planner
+- name: Microsoft Dynamics
+- name: SharePoint
+- name: Gmail
+- name: Google Calendar
+- name: Google Docs
+- name: Google Sheets
+- name: Google Slides
+- name: Google Drive
+- name: Atlassian
+- name: Linear
+- name: Asana
+- name: Monday
+- name: Basecamp
+- name: Aha!
+- name: Box
+- name: Dropbox
+- name: Figma
+- name: Airtable
+- name: Snowflake
+- name: Hex
+- name: Amplitude
+- name: SonarQube
+- name: Datadog
+- name: Grafana
+- name: Sentry
+- name: Harness
+- name: Finch
+- name: ServiceNow
+- name: Zendesk
+- name: Freshdesk
+- name: Intercom
+- name: Zoom
+- name: Fireflies.ai
+- name: Granola
+- name: Otter
+- name: Apollo
+- name: Attio
+- name: Close
+- name: Gong
+- name: Shopify
+- name: Zoho CRM
+- name: Stripe
+- name: Plaid
+- name: QuickBooks
+- name: Xero
+- name: Octagon
+- name: Crew AI
+- name: Auth0
+- name: Keycloak
+- name: Cerbos
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

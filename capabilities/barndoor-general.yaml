@@ -1,0 +1,520 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Barndoor Platform API
+  description: 'Barndoor Platform API. 11 operations. Lead operation: Disable Restriction. Self-contained Naftiko capability
+    covering one Barndoor business surface.'
+  tags:
+  - Barndoor
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BARNDOOR_API_KEY: BARNDOOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: barndoor-general
+    baseUri: https://{organization_id}.platform.barndoor.ai
+    description: Barndoor Platform API business capability. Self-contained, no shared references.
+    resources:
+    - name: api-policies-restrictions-disable-restriction_name
+      path: /api/policies/restrictions/disable/{restriction_name}
+      operations:
+      - name: disablerestrictionadminpoliciesrestrictionsdisablerestrictionnameput
+        method: PUT
+        description: Disable Restriction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: restriction_name
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: query
+          type: array
+    - name: api-policies-restrictions-enable-restriction_name
+      path: /api/policies/restrictions/enable/{restriction_name}
+      operations:
+      - name: enablerestrictionadminpoliciesrestrictionsenablerestrictionnameput
+        method: PUT
+        description: Enable Restriction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: restriction_name
+          in: path
+          type: string
+          required: true
+        - name: id
+          in: query
+          type: array
+    - name: api-policy
+      path: /api/policy
+      operations:
+      - name: publishcerbospolicyadminpolicypost
+        method: POST
+        description: Publish  Policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v2-policies
+      path: /api/v2/policies
+      operations:
+      - name: listpoliciesadminv2policiesget
+        method: GET
+        description: List Policies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: search
+          in: query
+          type: string
+          description: Search by policy ID, name, description, or support contact
+        - name: status
+          in: query
+          type: string
+          description: Filter by status values
+        - name: mcp_server_id
+          in: query
+          type: string
+          description: Filter by MCP server IDs
+        - name: agent_id
+          in: query
+          type: string
+          description: Filter by agent/application IDs
+        - name: page
+          in: query
+          type: integer
+          description: Page number (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: Number of items per page (max 100)
+    - name: api-v2-policies-filter-definitions
+      path: /api/v2/policies/filter-definitions
+      operations:
+      - name: getfilterdefinitionsadminv2policiesfilterdefinitionsget
+        method: GET
+        description: Get Filter Definitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v2-policies-summary
+      path: /api/v2/policies/summary
+      operations:
+      - name: getpoliciessummaryadminv2policiessummaryget
+        method: GET
+        description: Get Policies Summary
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v2-policies-validate
+      path: /api/v2/policies/validate
+      operations:
+      - name: validatepolicyadminv2policiesvalidatepost
+        method: POST
+        description: Validate Policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v2-policies-policy_id
+      path: /api/v2/policies/{policy_id}
+      operations:
+      - name: getpolicyadminv2policiespolicyidget
+        method: GET
+        description: Get Policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_id
+          in: path
+          type: string
+          required: true
+      - name: updatepolicyadminv2policiespolicyidpatch
+        method: PATCH
+        description: Update Policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v2-policies-policy_id-clone
+      path: /api/v2/policies/{policy_id}/clone
+      operations:
+      - name: clonepolicyadminv2policiespolicyidclonepost
+        method: POST
+        description: Clone Policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_id
+          in: path
+          type: string
+          required: true
+    - name: api-v2-policies-policy_id-revisions
+      path: /api/v2/policies/{policy_id}/revisions
+      operations:
+      - name: listpolicyrevisionsadminv2policiespolicyidrevisionsget
+        method: GET
+        description: List Policy Revisions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_id
+          in: path
+          type: string
+          required: true
+        - name: changes_summary
+          in: query
+          type: boolean
+          description: Include human-readable change descriptions in response
+        - name: page
+          in: query
+          type: integer
+          description: Page number (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: Number of items per page (max 100)
+    authentication:
+      type: bearer
+      token: '{{env.BARNDOOR_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: barndoor-general-rest
+    port: 8080
+    description: REST adapter for Barndoor Platform API. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/policies/restrictions/disable/{restriction-name}
+      name: api-policies-restrictions-disable-restriction-name
+      description: REST surface for api-policies-restrictions-disable-restriction_name.
+      operations:
+      - method: PUT
+        name: disablerestrictionadminpoliciesrestrictionsdisablerestrictionnameput
+        description: Disable Restriction
+        call: barndoor-general.disablerestrictionadminpoliciesrestrictionsdisablerestrictionnameput
+        with:
+          restriction_name: rest.restriction_name
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/policies/restrictions/enable/{restriction-name}
+      name: api-policies-restrictions-enable-restriction-name
+      description: REST surface for api-policies-restrictions-enable-restriction_name.
+      operations:
+      - method: PUT
+        name: enablerestrictionadminpoliciesrestrictionsenablerestrictionnameput
+        description: Enable Restriction
+        call: barndoor-general.enablerestrictionadminpoliciesrestrictionsenablerestrictionnameput
+        with:
+          restriction_name: rest.restriction_name
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/policy
+      name: api-policy
+      description: REST surface for api-policy.
+      operations:
+      - method: POST
+        name: publishcerbospolicyadminpolicypost
+        description: Publish  Policy
+        call: barndoor-general.publishcerbospolicyadminpolicypost
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/policies
+      name: api-v2-policies
+      description: REST surface for api-v2-policies.
+      operations:
+      - method: GET
+        name: listpoliciesadminv2policiesget
+        description: List Policies
+        call: barndoor-general.listpoliciesadminv2policiesget
+        with:
+          search: rest.search
+          status: rest.status
+          mcp_server_id: rest.mcp_server_id
+          agent_id: rest.agent_id
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/policies/filter-definitions
+      name: api-v2-policies-filter-definitions
+      description: REST surface for api-v2-policies-filter-definitions.
+      operations:
+      - method: GET
+        name: getfilterdefinitionsadminv2policiesfilterdefinitionsget
+        description: Get Filter Definitions
+        call: barndoor-general.getfilterdefinitionsadminv2policiesfilterdefinitionsget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/policies/summary
+      name: api-v2-policies-summary
+      description: REST surface for api-v2-policies-summary.
+      operations:
+      - method: GET
+        name: getpoliciessummaryadminv2policiessummaryget
+        description: Get Policies Summary
+        call: barndoor-general.getpoliciessummaryadminv2policiessummaryget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/policies/validate
+      name: api-v2-policies-validate
+      description: REST surface for api-v2-policies-validate.
+      operations:
+      - method: POST
+        name: validatepolicyadminv2policiesvalidatepost
+        description: Validate Policy
+        call: barndoor-general.validatepolicyadminv2policiesvalidatepost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/policies/{policy-id}
+      name: api-v2-policies-policy-id
+      description: REST surface for api-v2-policies-policy_id.
+      operations:
+      - method: GET
+        name: getpolicyadminv2policiespolicyidget
+        description: Get Policy
+        call: barndoor-general.getpolicyadminv2policiespolicyidget
+        with:
+          policy_id: rest.policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatepolicyadminv2policiespolicyidpatch
+        description: Update Policy
+        call: barndoor-general.updatepolicyadminv2policiespolicyidpatch
+        with:
+          policy_id: rest.policy_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/policies/{policy-id}/clone
+      name: api-v2-policies-policy-id-clone
+      description: REST surface for api-v2-policies-policy_id-clone.
+      operations:
+      - method: POST
+        name: clonepolicyadminv2policiespolicyidclonepost
+        description: Clone Policy
+        call: barndoor-general.clonepolicyadminv2policiespolicyidclonepost
+        with:
+          policy_id: rest.policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/policies/{policy-id}/revisions
+      name: api-v2-policies-policy-id-revisions
+      description: REST surface for api-v2-policies-policy_id-revisions.
+      operations:
+      - method: GET
+        name: listpolicyrevisionsadminv2policiespolicyidrevisionsget
+        description: List Policy Revisions
+        call: barndoor-general.listpolicyrevisionsadminv2policiespolicyidrevisionsget
+        with:
+          policy_id: rest.policy_id
+          changes_summary: rest.changes_summary
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: barndoor-general-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Barndoor Platform API. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: disable-restriction
+      description: Disable Restriction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: barndoor-general.disablerestrictionadminpoliciesrestrictionsdisablerestrictionnameput
+      with:
+        restriction_name: tools.restriction_name
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: enable-restriction
+      description: Enable Restriction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: barndoor-general.enablerestrictionadminpoliciesrestrictionsenablerestrictionnameput
+      with:
+        restriction_name: tools.restriction_name
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: publish-policy
+      description: Publish  Policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: barndoor-general.publishcerbospolicyadminpolicypost
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-policies
+      description: List Policies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: barndoor-general.listpoliciesadminv2policiesget
+      with:
+        search: tools.search
+        status: tools.status
+        mcp_server_id: tools.mcp_server_id
+        agent_id: tools.agent_id
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-filter-definitions
+      description: Get Filter Definitions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: barndoor-general.getfilterdefinitionsadminv2policiesfilterdefinitionsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-policies-summary
+      description: Get Policies Summary
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: barndoor-general.getpoliciessummaryadminv2policiessummaryget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-policy
+      description: Validate Policy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: barndoor-general.validatepolicyadminv2policiesvalidatepost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-policy
+      description: Get Policy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: barndoor-general.getpolicyadminv2policiespolicyidget
+      with:
+        policy_id: tools.policy_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-policy
+      description: Update Policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: barndoor-general.updatepolicyadminv2policiespolicyidpatch
+      with:
+        policy_id: tools.policy_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: clone-policy
+      description: Clone Policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: barndoor-general.clonepolicyadminv2policiespolicyidclonepost
+      with:
+        policy_id: tools.policy_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-policy-revisions
+      description: List Policy Revisions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: barndoor-general.listpolicyrevisionsadminv2policiespolicyidrevisionsget
+      with:
+        policy_id: tools.policy_id
+        changes_summary: tools.changes_summary
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
