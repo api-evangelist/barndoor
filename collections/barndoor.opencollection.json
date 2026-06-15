@@ -1,0 +1,680 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Barndoor Platform API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Agent Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents/counts"
+          },
+          "docs": "Get counts of agents grouped by type (internal vs external)."
+        },
+        {
+          "info": {
+            "name": "Get Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get details of a specific agent by ID, including its application directory configuration."
+        },
+        {
+          "info": {
+            "name": "Unregister Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Unregister an agent from Barndoor.\n\nThis removes the agent's registration but does not delete the underlying \napplication directory. The agent can be re-registered using the same \napplication_directory_id.\n"
+        },
+        {
+          "info": {
+            "name": "List Agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search applications by name or description"
+              },
+              {
+                "name": "agent_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by agent type"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (max 100)"
+              }
+            ]
+          },
+          "docs": "List registered agents with pagination."
+        },
+        {
+          "info": {
+            "name": "Register Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a new agent with Barndoor.\n\nAgents represent AI applications that can access MCP servers through Barndoor.\nEach agent must be associated with an application directory (OAuth client configuration).\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Connection Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers/:server_id/connection",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "Server UUID"
+              }
+            ]
+          },
+          "docs": "Get the user's connection status for a specific server.\nUsed to poll connection status during OAuth flows.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers/:server_id/connection",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "Server UUID"
+              }
+            ]
+          },
+          "docs": "Delete the current user's connection to this server.\n\nThis will remove the connection record and clean up any stored OAuth credentials.\nThe user will need to reconnect to use this server again.\n"
+        },
+        {
+          "info": {
+            "name": "Initiate OAuth Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers/:server_id/connect",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "Server UUID"
+              },
+              {
+                "name": "return_url",
+                "value": "https://myapp.com/oauth/callback",
+                "type": "query",
+                "description": "Optional return URL after OAuth completion"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate OAuth connection flow for a server. Returns an authorization URL\nthat the user should visit to complete the OAuth flow.\n\nThe server must have OAuth configuration set up by an admin.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "MCP Proxy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "MCP Server Proxy Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/mcp/:mcp_server_name",
+            "headers": [
+              {
+                "name": "x-mcp-session-id",
+                "value": "sess_1234567890abcdef"
+              }
+            ],
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "salesforce",
+                "type": "path",
+                "description": "MCP server name identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Proxies MCP JSON-RPC requests to third-party servers with automatic authentication.\n\nThis endpoint supports both regular HTTP requests and Server-Sent Events (SSE) streaming\nfor real-time MCP protocol communication.\n\n## Usage\n\n- **JSON-RPC**: Send MCP protocol requests as JSON\n- **SSE Streaming**: Use `Accept: text/event-stream` for real-time communication\n- **Session Management**: Include `x-mcp-session-id` header for session tracking\n\n## Authentication Flow\n\n1. User must first connect to the s"
+        },
+        {
+          "info": {
+            "name": "SSE Server Proxy Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/sse/:mcp_server_name",
+            "headers": [
+              {
+                "name": "x-mcp-session-id",
+                "value": "sess_1234567890abcdef"
+              }
+            ],
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "salesforce",
+                "type": "path",
+                "description": "MCP server name identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Server-Sent Events proxy endpoint for real-time streaming communication with third-party servers.\n\nThis endpoint provides dedicated SSE streaming capabilities separate from the MCP protocol,\nallowing for custom event streaming and real-time data flows.\n\n## Usage\n\n- **SSE Streaming**: Optimized for `text/event-stream` communication\n- **Real-time Events**: Custom event types and data streaming\n- **Session Management**: Include `x-mcp-session-id` header for session tracking\n\n## Authentication Flow\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Clone Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/:policy_id/clone",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Clone an existing policy, creating a new policy with the same configuration\nbut with a modified name (appending \" Copy\") and DRAFT status."
+        },
+        {
+          "info": {
+            "name": "Publish  Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/policy",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Publish  Policy"
+        },
+        {
+          "info": {
+            "name": "Disable Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/policies/restrictions/disable/:restriction_name",
+            "params": [
+              {
+                "name": "restriction_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Disable Restriction"
+        },
+        {
+          "info": {
+            "name": "Enable Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/policies/restrictions/enable/:restriction_name",
+            "params": [
+              {
+                "name": "restriction_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Enable Restriction"
+        },
+        {
+          "info": {
+            "name": "Get Filter Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/filter-definitions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return filter categories for the policies list UI.\n\nStatic filter options for status, plus dynamic filters for\nMCP servers and agents based on the organization's registry."
+        },
+        {
+          "info": {
+            "name": "Get Policies Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/summary",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return summary counts of policies by status."
+        },
+        {
+          "info": {
+            "name": "Get Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/:policy_id",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Policy"
+        },
+        {
+          "info": {
+            "name": "Update Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/:policy_id",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Policy"
+        },
+        {
+          "info": {
+            "name": "List Policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search by policy ID, name, description, or support contact"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status values"
+              },
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by MCP server IDs"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by agent/application IDs"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (max 100)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List Policies"
+        },
+        {
+          "info": {
+            "name": "List Policy Revisions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/:policy_id/revisions",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "changes_summary",
+                "value": "",
+                "type": "query",
+                "description": "Include human-readable change descriptions in response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (max 100)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all revisions for a given policy with pagination.\n\nUses the same authorization as get_policy - if a user can read a policy,\nthey can view its revision history.\n\nArgs:\n    changes_summary: Include human-readable change descriptions in response"
+        },
+        {
+          "info": {
+            "name": "Validate Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Validate a policy before creation or update.\nChecks for duplicate names and overlapping MCP server/agent combinations.\nWhen exclude_policy_id is provided (edit mode), that policy is excluded from validation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Servers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List MCP Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (max 100)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search servers by name or slug"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by server status"
+              },
+              {
+                "name": "connection_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by connection status. `not_connected` expands to pending, error, and available."
+              }
+            ]
+          },
+          "docs": "List all MCP servers available to the caller's organization.\nReturns paginated results with server details including connection status.\n"
+        },
+        {
+          "info": {
+            "name": "Create MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new MCP server instance from a server directory template.\n\nThe server will be created in `pending` status until OAuth credentials are configured.\nIf `client_id` and `client_secret` are provided, the server will be set to `active` status.\n"
+        },
+        {
+          "info": {
+            "name": "Get Server Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers/:server_id",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "Server UUID"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific MCP server.\nReturns extended information including MCP URL if available.\n"
+        },
+        {
+          "info": {
+            "name": "Update MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers/:server_id",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "Server UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing MCP server's configuration.\n\nYou can update the name, slug, OAuth credentials, and metadata.\nIf updating OAuth credentials, provide the actual values (not obfuscated).\n"
+        },
+        {
+          "info": {
+            "name": "Delete MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers/:server_id",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "Server UUID"
+              }
+            ]
+          },
+          "docs": "Delete an MCP server and all associated connections.\n\nThis will:\n- Remove all user connections to this server\n- Clean up stored OAuth credentials\n- Delete the server configuration\n\nFor custom server types, this will also delete the associated server directory.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
