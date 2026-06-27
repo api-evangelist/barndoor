@@ -52,7 +52,7 @@ apis:
         url: openapi/barndoor-openapi.yml
       - type: Authentication
         url: https://docs.barndoor.ai/api-reference/introduction
-      - type: SDK
+      - type: SDKs
         url: https://docs.barndoor.ai/sdks/introduction
   - aid: barndoor:python-sdk
     name: Barndoor Python SDK
@@ -181,13 +181,13 @@ common:
   - type: Authentication
     url: https://docs.barndoor.ai/api-reference/introduction
     name: Authentication (Auth0 OAuth 2.0 with PKCE)
-  - type: SDK
+  - type: SDKs
     url: https://docs.barndoor.ai/sdks/introduction
     name: Barndoor SDKs (Python, TypeScript, Go)
   - type: Portal
     url: https://app.barndoor.ai/
     name: Barndoor App
-  - type: SignUp
+  - type: Signup
     url: https://app.barndoor.ai/auth/signup/trial
     name: Barndoor Free Trial Signup
   - type: TokensManagement
@@ -295,7 +295,7 @@ common:
     data:
       - name: SOC 2 Type II
         description: Barndoor holds a SOC 2 Type II attestation for security controls effectiveness over time.
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.barndoor.ai/llms.txt
 integrations:
   - name: Salesforce
