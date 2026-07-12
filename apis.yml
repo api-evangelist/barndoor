@@ -164,6 +164,14 @@ apis:
       - type: Repository
         url: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
 common:
+  - type: VulnerabilityDisclosure
+    url: security/barndoor-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/barndoor-domain-security.yml
+  - type: Authentication
+    url: authentication/barndoor-authentication.yml
+  - url: http://barndoor.ai/feed/
+    type: Blog
   - type: LinkedIn
     url: https://www.linkedin.com/company/barndoor-ai
   - type: Website

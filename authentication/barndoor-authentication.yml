@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/barndoor-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: |-
+    JWT token obtained through Auth0 OAuth 2.0 flow with PKCE.
+
+    The token should be included in the Authorization header:
+    `Authorization: Bearer <your-jwt-token>`
+
+    Use the Barndoor SDK's `loginInteractive()` function to obtain tokens automatically.
+  sources:
+  - openapi/barndoor-openapi.yml
