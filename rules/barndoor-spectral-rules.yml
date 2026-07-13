@@ -1,6 +1,22 @@
+# barndoor — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - path-params-casing: snake @ 100% (n=16)
+#   - query-params-casing: snake @ 100% (n=21)
+#   - operationid-casing: camel @ 58% (n=26)
+#   - schema-names-casing: pascal @ 64% (n=45)
+#   - schema-properties-casing: snake @ 100% (n=151)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - error-schema-defined: HTTPValidationError
+#   - pagination params observed: ['limit', 'page']
+#   - merge: kept 14 existing, added 7 measured, upgraded 0
+#   - added: servers-https-only, path-params-casing, query-params-casing, operationid-casing, schema-names-casing, schema-properties-casing, error-schema-defined
 extends:
   - spectral:oas
-
 rules:
   info-title-required:
     description: Info title must be present.
@@ -9,7 +25,6 @@ rules:
     then:
       field: title
       function: truthy
-
   info-description-required:
     description: Info description must be present.
     severity: error
@@ -17,7 +32,6 @@ rules:
     then:
       field: description
       function: truthy
-
   info-contact-required:
     description: Info contact must be present.
     severity: warn
@@ -25,7 +39,6 @@ rules:
     then:
       field: contact
       function: truthy
-
   operation-operationid-required:
     description: Every operation must have an operationId.
     severity: error
@@ -33,7 +46,6 @@ rules:
     then:
       field: operationId
       function: truthy
-
   operation-summary-required:
     description: Every operation must have a summary.
     severity: error
@@ -41,7 +53,6 @@ rules:
     then:
       field: summary
       function: truthy
-
   operation-summary-title-case:
     description: Operation summaries should be in Title Case.
     severity: warn
@@ -49,8 +60,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: "^[A-Z]"
-
+        match: ^[A-Z]
   operation-tags-required:
     description: Every operation must have at least one tag.
     severity: warn
@@ -58,7 +68,6 @@ rules:
     then:
       field: tags
       function: truthy
-
   response-description-required:
     description: Every response must have a description.
     severity: error
@@ -66,14 +75,12 @@ rules:
     then:
       field: description
       function: truthy
-
   no-empty-descriptions:
     description: Descriptions must not be empty.
     severity: error
     given: $..description
     then:
       function: truthy
-
   bearer-auth-jwt:
     description: BearerAuth security scheme should declare bearerFormat as JWT for Barndoor.
     severity: warn
@@ -82,8 +89,7 @@ rules:
       field: bearerFormat
       function: pattern
       functionOptions:
-        match: "JWT"
-
+        match: JWT
   servers-required:
     description: At least one server must be declared.
     severity: error
@@ -91,7 +97,6 @@ rules:
     then:
       field: servers
       function: truthy
-
   organization-id-variable:
     description: Server URLs should use the {organization_id} template variable.
     severity: warn
@@ -100,8 +105,7 @@ rules:
       field: url
       function: pattern
       functionOptions:
-        match: "{organization_id}"
-
+        match: '{organization_id}'
   apis-json-description:
     description: Barndoor APIs.json must have a description.
     severity: error
@@ -109,7 +113,6 @@ rules:
     then:
       field: description
       function: truthy
-
   api-has-documentation:
     description: All Barndoor API entries must have a Documentation property.
     severity: error
@@ -126,4 +129,62 @@ rules:
               type:
                 const: Documentation
             required:
-              - type
+            - type
+  servers-https-only:
+    description: Server URLs must use HTTPS.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: ^https://
+  path-params-casing:
+    description: Path parameters should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*].parameters[?(@.in=='path')].name
+    then:
+      function: casing
+      functionOptions:
+        type: snake
+  query-params-casing:
+    description: Query parameters should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: snake
+  operationid-casing:
+    description: Operation IDs should be camelCase (the dominant convention in this API).
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: ^[a-z][A-Za-z0-9]*$
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: pattern
+      functionOptions:
+        match: ^[A-Z][A-Za-z0-9]*$
+  schema-properties-casing:
+    description: Schema properties should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: snake
+  error-schema-defined:
+    description: A shared error schema (HTTPValidationError) should be defined for error payloads.
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: HTTPValidationError
+      function: truthy
