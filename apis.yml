@@ -164,6 +164,8 @@ apis:
       - type: Repository
         url: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
 common:
+  - type: AgenticAccess
+    url: agentic-access/barndoor-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/barndoor-vulnerability-disclosure.yml
   - type: DomainSecurity
