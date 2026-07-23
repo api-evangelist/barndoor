@@ -1,0 +1,274 @@
+openapi: 3.1.0
+info:
+  title: Barndoor Platform Agents Connections API
+  version: 1.0.0
+  description: 'REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.
+
+
+    ## Authentication
+
+
+    All endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.
+
+    The SDK handles the OAuth flow automatically using interactive login.
+
+
+    ## MCP Integration
+
+
+    The `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers
+
+    (Salesforce, Notion, Slack, etc.) with automatic authentication and session management.
+
+    '
+  contact:
+    name: Barndoor Support
+    url: https://barndoor.ai
+servers:
+- url: https://{organization_id}.platform.barndoor.ai
+  description: Trial (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.mcp.barndoor.ai
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.platform.barndooruat.com
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.platform.barndoordev.com
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+security:
+- BearerAuth: []
+tags:
+- name: Connections
+  description: Manage OAuth connections to MCP servers
+paths:
+  /api/servers/{server_id}/connection:
+    delete:
+      tags:
+      - Connections
+      summary: Delete Connection
+      description: 'Delete the current user''s connection to this server.
+
+
+        This will remove the connection record and clean up any stored OAuth credentials.
+
+        The user will need to reconnect to use this server again.
+
+        '
+      operationId: deleteConnection
+      parameters:
+      - name: server_id
+        in: path
+        required: true
+        description: Server UUID
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      responses:
+        '204':
+          description: Connection deleted successfully
+        '401':
+          description: Unauthorized - invalid or missing JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Connection not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      tags:
+      - Connections
+      summary: Get Connection Status
+      description: 'Get the user''s connection status for a specific server.
+
+        Used to poll connection status during OAuth flows.
+
+        '
+      operationId: getConnectionStatus
+      parameters:
+      - name: server_id
+        in: path
+        required: true
+        description: Server UUID
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      responses:
+        '200':
+          description: Connection status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatusResponse'
+        '401':
+          description: Unauthorized - invalid or missing JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Server not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/servers/{server_id}/connect:
+    post:
+      tags:
+      - Connections
+      summary: Initiate OAuth Connection
+      description: 'Initiate OAuth connection flow for a server. Returns an authorization URL
+
+        that the user should visit to complete the OAuth flow.
+
+
+        The server must have OAuth configuration set up by an admin.
+
+        '
+      operationId: initiateConnection
+      parameters:
+      - name: server_id
+        in: path
+        required: true
+        description: Server UUID
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      - name: return_url
+        in: query
+        required: false
+        description: Optional return URL after OAuth completion
+        schema:
+          type: string
+          format: uri
+        example: https://myapp.com/oauth/callback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+              example: {}
+      responses:
+        '200':
+          description: Connection initiation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionInitiationResponse'
+        '401':
+          description: Unauthorized - invalid or missing JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Server not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server missing OAuth configuration or other error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: OAuthConfigurationError
+                message: Server is missing OAuth configuration. Ask an admin to configure credentials before initiating a connection.
+components:
+  schemas:
+    ConnectionStatusResponse:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - available
+          - pending
+          - connected
+          - error
+          description: Current connection status
+          example: connected
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type identifier
+          example: ServerNotFound
+        message:
+          type: string
+          description: Human-readable error message
+          example: Server with ID '123' not found
+        details:
+          type: object
+          description: Additional error details
+          additionalProperties: true
+    ConnectionInitiationResponse:
+      type: object
+      properties:
+        auth_url:
+          type: string
+          format: uri
+          description: OAuth authorization URL to redirect user to
+          example: https://login.salesforce.com/services/oauth2/authorize?...
+      additionalProperties: true
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT token obtained through Auth0 OAuth 2.0 flow with PKCE.
+
+
+        The token should be included in the Authorization header:
+
+        `Authorization: Bearer <your-jwt-token>`
+
+
+        Use the Barndoor SDK''s `loginInteractive()` function to obtain tokens automatically.
+
+        '
+    HTTPBearer:
+      type: http
+      scheme: bearer

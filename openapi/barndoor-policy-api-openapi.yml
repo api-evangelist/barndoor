@@ -1,0 +1,90 @@
+openapi: 3.1.0
+info:
+  title: Barndoor Platform Agents Policy API
+  version: 1.0.0
+  description: 'REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.
+
+
+    ## Authentication
+
+
+    All endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.
+
+    The SDK handles the OAuth flow automatically using interactive login.
+
+
+    ## MCP Integration
+
+
+    The `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers
+
+    (Salesforce, Notion, Slack, etc.) with automatic authentication and session management.
+
+    '
+  contact:
+    name: Barndoor Support
+    url: https://barndoor.ai
+servers:
+- url: https://{organization_id}.platform.barndoor.ai
+  description: Trial (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.mcp.barndoor.ai
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.platform.barndooruat.com
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.platform.barndoordev.com
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+security:
+- BearerAuth: []
+tags:
+- name: Policy
+paths:
+  /api/policy:
+    post:
+      summary: Publish  Policy
+      operationId: publish_cerbos_policy_admin_policy_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policy
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT token obtained through Auth0 OAuth 2.0 flow with PKCE.
+
+
+        The token should be included in the Authorization header:
+
+        `Authorization: Bearer <your-jwt-token>`
+
+
+        Use the Barndoor SDK''s `loginInteractive()` function to obtain tokens automatically.
+
+        '
+    HTTPBearer:
+      type: http
+      scheme: bearer

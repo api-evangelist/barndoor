@@ -1,0 +1,491 @@
+openapi: 3.1.0
+info:
+  title: Barndoor Platform Agents API
+  version: 1.0.0
+  description: 'REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.
+
+
+    ## Authentication
+
+
+    All endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.
+
+    The SDK handles the OAuth flow automatically using interactive login.
+
+
+    ## MCP Integration
+
+
+    The `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers
+
+    (Salesforce, Notion, Slack, etc.) with automatic authentication and session management.
+
+    '
+  contact:
+    name: Barndoor Support
+    url: https://barndoor.ai
+servers:
+- url: https://{organization_id}.platform.barndoor.ai
+  description: Trial (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.mcp.barndoor.ai
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.platform.barndooruat.com
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.platform.barndoordev.com
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+security:
+- BearerAuth: []
+tags:
+- name: Agents
+  description: Manage AI agent registrations
+paths:
+  /api/agents/counts:
+    get:
+      tags:
+      - Agents
+      summary: Get Agent Counts
+      description: Get counts of agents grouped by type (internal vs external).
+      operationId: getAgentCounts
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentCounts'
+  /api/agents/{agent_id}:
+    delete:
+      tags:
+      - Agents
+      summary: Unregister Agent
+      description: "Unregister an agent from Barndoor.\n\nThis removes the agent's registration but does not delete the underlying \napplication directory. The agent can be re-registered using the same \napplication_directory_id.\n"
+      operationId: unregisterAgent
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Agent Id
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Agents
+      summary: Get Agent
+      description: Get details of a specific agent by ID, including its application directory configuration.
+      operationId: getAgent
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Agent Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/agents:
+    get:
+      tags:
+      - Agents
+      summary: List Agents
+      description: List registered agents with pagination.
+      operationId: listAgents
+      parameters:
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Search applications by name or description
+          title: Search
+        description: Search applications by name or description
+      - name: agent_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/AgentType'
+          - type: 'null'
+          description: Filter by agent type
+          title: Agent Type
+        description: Filter by agent type
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          description: Page number (1-based)
+          default: 1
+          title: Page
+        description: Page number (1-based)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Number of items per page (max 100)
+          default: 10
+          title: Limit
+        description: Number of items per page (max 100)
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginationResponse_AgentResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Agents
+      summary: Register Agent
+      description: 'Register a new agent with Barndoor.
+
+
+        Agents represent AI applications that can access MCP servers through Barndoor.
+
+        Each agent must be associated with an application directory (OAuth client configuration).
+
+        '
+      operationId: registerAgent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentPayload'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AgentPayload:
+      properties:
+        application_directory_id:
+          type: string
+          title: Agent Directory Id
+      type: object
+      required:
+      - application_directory_id
+      title: AgentPayload
+    AgentCounts:
+      properties:
+        all:
+          type: integer
+          title: All
+        internal:
+          type: integer
+          title: Internal
+        external:
+          type: integer
+          title: External
+      type: object
+      required:
+      - all
+      - internal
+      - external
+      title: AgentCounts
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AgentDirectoryBase:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        external_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: External Id
+        public:
+          type: boolean
+          title: Public
+        dcr:
+          type: boolean
+          title: Dcr
+        post_login_success:
+          type: boolean
+          title: Post Login Success
+        callbacks:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Callbacks
+          description: OAuth callback URLs stored in alphanumeric ascending order
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - name
+      - description
+      - organization_id
+      - external_id
+      - public
+      - dcr
+      - post_login_success
+      - callbacks
+      title: AgentDirectoryBase
+    PaginationMeta:
+      properties:
+        page:
+          type: integer
+          title: Page
+          description: Current page number
+        limit:
+          type: integer
+          title: Limit
+          description: Items per page
+        total:
+          type: integer
+          title: Total
+          description: Total number of items
+        pages:
+          type: integer
+          title: Pages
+          description: Total number of pages
+        previous_page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Previous Page
+          description: Previous page number (null if first page)
+        next_page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Next Page
+          description: Next page number (null if last page)
+      type: object
+      required:
+      - page
+      - limit
+      - total
+      - pages
+      - previous_page
+      - next_page
+      title: PaginationMeta
+      description: Pagination metadata.
+    AgentResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        application_directory_id:
+          type: string
+          format: uuid
+          title: Agent Directory Id
+        application_directory:
+          $ref: '#/components/schemas/AgentDirectoryBase'
+        agent_type:
+          $ref: '#/components/schemas/AgentType'
+          description: Determine agent type based on application directory properties.
+          readOnly: true
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - organization_id
+      - application_directory_id
+      - application_directory
+      - agent_type
+      title: AgentResponse
+    AgentType:
+      type: string
+      enum:
+      - internal
+      - external
+      title: AgentType
+      description: Agent type classification for applications.
+    Agent:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        application_directory_id:
+          type: string
+          format: uuid
+          title: Agent Directory Id
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - organization_id
+      - application_directory_id
+      title: Agent
+    PaginationResponse_AgentResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AgentResponse'
+          type: array
+          title: Data
+          description: Array of items for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
+      type: object
+      required:
+      - data
+      - pagination
+      title: PaginationResponse[AgentResponse]
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT token obtained through Auth0 OAuth 2.0 flow with PKCE.
+
+
+        The token should be included in the Authorization header:
+
+        `Authorization: Bearer <your-jwt-token>`
+
+
+        Use the Barndoor SDK''s `loginInteractive()` function to obtain tokens automatically.
+
+        '
+    HTTPBearer:
+      type: http
+      scheme: bearer

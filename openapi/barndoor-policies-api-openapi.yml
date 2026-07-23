@@ -1,0 +1,1119 @@
+openapi: 3.1.0
+info:
+  title: Barndoor Platform Agents Policies API
+  version: 1.0.0
+  description: 'REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.
+
+
+    ## Authentication
+
+
+    All endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.
+
+    The SDK handles the OAuth flow automatically using interactive login.
+
+
+    ## MCP Integration
+
+
+    The `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers
+
+    (Salesforce, Notion, Slack, etc.) with automatic authentication and session management.
+
+    '
+  contact:
+    name: Barndoor Support
+    url: https://barndoor.ai
+servers:
+- url: https://{organization_id}.platform.barndoor.ai
+  description: Trial (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.mcp.barndoor.ai
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.platform.barndooruat.com
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+- url: https://{organization_id}.platform.barndoordev.com
+  description: Enterprise (Production)
+  variables:
+    organization_id:
+      description: Your organization identifier
+      default: your-org
+security:
+- BearerAuth: []
+tags:
+- name: Policies
+  description: Manage access control policies for agents and servers
+paths:
+  /api/v2/policies/{policy_id}/clone:
+    post:
+      summary: Clone Policy
+      description: 'Clone an existing policy, creating a new policy with the same configuration
+
+        but with a modified name (appending " Copy") and DRAFT status.'
+      operationId: clone_policy_admin_v2_policies__policy_id__clone_post
+      parameters:
+      - name: policy_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Policy Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+  /api/policies/restrictions/disable/{restriction_name}:
+    put:
+      summary: Disable Restriction
+      operationId: disable_restriction_admin_policies_restrictions_disable__restriction_name__put
+      parameters:
+      - name: restriction_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Restriction Name
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+  /api/policies/restrictions/enable/{restriction_name}:
+    put:
+      summary: Enable Restriction
+      operationId: enable_restriction_admin_policies_restrictions_enable__restriction_name__put
+      parameters:
+      - name: restriction_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Restriction Name
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+  /api/v2/policies/filter-definitions:
+    get:
+      summary: Get Filter Definitions
+      description: 'Return filter categories for the policies list UI.
+
+
+        Static filter options for status, plus dynamic filters for
+
+        MCP servers and agents based on the organization''s registry.'
+      operationId: get_filter_definitions_admin_v2_policies_filter_definitions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FilterCategory'
+                type: array
+                title: Response Get Filter Definitions Admin V2 Policies Filter Definitions Get
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+  /api/v2/policies/summary:
+    get:
+      summary: Get Policies Summary
+      description: Return summary counts of policies by status.
+      operationId: get_policies_summary_admin_v2_policies_summary_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicySummaryResponse'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+  /api/v2/policies/{policy_id}:
+    get:
+      summary: Get Policy
+      operationId: get_policy_admin_v2_policies__policy_id__get
+      parameters:
+      - name: policy_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Policy Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+    patch:
+      summary: Update Policy
+      operationId: update_policy_admin_v2_policies__policy_id__patch
+      parameters:
+      - name: policy_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Policy Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePolicy'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+  /api/v2/policies:
+    get:
+      summary: List Policies
+      operationId: list_policies_admin_v2_policies_get
+      parameters:
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Search by policy ID, name, description, or support contact
+          title: Search
+        description: Search by policy ID, name, description, or support contact
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: Filter by status values
+          title: Status
+        description: Filter by status values
+      - name: mcp_server_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: Filter by MCP server IDs
+          title: Mcp Server Id
+        description: Filter by MCP server IDs
+      - name: agent_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: Filter by agent/application IDs
+          title: Agent Id
+        description: Filter by agent/application IDs
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          description: Page number (1-based)
+          default: 1
+          title: Page
+        description: Page number (1-based)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Number of items per page (max 100)
+          default: 10
+          title: Limit
+        description: Number of items per page (max 100)
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginationResponse_PolicySummary_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+  /api/v2/policies/{policy_id}/revisions:
+    get:
+      summary: List Policy Revisions
+      description: "List all revisions for a given policy with pagination.\n\nUses the same authorization as get_policy - if a user can read a policy,\nthey can view its revision history.\n\nArgs:\n    changes_summary: Include human-readable change descriptions in response"
+      operationId: list_policy_revisions_admin_v2_policies__policy_id__revisions_get
+      parameters:
+      - name: policy_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Policy Id
+      - name: changes_summary
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Include human-readable change descriptions in response
+          default: false
+          title: Changes Summary
+        description: Include human-readable change descriptions in response
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          description: Page number (1-based)
+          default: 1
+          title: Page
+        description: Page number (1-based)
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Number of items per page (max 100)
+          default: 10
+          title: Limit
+        description: Number of items per page (max 100)
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginationResponse_PolicyRevisionSummary_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+  /api/v2/policies/validate:
+    post:
+      summary: Validate Policy
+      description: 'Validate a policy before creation or update.
+
+        Checks for duplicate names and overlapping MCP server/agent combinations.
+
+        When exclude_policy_id is provided (edit mode), that policy is excluded from validation.'
+      operationId: validate_policy_admin_v2_policies_validate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatePolicyRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidatePolicyResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+      tags:
+      - Policies
+components:
+  schemas:
+    UpdatePolicy:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Human-friendly policy name, unique within an organization
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Longer description of the policy.
+        support_contact:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Support Contact
+          description: Primary point of contact associated with the policy.
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Tags for categorizing the policy.
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/PolicyStatus'
+          - type: 'null'
+          description: The current lifecycle status of the policy.
+        application_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Application Ids
+          description: List of application (agent) identifiers to which this policy applies.
+        rules:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PolicyRule-Input'
+            type: array
+          - type: 'null'
+          title: Rules
+          description: Full set of rules that govern the policy.
+      type: object
+      title: UpdatePolicy
+      description: Request body for partial updates to an existing policy.
+    OperatorNone-Output:
+      properties:
+        none:
+          $ref: '#/components/schemas/ConditionOf-Output'
+      type: object
+      required:
+      - none
+      title: OperatorNone
+    FilterCategory:
+      properties:
+        id:
+          type: string
+          title: Id
+        label:
+          type: string
+          title: Label
+        options:
+          items:
+            $ref: '#/components/schemas/FilterOption'
+          type: array
+          title: Options
+      type: object
+      required:
+      - id
+      - label
+      title: FilterCategory
+      description: Category of filter options for the advanced filter UI.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PolicyDetail:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          type: string
+          title: Organization Id
+        name:
+          type: string
+          title: Name
+        status:
+          type: string
+          title: Status
+        support_contact:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Support Contact
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        mcp_server_id:
+          type: string
+          title: Mcp Server Id
+        application_ids:
+          items:
+            type: string
+          type: array
+          title: Application Ids
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        rules:
+          items:
+            $ref: '#/components/schemas/PolicyRule-Output'
+          type: array
+          title: Rules
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        created_by_user_id:
+          type: string
+          title: Created By User Id
+        updated_by_user_id:
+          type: string
+          title: Updated By User Id
+      type: object
+      required:
+      - id
+      - organization_id
+      - name
+      - status
+      - mcp_server_id
+      - created_at
+      - updated_at
+      - created_by_user_id
+      - updated_by_user_id
+      title: PolicyDetail
+      description: Detailed representation of a policy including rules.
+    OperatorAny-Input:
+      properties:
+        any:
+          $ref: '#/components/schemas/ConditionOf-Input'
+      type: object
+      required:
+      - any
+      title: OperatorAny
+    PolicyRule-Output:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Optional display name for the rule
+          default: ''
+        authorized:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Authorized
+          description: Determines if the actions are allowed (True) or denied (False)
+          default: false
+        actions:
+          items:
+            type: string
+          type: array
+          title: Actions
+          description: Actions this rule applies to
+        roles_groups:
+          items:
+            type: string
+          type: array
+          title: Roles Groups
+          description: Roles or groups this rule applies to
+        condition:
+          anyOf:
+          - $ref: '#/components/schemas/PolicyRuleCondition-Output'
+          - type: 'null'
+          description: Optional condition that must be met for the rule to apply
+      type: object
+      title: PolicyRule
+      description: Represents a single policy rule with compatible conditions.
+    PaginationResponse_PolicySummary_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicySummary'
+          type: array
+          title: Data
+          description: Array of items for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
+      type: object
+      required:
+      - data
+      - pagination
+      title: PaginationResponse[PolicySummary]
+    FilterOption:
+      properties:
+        value:
+          type: string
+          title: Value
+        label:
+          type: string
+          title: Label
+      type: object
+      required:
+      - value
+      - label
+      title: FilterOption
+      description: Individual filter option.
+    PolicyDetailResponse:
+      properties:
+        policy:
+          $ref: '#/components/schemas/PolicyDetail'
+      type: object
+      required:
+      - policy
+      title: PolicyDetailResponse
+      description: Envelope for detail responses.
+    PolicyRevisionSummary:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        policy_id:
+          type: string
+          format: uuid
+          title: Policy Id
+        changes:
+          additionalProperties: true
+          type: object
+          title: Changes
+          description: Changes made in this revision
+        changes_summary:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Changes Summary
+          description: Human-readable list of change descriptions
+        revised_at:
+          type: string
+          format: date-time
+          title: Revised At
+        revised_by:
+          type: string
+          title: Revised By
+        revised_by_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Revised By Name
+          description: Name of the user who made the revision
+      type: object
+      required:
+      - id
+      - policy_id
+      - changes
+      - revised_at
+      - revised_by
+      title: PolicyRevisionSummary
+      description: Summary of a policy revision.
+    Expression:
+      properties:
+        expr:
+          type: string
+          title: Expr
+      type: object
+      required:
+      - expr
+      title: Expression
+    OperatorAll-Input:
+      properties:
+        all:
+          $ref: '#/components/schemas/ConditionOf-Input'
+      type: object
+      required:
+      - all
+      title: OperatorAll
+    OperatorAll-Output:
+      properties:
+        all:
+          $ref: '#/components/schemas/ConditionOf-Output'
+      type: object
+      required:
+      - all
+      title: OperatorAll
+    ConditionOf-Input:
+      properties:
+        of:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/Expression'
+            - $ref: '#/components/schemas/OperatorAll-Input'
+            - $ref: '#/components/schemas/OperatorAny-Input'
+            - $ref: '#/components/schemas/OperatorNone-Input'
+          type: array
+          title: Of
+      type: object
+      required:
+      - of
+      title: ConditionOf
+    ValidatePolicyResponse:
+      properties:
+        name_is_unique:
+          type: boolean
+          title: Name Is Unique
+          description: Whether the policy name is unique within the organization
+        no_overlap_if_active:
+          type: boolean
+          title: No Overlap If Active
+          description: Whether the policy would overlap with existing active policies
+        overlapping_policy_names:
+          items:
+            type: string
+          type: array
+          title: Overlapping Policy Names
+          description: Names of overlapping active policies, if any
+      type: object
+      required:
+      - name_is_unique
+      - no_overlap_if_active
+      title: ValidatePolicyResponse
+      description: Response for policy validation.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PolicyRule-Input:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Optional display name for the rule
+          default: ''
+        authorized:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Authorized
+          description: Determines if the actions are allowed (True) or denied (False)
+          default: false
+        actions:
+          items:
+            type: string
+          type: array
+          title: Actions
+          description: Actions this rule applies to
+        roles_groups:
+          items:
+            type: string
+          type: array
+          title: Roles Groups
+          description: Roles or groups this rule applies to
+        condition:
+          anyOf:
+          - $ref: '#/components/schemas/PolicyRuleCondition-Input'
+          - type: 'null'
+          description: Optional condition that must be met for the rule to apply
+      type: object
+      title: PolicyRule
+      description: Represents a single policy rule with compatible conditions.
+    ValidatePolicyRequest:
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Name
+          description: Policy name to validate
+        mcp_server_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mcp Server Id
+          description: MCP server ID to check for overlaps
+        application_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Application Ids
+          description: Application IDs to check for overlaps
+        exclude_policy_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Exclude Policy Id
+          description: Policy ID to exclude from validation (for edit mode)
+      type: object
+      required:
+      - name
+      title: ValidatePolicyRequest
+      description: Request body for validating a policy before creation.
+    PolicySummaryResponse:
+      properties:
+        active:
+          type: integer
+          title: Active
+          default: 0
+        draft:
+          type: integer
+          title: Draft
+          default: 0
+        inactive:
+          type: integer
+          title: Inactive
+          default: 0
+        archived:
+          type: integer
+          title: Archived
+          default: 0
+        total:
+          type: integer
+          title: Total
+          default: 0
+      type: object
+      title: PolicySummaryResponse
+      description: Summary counts of policies by status.
+    PolicyStatus:
+      type: string
+      enum:
+      - DRAFT
+      - ACTIVE
+      - INACTIVE
+      - ARCHIVED
+      title: PolicyStatus
+      description: Policy lifecycle status.
+    ConditionOf-Output:
+      properties:
+        of:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/Expression'
+            - $ref: '#/components/schemas/OperatorAll-Output'
+            - $ref: '#/components/schemas/OperatorAny-Output'
+            - $ref: '#/components/schemas/OperatorNone-Output'
+          type: array
+          title: Of
+      type: object
+      required:
+      - of
+      title: ConditionOf
+    PolicyRuleCondition-Output:
+      properties:
+        match:
+          oneOf:
+          - $ref: '#/components/schemas/Expression'
+          - $ref: '#/components/schemas/OperatorAll-Output'
+          - $ref: '#/components/schemas/OperatorAny-Output'
+          - $ref: '#/components/schemas/OperatorNone-Output'
+          title: Match
+      type: object
+      required:
+      - match
+      title: PolicyRuleCondition
+    PaginationMeta:
+      properties:
+        page:
+          type: integer
+          title: Page
+          description: Current page number
+        limit:
+          type: integer
+          title: Limit
+          description: Items per page
+        total:
+          type: integer
+          title: Total
+          description: Total number of items
+        pages:
+          type: integer
+          title: Pages
+          description: Total number of pages
+        previous_page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Previous Page
+          description: Previous page number (null if first page)
+        next_page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Next Page
+          description: Next page number (null if last page)
+      type: object
+      required:
+      - page
+      - limit
+      - total
+      - pages
+      - previous_page
+      - next_page
+      title: PaginationMeta
+      description: Pagination metadata.
+    PolicySummary:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        status:
+          type: string
+          title: Status
+        mcp_server_id:
+          type: string
+          title: Mcp Server Id
+        mcp_server_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mcp Server Name
+        application_ids:
+          items:
+            type: string
+          type: array
+          title: Application Ids
+        application_names:
+          items:
+            type: string
+          type: array
+          title: Application Names
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        updated_by_user_id:
+          type: string
+          title: Updated By User Id
+        updated_by_user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updated By User Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        rules_count:
+          type: integer
+          title: Rules Count
+          default: 0
+      type: object
+      required:
+      - id
+      - name
+      - status
+      - mcp_server_id
+      - updated_at
+      - updated_by_user_id
+      title: PolicySummary
+      description: Summary row used for policy list views.
+    OperatorNone-Input:
+      properties:
+        none:
+          $ref: '#/components/schemas/ConditionOf-Input'
+      type: object
+      required:
+      - none
+      title: OperatorNone
+    OperatorAny-Output:
+      properties:
+        any:
+          $ref: '#/components/schemas/ConditionOf-Output'
+      type: object
+      required:
+      - any
+      title: OperatorAny
+    PaginationResponse_PolicyRevisionSummary_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicyRevisionSummary'
+          type: array
+          title: Data
+          description: Array of items for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
+      type: object
+      required:
+      - data
+      - pagination
+      title: PaginationResponse[PolicyRevisionSummary]
+    PolicyRuleCondition-Input:
+      properties:
+        match:
+          oneOf:
+          - $ref: '#/components/schemas/Expression'
+          - $ref: '#/components/schemas/OperatorAll-Input'
+          - $ref: '#/components/schemas/OperatorAny-Input'
+          - $ref: '#/components/schemas/OperatorNone-Input'
+          title: Match
+      type: object
+      required:
+      - match
+      title: PolicyRuleCondition
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT token obtained through Auth0 OAuth 2.0 flow with PKCE.
+
+
+        The token should be included in the Authorization header:
+
+        `Authorization: Bearer <your-jwt-token>`
+
+
+        Use the Barndoor SDK''s `loginInteractive()` function to obtain tokens automatically.
+
+        '
+    HTTPBearer:
+      type: http
+      scheme: bearer
