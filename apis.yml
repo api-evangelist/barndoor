@@ -10,7 +10,20 @@ description: >-
   API manages servers, connections, policies, agents, and MCP / SSE request proxying. Python, TypeScript, and Go SDKs
   are published on GitHub alongside Rust SDKs (Cerbos, official MCP, MCP OAuth compliance suite) and a Crew AI example.
   Deployment options include SaaS (trial), private cloud, and on-premises (Enterprise).
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/barndoor.png
 tags:
   - AI Agents
   - AI Governance
@@ -27,143 +40,216 @@ created: '2026-03-16'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: barndoor:platform-api
-    name: Barndoor Platform API
-    description: >-
-      REST API for the Barndoor Platform. Manage MCP server registrations, OAuth connections from agents to backend
-      SaaS, access-control policies (with rules, restrictions, revisions, validation), AI agent registrations, and proxy
-      live MCP requests (`/mcp/{server_name}`) and SSE streams (`/sse/{server_name}`) through Barndoor's policy
-      enforcement and audit pipeline. JWT Bearer authentication via Auth0 OAuth 2.0 with PKCE; the SDK's
-      `loginInteractive()` handles the OAuth flow.
-    humanURL: https://docs.barndoor.ai/api-reference/introduction
-    baseURL: https://{organization_id}.platform.barndoor.ai
-    tags:
-      - Platform API
-      - MCP
-      - Policy
-      - Agents
-      - Servers
-      - Connections
-      - Proxy
-    properties:
-      - type: Documentation
-        url: https://docs.barndoor.ai/api-reference/introduction
-      - type: OpenAPI
-        url: openapi/barndoor-openapi.yml
-      - type: Authentication
-        url: https://docs.barndoor.ai/api-reference/introduction
-      - type: SDKs
-        url: https://docs.barndoor.ai/sdks/introduction
-  - aid: barndoor:python-sdk
-    name: Barndoor Python SDK
-    description: >-
-      Python SDK for the Barndoor AI Platform. Wraps the Platform REST API, handles Auth0 PKCE login
-      (`loginInteractive()`), discovers governed MCP tools, brokers OAuth connections to backend SaaS, and exposes the
-      catalog through Pythonic helpers compatible with OpenAI tool-calling and frameworks such as Crew AI.
-    humanURL: https://docs.barndoor.ai/sdks/python
-    baseURL: https://github.com/barndoor-ai/barndoor-python-sdk
-    tags:
-      - Python SDK
-      - SDK
-      - MCP
-    properties:
-      - type: Documentation
-        url: https://docs.barndoor.ai/sdks/python
-      - type: Repository
-        url: https://github.com/barndoor-ai/barndoor-python-sdk
-  - aid: barndoor:typescript-sdk
-    name: Barndoor TypeScript SDK
-    description: >-
-      TypeScript SDK for the Barndoor AI Platform. Browser- and Node-friendly client for Auth0 PKCE login, governed MCP
-      tool discovery, OAuth connection initiation, and proxying MCP / SSE requests through Barndoor.
-    humanURL: https://docs.barndoor.ai/sdks/typescript
-    baseURL: https://github.com/barndoor-ai/barndoor-ts-sdk
-    tags:
-      - TypeScript SDK
-      - SDK
-      - MCP
-    properties:
-      - type: Documentation
-        url: https://docs.barndoor.ai/sdks/typescript
-      - type: Repository
-        url: https://github.com/barndoor-ai/barndoor-ts-sdk
-  - aid: barndoor:go-sdk
-    name: Barndoor Go SDK
-    description: >-
-      Go SDK for the Barndoor AI Platform. Server-side client for registering agents, managing MCP servers and policies,
-      brokering OAuth connections, and proxying MCP requests from Go services.
-    humanURL: https://github.com/barndoor-ai/barndoor-go-sdk
-    baseURL: https://github.com/barndoor-ai/barndoor-go-sdk
-    tags:
-      - Go SDK
-      - SDK
-      - MCP
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/barndoor-go-sdk
-  - aid: barndoor:official-mcp-rust-sdk
-    name: Official MCP Rust SDK
-    description: >-
-      The official Rust SDK for the Model Context Protocol. Maintained under the Barndoor AI GitHub organization;
-      provides primitives to build MCP clients and servers in Rust.
-    humanURL: https://github.com/barndoor-ai/official-mcp-rust-sdk
-    baseURL: https://github.com/barndoor-ai/official-mcp-rust-sdk
-    tags:
-      - MCP
-      - Rust
-      - SDK
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/official-mcp-rust-sdk
-  - aid: barndoor:cerbos-sdk-rust
-    name: Cerbos Rust SDK
-    description: >-
-      Rust SDK for Cerbos, the policy-decision-point used by Barndoor for attribute-based access control. Lets Rust
-      services request policy decisions from a Cerbos PDP.
-    humanURL: https://github.com/barndoor-ai/cerbos-sdk-rust
-    baseURL: https://github.com/barndoor-ai/cerbos-sdk-rust
-    tags:
-      - Cerbos
-      - ABAC
-      - Policy
-      - Rust
-      - SDK
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/cerbos-sdk-rust
-  - aid: barndoor:mcp-auth-compliance
-    name: MCP OAuth Compliance Suite
-    description: >-
-      Rust test suite that validates remote MCP servers against the MCP authorization specification - RFC 9728
-      (Protected Resource Metadata), RFC 8414 (Authorization Server Metadata), RFC 7591 (Dynamic Client Registration),
-      and OAuth 2.1. Useful for vendors and customers verifying MCP server conformance before onboarding to Barndoor.
-    humanURL: https://github.com/barndoor-ai/mcp-auth-compliance
-    baseURL: https://github.com/barndoor-ai/mcp-auth-compliance
-    tags:
-      - MCP
-      - OAuth
-      - Compliance
-      - Rust
-      - Conformance
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/mcp-auth-compliance
-  - aid: barndoor:crew-ai-example
-    name: Barndoor + Crew AI Example
-    description: >-
-      Reference Python demo application showing how to plug Barndoor-governed MCP tools into a Crew AI multi-agent
-      workflow.
-    humanURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
-    baseURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
-    tags:
-      - Crew AI
-      - Python
-      - Example
-      - MCP
-    properties:
-      - type: Repository
-        url: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
+- aid: barndoor:python-sdk
+  name: Barndoor Python SDK
+  description: >-
+    Python SDK for the Barndoor AI Platform. Wraps the Platform REST API, handles Auth0 PKCE login (`loginInteractive()`),
+    discovers governed MCP tools, brokers OAuth connections to backend SaaS, and exposes the catalog through
+    Pythonic helpers compatible with OpenAI tool-calling and frameworks such as Crew AI.
+  humanURL: https://docs.barndoor.ai/sdks/python
+  baseURL: https://github.com/barndoor-ai/barndoor-python-sdk
+  tags:
+  - Python SDK
+  - SDK
+  - MCP
+  properties:
+  - type: Documentation
+    url: https://docs.barndoor.ai/sdks/python
+  - type: Repository
+    url: https://github.com/barndoor-ai/barndoor-python-sdk
+- aid: barndoor:typescript-sdk
+  name: Barndoor TypeScript SDK
+  description: >-
+    TypeScript SDK for the Barndoor AI Platform. Browser- and Node-friendly client for Auth0 PKCE login,
+    governed MCP tool discovery, OAuth connection initiation, and proxying MCP / SSE requests through
+    Barndoor.
+  humanURL: https://docs.barndoor.ai/sdks/typescript
+  baseURL: https://github.com/barndoor-ai/barndoor-ts-sdk
+  tags:
+  - TypeScript SDK
+  - SDK
+  - MCP
+  properties:
+  - type: Documentation
+    url: https://docs.barndoor.ai/sdks/typescript
+  - type: Repository
+    url: https://github.com/barndoor-ai/barndoor-ts-sdk
+- aid: barndoor:go-sdk
+  name: Barndoor Go SDK
+  description: >-
+    Go SDK for the Barndoor AI Platform. Server-side client for registering agents, managing MCP servers
+    and policies, brokering OAuth connections, and proxying MCP requests from Go services.
+  humanURL: https://github.com/barndoor-ai/barndoor-go-sdk
+  baseURL: https://github.com/barndoor-ai/barndoor-go-sdk
+  tags:
+  - Go SDK
+  - SDK
+  - MCP
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/barndoor-go-sdk
+- aid: barndoor:official-mcp-rust-sdk
+  name: Official MCP Rust SDK
+  description: >-
+    The official Rust SDK for the Model Context Protocol. Maintained under the Barndoor AI GitHub organization;
+    provides primitives to build MCP clients and servers in Rust.
+  humanURL: https://github.com/barndoor-ai/official-mcp-rust-sdk
+  baseURL: https://github.com/barndoor-ai/official-mcp-rust-sdk
+  tags:
+  - MCP
+  - Rust
+  - SDK
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/official-mcp-rust-sdk
+- aid: barndoor:cerbos-sdk-rust
+  name: Cerbos Rust SDK
+  description: >-
+    Rust SDK for Cerbos, the policy-decision-point used by Barndoor for attribute-based access control.
+    Lets Rust services request policy decisions from a Cerbos PDP.
+  humanURL: https://github.com/barndoor-ai/cerbos-sdk-rust
+  baseURL: https://github.com/barndoor-ai/cerbos-sdk-rust
+  tags:
+  - Cerbos
+  - ABAC
+  - Policy
+  - Rust
+  - SDK
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/cerbos-sdk-rust
+- aid: barndoor:mcp-auth-compliance
+  name: MCP OAuth Compliance Suite
+  description: >-
+    Rust test suite that validates remote MCP servers against the MCP authorization specification - RFC
+    9728 (Protected Resource Metadata), RFC 8414 (Authorization Server Metadata), RFC 7591 (Dynamic Client
+    Registration), and OAuth 2.1. Useful for vendors and customers verifying MCP server conformance before
+    onboarding to Barndoor.
+  humanURL: https://github.com/barndoor-ai/mcp-auth-compliance
+  baseURL: https://github.com/barndoor-ai/mcp-auth-compliance
+  tags:
+  - MCP
+  - OAuth
+  - Compliance
+  - Rust
+  - Conformance
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/mcp-auth-compliance
+- aid: barndoor:crew-ai-example
+  name: Barndoor + Crew AI Example
+  description: >-
+    Reference Python demo application showing how to plug Barndoor-governed MCP tools into a Crew AI multi-agent
+    workflow.
+  humanURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
+  baseURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
+  tags:
+  - Crew AI
+  - Python
+  - Example
+  - MCP
+  properties:
+  - type: Repository
+    url: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
+- aid: barndoor:barndoor-agents-api
+  name: Barndoor Agents API
+  description: Manage AI agent registrations
+  humanURL: https://docs.barndoor.ai/api-reference/introduction
+  baseURL: https://{organization_id}.platform.barndoor.ai
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/barndoor-agents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: Authentication
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: SDKs
+    url: https://docs.barndoor.ai/sdks/introduction
+- aid: barndoor:barndoor-connections-api
+  name: Barndoor Connections API
+  description: Manage OAuth connections to MCP servers
+  humanURL: https://docs.barndoor.ai/api-reference/introduction
+  baseURL: https://{organization_id}.platform.barndoor.ai
+  tags:
+  - Connections
+  properties:
+  - type: OpenAPI
+    url: openapi/barndoor-connections-api-openapi.yml
+  - type: Documentation
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: Authentication
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: SDKs
+    url: https://docs.barndoor.ai/sdks/introduction
+- aid: barndoor:barndoor-mcp-proxy-api
+  name: Barndoor MCP Proxy API
+  description: Proxy requests to MCP servers
+  humanURL: https://docs.barndoor.ai/api-reference/introduction
+  baseURL: https://{organization_id}.platform.barndoor.ai
+  tags:
+  - MCP Proxy
+  properties:
+  - type: OpenAPI
+    url: openapi/barndoor-mcp-proxy-api-openapi.yml
+  - type: Documentation
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: Authentication
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: SDKs
+    url: https://docs.barndoor.ai/sdks/introduction
+- aid: barndoor:barndoor-policies-api
+  name: Barndoor Policies API
+  description: Manage access control policies for agents and servers
+  humanURL: https://docs.barndoor.ai/api-reference/introduction
+  baseURL: https://{organization_id}.platform.barndoor.ai
+  tags:
+  - Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/barndoor-policies-api-openapi.yml
+  - type: Documentation
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: Authentication
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: SDKs
+    url: https://docs.barndoor.ai/sdks/introduction
+- aid: barndoor:barndoor-policy-api
+  name: Barndoor Policy API
+  description: The Policy API from Barndoor — 1 operation(s) for policy.
+  humanURL: https://docs.barndoor.ai/api-reference/introduction
+  baseURL: https://{organization_id}.platform.barndoor.ai
+  tags:
+  - Policy
+  properties:
+  - type: OpenAPI
+    url: openapi/barndoor-policy-api-openapi.yml
+  - type: Documentation
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: Authentication
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: SDKs
+    url: https://docs.barndoor.ai/sdks/introduction
+- aid: barndoor:barndoor-servers-api
+  name: Barndoor Servers API
+  description: Manage MCP server instances
+  humanURL: https://docs.barndoor.ai/api-reference/introduction
+  baseURL: https://{organization_id}.platform.barndoor.ai
+  tags:
+  - Servers
+  properties:
+  - type: OpenAPI
+    url: openapi/barndoor-servers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: Authentication
+    url: https://docs.barndoor.ai/api-reference/introduction
+  - type: SDKs
+    url: https://docs.barndoor.ai/sdks/introduction
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/barndoor/overview
   - type: AgenticAccess
     url: agentic-access/barndoor-agentic-access.yml
   - type: VulnerabilityDisclosure
