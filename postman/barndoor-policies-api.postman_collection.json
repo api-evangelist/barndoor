@@ -1,0 +1,1821 @@
+{
+  "info": {
+    "_postman_id": "c74cada5-4a84-4196-9857-7e1abd3ebaab",
+    "name": "Barndoor Platform Agents Policies API",
+    "description": "REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.\n\n## Authentication\n\nAll endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.\nThe SDK handles the OAuth flow automatically using interactive login.\n\n## MCP Integration\n\nThe `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers\n(Salesforce, Notion, Slack, etc.) with automatic authentication and session management.\n\n\nContact Support:\n Name: Barndoor Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:11:57.000Z",
+    "updatedAt": "2026-07-28T01:11:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c74cada5-4a84-4196-9857-7e1abd3ebaab"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "policies",
+              "item": [
+                {
+                  "name": "{policy_id}",
+                  "item": [
+                    {
+                      "name": "clone",
+                      "item": [
+                        {
+                          "name": "Clone Policy",
+                          "id": "29d4fee9-f79a-40fe-be92-d1c7e718d375",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/:policy_id/clone",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                ":policy_id",
+                                "clone"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "325a9c50-879a-4f61-a88f-ed24851de24b",
+                                  "key": "policy_id",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Clone an existing policy, creating a new policy with the same configuration\nbut with a modified name (appending \" Copy\") and DRAFT status."
+                          },
+                          "response": [
+                            {
+                              "id": "a1210472-103d-4ad6-8fc3-f55135356dcb",
+                              "name": "Successful Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/policies/:policy_id/clone",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "policies",
+                                    ":policy_id",
+                                    "clone"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policy_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"policy\": {\n    \"id\": \"<uuid>\",\n    \"organization_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"mcp_server_id\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"created_by_user_id\": \"<string>\",\n    \"updated_by_user_id\": \"<string>\",\n    \"support_contact\": \"<string>\",\n    \"description\": \"<string>\",\n    \"application_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rules\": [\n      {\n        \"name\": \"<string>\",\n        \"authorized\": \"<boolean>\",\n        \"actions\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"roles_groups\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"expr\": \"<string>\"\n          }\n        }\n      },\n      {\n        \"name\": \"<string>\",\n        \"authorized\": \"<boolean>\",\n        \"actions\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"roles_groups\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"expr\": \"<string>\"\n          }\n        }\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T01:11:58.000Z",
+                              "updatedAt": "2026-07-28T01:11:58.000Z",
+                              "uid": "35240-a1210472-103d-4ad6-8fc3-f55135356dcb"
+                            },
+                            {
+                              "id": "7d4654de-3763-4772-9226-ff06a7979a96",
+                              "name": "Validation Error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/policies/:policy_id/clone",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "policies",
+                                    ":policy_id",
+                                    "clone"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policy_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:11:58.000Z",
+                              "updatedAt": "2026-07-28T01:11:58.000Z",
+                              "uid": "35240-7d4654de-3763-4772-9226-ff06a7979a96"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-29d4fee9-f79a-40fe-be92-d1c7e718d375"
+                        }
+                      ],
+                      "id": "f5221f60-5797-43e5-9524-0f0c512bcb0c",
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-f5221f60-5797-43e5-9524-0f0c512bcb0c"
+                    },
+                    {
+                      "name": "revisions",
+                      "item": [
+                        {
+                          "name": "List Policy Revisions",
+                          "id": "eb1c9797-989f-4e0f-9147-9f2ea2cad986",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/:policy_id/revisions?changes_summary=false&page=1&limit=10",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                ":policy_id",
+                                "revisions"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Include human-readable change descriptions in response",
+                                  "key": "changes_summary",
+                                  "value": "false"
+                                },
+                                {
+                                  "description": "Page number (1-based)",
+                                  "key": "page",
+                                  "value": "1"
+                                },
+                                {
+                                  "description": "Number of items per page (max 100)",
+                                  "key": "limit",
+                                  "value": "10"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3af7e6a3-ae83-4ded-81a2-4e8cbf472332",
+                                  "key": "policy_id",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "List all revisions for a given policy with pagination.\n\nUses the same authorization as get_policy - if a user can read a policy,\nthey can view its revision history.\n\nArgs:\n    changes_summary: Include human-readable change descriptions in response"
+                          },
+                          "response": [
+                            {
+                              "id": "6f3c5ae0-c9b8-40e3-bc87-574aed4b49d9",
+                              "name": "Successful Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/policies/:policy_id/revisions?changes_summary=false&page=1&limit=10",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "policies",
+                                    ":policy_id",
+                                    "revisions"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Include human-readable change descriptions in response",
+                                      "key": "changes_summary",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Page number (1-based)",
+                                      "key": "page",
+                                      "value": "1"
+                                    },
+                                    {
+                                      "description": "Number of items per page (max 100)",
+                                      "key": "limit",
+                                      "value": "10"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policy_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"policy_id\": \"<uuid>\",\n      \"changes\": {\n        \"fugiat_d\": true,\n        \"est_1e7\": true\n      },\n      \"revised_at\": \"<dateTime>\",\n      \"revised_by\": \"<string>\",\n      \"changes_summary\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"revised_by_name\": \"<string>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"policy_id\": \"<uuid>\",\n      \"changes\": {\n        \"elit165\": true\n      },\n      \"revised_at\": \"<dateTime>\",\n      \"revised_by\": \"<string>\",\n      \"changes_summary\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"revised_by_name\": \"<string>\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"pages\": \"<integer>\",\n    \"previous_page\": \"<integer>\",\n    \"next_page\": \"<integer>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:11:58.000Z",
+                              "updatedAt": "2026-07-28T01:11:58.000Z",
+                              "uid": "35240-6f3c5ae0-c9b8-40e3-bc87-574aed4b49d9"
+                            },
+                            {
+                              "id": "eadaf2c8-e46a-4606-906e-63c100d13b2c",
+                              "name": "Validation Error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/policies/:policy_id/revisions?changes_summary=false&page=1&limit=10",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "policies",
+                                    ":policy_id",
+                                    "revisions"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Include human-readable change descriptions in response",
+                                      "key": "changes_summary",
+                                      "value": "false"
+                                    },
+                                    {
+                                      "description": "Page number (1-based)",
+                                      "key": "page",
+                                      "value": "1"
+                                    },
+                                    {
+                                      "description": "Number of items per page (max 100)",
+                                      "key": "limit",
+                                      "value": "10"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "policy_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:11:58.000Z",
+                              "updatedAt": "2026-07-28T01:11:58.000Z",
+                              "uid": "35240-eadaf2c8-e46a-4606-906e-63c100d13b2c"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-eb1c9797-989f-4e0f-9147-9f2ea2cad986"
+                        }
+                      ],
+                      "id": "bdd77e42-09ca-43fb-9994-106a52a2e23e",
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-bdd77e42-09ca-43fb-9994-106a52a2e23e"
+                    },
+                    {
+                      "name": "Get Policy",
+                      "id": "9800ac8b-3620-467d-bcbf-a0c98dfe4e69",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/policies/:policy_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "policies",
+                            ":policy_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "eae5fb90-5bf9-4f64-ad57-019e2390cc05",
+                              "key": "policy_id",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "0e10c105-f7b2-4b44-a4f2-317fe6cc32d5",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/:policy_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                ":policy_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policy_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"policy\": {\n    \"id\": \"<uuid>\",\n    \"organization_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"mcp_server_id\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"created_by_user_id\": \"<string>\",\n    \"updated_by_user_id\": \"<string>\",\n    \"support_contact\": \"<string>\",\n    \"description\": \"<string>\",\n    \"application_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rules\": [\n      {\n        \"name\": \"<string>\",\n        \"authorized\": \"<boolean>\",\n        \"actions\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"roles_groups\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"expr\": \"<string>\"\n          }\n        }\n      },\n      {\n        \"name\": \"<string>\",\n        \"authorized\": \"<boolean>\",\n        \"actions\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"roles_groups\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"expr\": \"<string>\"\n          }\n        }\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-0e10c105-f7b2-4b44-a4f2-317fe6cc32d5"
+                        },
+                        {
+                          "id": "13547603-6281-4d1c-bd0f-54955922c08d",
+                          "name": "Validation Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/:policy_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                ":policy_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policy_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-13547603-6281-4d1c-bd0f-54955922c08d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-9800ac8b-3620-467d-bcbf-a0c98dfe4e69"
+                    },
+                    {
+                      "name": "Update Policy",
+                      "id": "f6ac872c-efe6-4c33-870d-ca698bd7e8de",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"support_contact\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"DRAFT\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rules\": [\n    {\n      \"name\": \"<string>\",\n      \"authorized\": \"<boolean>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"roles_groups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"expr\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"authorized\": \"<boolean>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"roles_groups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"expr\": \"<string>\"\n        }\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/policies/:policy_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "policies",
+                            ":policy_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "051c24af-71f1-4ccf-bac0-7ab951e3e6f9",
+                              "key": "policy_id",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "3079119f-8b31-4134-bc49-9221dd2d78a9",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"support_contact\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"DRAFT\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rules\": [\n    {\n      \"name\": \"<string>\",\n      \"authorized\": \"<boolean>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"roles_groups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"expr\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"authorized\": \"<boolean>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"roles_groups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"expr\": \"<string>\"\n        }\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/:policy_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                ":policy_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policy_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"policy\": {\n    \"id\": \"<uuid>\",\n    \"organization_id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"status\": \"<string>\",\n    \"mcp_server_id\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"created_by_user_id\": \"<string>\",\n    \"updated_by_user_id\": \"<string>\",\n    \"support_contact\": \"<string>\",\n    \"description\": \"<string>\",\n    \"application_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"rules\": [\n      {\n        \"name\": \"<string>\",\n        \"authorized\": \"<boolean>\",\n        \"actions\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"roles_groups\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"expr\": \"<string>\"\n          }\n        }\n      },\n      {\n        \"name\": \"<string>\",\n        \"authorized\": \"<boolean>\",\n        \"actions\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"roles_groups\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"expr\": \"<string>\"\n          }\n        }\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-3079119f-8b31-4134-bc49-9221dd2d78a9"
+                        },
+                        {
+                          "id": "e69240a4-a4e2-4707-b073-32b824bb11d4",
+                          "name": "Validation Error",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"support_contact\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"DRAFT\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rules\": [\n    {\n      \"name\": \"<string>\",\n      \"authorized\": \"<boolean>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"roles_groups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"expr\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"authorized\": \"<boolean>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"roles_groups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"expr\": \"<string>\"\n        }\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/:policy_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                ":policy_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policy_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-e69240a4-a4e2-4707-b073-32b824bb11d4"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-f6ac872c-efe6-4c33-870d-ca698bd7e8de"
+                    }
+                  ],
+                  "id": "225ecd9d-8080-4b4f-8eb2-5afa7ac5a447",
+                  "createdAt": "2026-07-28T01:11:58.000Z",
+                  "updatedAt": "2026-07-28T01:11:58.000Z",
+                  "uid": "35240-225ecd9d-8080-4b4f-8eb2-5afa7ac5a447"
+                },
+                {
+                  "name": "filter-definitions",
+                  "item": [
+                    {
+                      "name": "Get Filter Definitions",
+                      "id": "3775e1a2-d744-436d-bb89-4f2472992b64",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/policies/filter-definitions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "policies",
+                            "filter-definitions"
+                          ]
+                        },
+                        "description": "Return filter categories for the policies list UI.\n\nStatic filter options for status, plus dynamic filters for\nMCP servers and agents based on the organization's registry."
+                      },
+                      "response": [
+                        {
+                          "id": "bef21477-81f6-45db-905f-0f5aa7635cb3",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/filter-definitions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                "filter-definitions"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"id\": \"<string>\",\n    \"label\": \"<string>\",\n    \"options\": [\n      {\n        \"value\": \"<string>\",\n        \"label\": \"<string>\"\n      },\n      {\n        \"value\": \"<string>\",\n        \"label\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"id\": \"<string>\",\n    \"label\": \"<string>\",\n    \"options\": [\n      {\n        \"value\": \"<string>\",\n        \"label\": \"<string>\"\n      },\n      {\n        \"value\": \"<string>\",\n        \"label\": \"<string>\"\n      }\n    ]\n  }\n]",
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-bef21477-81f6-45db-905f-0f5aa7635cb3"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-3775e1a2-d744-436d-bb89-4f2472992b64"
+                    }
+                  ],
+                  "id": "ed8b6d65-034b-41a6-9d5f-13d25266f27d",
+                  "createdAt": "2026-07-28T01:11:58.000Z",
+                  "updatedAt": "2026-07-28T01:11:58.000Z",
+                  "uid": "35240-ed8b6d65-034b-41a6-9d5f-13d25266f27d"
+                },
+                {
+                  "name": "summary",
+                  "item": [
+                    {
+                      "name": "Get Policies Summary",
+                      "id": "622494ba-43a0-43aa-8abe-4461347686c8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/policies/summary",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "policies",
+                            "summary"
+                          ]
+                        },
+                        "description": "Return summary counts of policies by status."
+                      },
+                      "response": [
+                        {
+                          "id": "21f252c3-9b19-42db-87c9-a39c886023b6",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/summary",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                "summary"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"active\": 0,\n  \"draft\": 0,\n  \"inactive\": 0,\n  \"archived\": 0,\n  \"total\": 0\n}",
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-21f252c3-9b19-42db-87c9-a39c886023b6"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-622494ba-43a0-43aa-8abe-4461347686c8"
+                    }
+                  ],
+                  "id": "795e64c5-9f21-48d9-bdf2-1ed4bf62d3c3",
+                  "createdAt": "2026-07-28T01:11:58.000Z",
+                  "updatedAt": "2026-07-28T01:11:58.000Z",
+                  "uid": "35240-795e64c5-9f21-48d9-bdf2-1ed4bf62d3c3"
+                },
+                {
+                  "name": "validate",
+                  "item": [
+                    {
+                      "name": "Validate Policy",
+                      "id": "3d215acf-1285-4f7a-b5da-0cfa0266ff9c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_id\": \"<string>\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_policy_id\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/policies/validate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "policies",
+                            "validate"
+                          ]
+                        },
+                        "description": "Validate a policy before creation or update.\nChecks for duplicate names and overlapping MCP server/agent combinations.\nWhen exclude_policy_id is provided (edit mode), that policy is excluded from validation."
+                      },
+                      "response": [
+                        {
+                          "id": "590aa2d2-c6b6-471f-acf2-d53e3cbdb154",
+                          "name": "Successful Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_id\": \"<string>\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_policy_id\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                "validate"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name_is_unique\": \"<boolean>\",\n  \"no_overlap_if_active\": \"<boolean>\",\n  \"overlapping_policy_names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-590aa2d2-c6b6-471f-acf2-d53e3cbdb154"
+                        },
+                        {
+                          "id": "9e65008a-b65e-4312-93d0-e4b3c39b392a",
+                          "name": "Validation Error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_id\": \"<string>\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_policy_id\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/policies/validate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "policies",
+                                "validate"
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-9e65008a-b65e-4312-93d0-e4b3c39b392a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-3d215acf-1285-4f7a-b5da-0cfa0266ff9c"
+                    }
+                  ],
+                  "id": "f7c3a76f-e519-4f9f-80c9-727a80ca4ad8",
+                  "createdAt": "2026-07-28T01:11:58.000Z",
+                  "updatedAt": "2026-07-28T01:11:58.000Z",
+                  "uid": "35240-f7c3a76f-e519-4f9f-80c9-727a80ca4ad8"
+                },
+                {
+                  "name": "List Policies",
+                  "id": "9e0c585a-44fa-421b-be06-c321eae9140a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/policies?search=<string>&status=<string>&status=<string>&mcp_server_id=<string>&mcp_server_id=<string>&agent_id=<string>&agent_id=<string>&page=1&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "policies"
+                      ],
+                      "query": [
+                        {
+                          "description": "Search by policy ID, name, description, or support contact",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by status values",
+                          "key": "status",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by status values",
+                          "key": "status",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by MCP server IDs",
+                          "key": "mcp_server_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by MCP server IDs",
+                          "key": "mcp_server_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by agent/application IDs",
+                          "key": "agent_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by agent/application IDs",
+                          "key": "agent_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Page number (1-based)",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of items per page (max 100)",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "0101a8eb-7a1d-49d5-85f9-ef1ac967e08f",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/policies?search=<string>&status=<string>&mcp_server_id=<string>&agent_id=<string>&page=1&limit=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "policies"
+                          ],
+                          "query": [
+                            {
+                              "description": "Search by policy ID, name, description, or support contact",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by status values",
+                              "key": "status",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by MCP server IDs",
+                              "key": "mcp_server_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by agent/application IDs",
+                              "key": "agent_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Page number (1-based)",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Number of items per page (max 100)",
+                              "key": "limit",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"status\": \"<string>\",\n      \"mcp_server_id\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"updated_by_user_id\": \"<string>\",\n      \"mcp_server_name\": \"<string>\",\n      \"application_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"application_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"updated_by_user_name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rules_count\": 0\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"status\": \"<string>\",\n      \"mcp_server_id\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"updated_by_user_id\": \"<string>\",\n      \"mcp_server_name\": \"<string>\",\n      \"application_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"application_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"updated_by_user_name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"rules_count\": 0\n    }\n  ],\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"pages\": \"<integer>\",\n    \"previous_page\": \"<integer>\",\n    \"next_page\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-0101a8eb-7a1d-49d5-85f9-ef1ac967e08f"
+                    },
+                    {
+                      "id": "614a7e44-9c54-4b94-9f03-7459f85bb1cd",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/policies?search=<string>&status=<string>&mcp_server_id=<string>&agent_id=<string>&page=1&limit=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "policies"
+                          ],
+                          "query": [
+                            {
+                              "description": "Search by policy ID, name, description, or support contact",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by status values",
+                              "key": "status",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by MCP server IDs",
+                              "key": "mcp_server_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by agent/application IDs",
+                              "key": "agent_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Page number (1-based)",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Number of items per page (max 100)",
+                              "key": "limit",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-614a7e44-9c54-4b94-9f03-7459f85bb1cd"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:11:58.000Z",
+                  "updatedAt": "2026-07-28T01:11:58.000Z",
+                  "uid": "35240-9e0c585a-44fa-421b-be06-c321eae9140a"
+                }
+              ],
+              "id": "c3c80906-3bac-4c84-87b7-0114a5cda1af",
+              "createdAt": "2026-07-28T01:11:58.000Z",
+              "updatedAt": "2026-07-28T01:11:58.000Z",
+              "uid": "35240-c3c80906-3bac-4c84-87b7-0114a5cda1af"
+            }
+          ],
+          "id": "6622f78d-74d7-43ed-b79f-763796b867e6",
+          "createdAt": "2026-07-28T01:11:58.000Z",
+          "updatedAt": "2026-07-28T01:11:58.000Z",
+          "uid": "35240-6622f78d-74d7-43ed-b79f-763796b867e6"
+        },
+        {
+          "name": "policies",
+          "item": [
+            {
+              "name": "restrictions",
+              "item": [
+                {
+                  "name": "disable",
+                  "item": [
+                    {
+                      "name": "{restriction_name}",
+                      "item": [
+                        {
+                          "name": "Disable Restriction",
+                          "id": "cd85dcf1-aa32-419e-a05f-915ff53732e5",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/policies/restrictions/disable/:restriction_name?id=<string>&id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "policies",
+                                "restrictions",
+                                "disable",
+                                ":restriction_name"
+                              ],
+                              "query": [
+                                {
+                                  "key": "id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3cff4628-e759-4f26-af18-cd6bca2b94d7",
+                                  "key": "restriction_name",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "a5dc8624-36f2-41fa-8ac1-48c6bf616bec",
+                              "name": "Successful Response",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/policies/restrictions/disable/:restriction_name?id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "policies",
+                                    "restrictions",
+                                    "disable",
+                                    ":restriction_name"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "restriction_name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{}",
+                              "createdAt": "2026-07-28T01:11:58.000Z",
+                              "updatedAt": "2026-07-28T01:11:58.000Z",
+                              "uid": "35240-a5dc8624-36f2-41fa-8ac1-48c6bf616bec"
+                            },
+                            {
+                              "id": "7233f4fe-92a3-4b9a-9745-76ddc8cb247b",
+                              "name": "Validation Error",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/policies/restrictions/disable/:restriction_name?id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "policies",
+                                    "restrictions",
+                                    "disable",
+                                    ":restriction_name"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "restriction_name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:11:58.000Z",
+                              "updatedAt": "2026-07-28T01:11:58.000Z",
+                              "uid": "35240-7233f4fe-92a3-4b9a-9745-76ddc8cb247b"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-cd85dcf1-aa32-419e-a05f-915ff53732e5"
+                        }
+                      ],
+                      "id": "3a949488-9302-403b-92fa-60e4a57454b8",
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-3a949488-9302-403b-92fa-60e4a57454b8"
+                    }
+                  ],
+                  "id": "ecf53515-01b0-4f82-960c-4f8b28df0f0e",
+                  "createdAt": "2026-07-28T01:11:58.000Z",
+                  "updatedAt": "2026-07-28T01:11:58.000Z",
+                  "uid": "35240-ecf53515-01b0-4f82-960c-4f8b28df0f0e"
+                },
+                {
+                  "name": "enable",
+                  "item": [
+                    {
+                      "name": "{restriction_name}",
+                      "item": [
+                        {
+                          "name": "Enable Restriction",
+                          "id": "01757b9a-7961-44a6-af18-3a6e28e66c0e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/policies/restrictions/enable/:restriction_name?id=<string>&id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "policies",
+                                "restrictions",
+                                "enable",
+                                ":restriction_name"
+                              ],
+                              "query": [
+                                {
+                                  "key": "id",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ac5b0bec-8a57-4763-b3f9-95802256726b",
+                                  "key": "restriction_name",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "94d2f114-1569-4edc-91d5-61460d0ffa87",
+                              "name": "Successful Response",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/policies/restrictions/enable/:restriction_name?id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "policies",
+                                    "restrictions",
+                                    "enable",
+                                    ":restriction_name"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "restriction_name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{}",
+                              "createdAt": "2026-07-28T01:11:58.000Z",
+                              "updatedAt": "2026-07-28T01:11:58.000Z",
+                              "uid": "35240-94d2f114-1569-4edc-91d5-61460d0ffa87"
+                            },
+                            {
+                              "id": "dec38d03-b548-45bf-a921-fd096a4d711f",
+                              "name": "Validation Error",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/policies/restrictions/enable/:restriction_name?id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "policies",
+                                    "restrictions",
+                                    "enable",
+                                    ":restriction_name"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "restriction_name"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T01:11:58.000Z",
+                              "updatedAt": "2026-07-28T01:11:58.000Z",
+                              "uid": "35240-dec38d03-b548-45bf-a921-fd096a4d711f"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:11:58.000Z",
+                          "updatedAt": "2026-07-28T01:11:58.000Z",
+                          "uid": "35240-01757b9a-7961-44a6-af18-3a6e28e66c0e"
+                        }
+                      ],
+                      "id": "5ee8481c-a5e6-4b68-af11-74c41aa10e79",
+                      "createdAt": "2026-07-28T01:11:58.000Z",
+                      "updatedAt": "2026-07-28T01:11:58.000Z",
+                      "uid": "35240-5ee8481c-a5e6-4b68-af11-74c41aa10e79"
+                    }
+                  ],
+                  "id": "f0045686-2189-49b1-9c0f-17b0759a965c",
+                  "createdAt": "2026-07-28T01:11:58.000Z",
+                  "updatedAt": "2026-07-28T01:11:58.000Z",
+                  "uid": "35240-f0045686-2189-49b1-9c0f-17b0759a965c"
+                }
+              ],
+              "id": "d57fc36c-020b-4d18-b758-4eccdd1d7af8",
+              "createdAt": "2026-07-28T01:11:58.000Z",
+              "updatedAt": "2026-07-28T01:11:58.000Z",
+              "uid": "35240-d57fc36c-020b-4d18-b758-4eccdd1d7af8"
+            }
+          ],
+          "id": "518f528e-9d1c-42de-a5fe-fcfae894db00",
+          "createdAt": "2026-07-28T01:11:58.000Z",
+          "updatedAt": "2026-07-28T01:11:58.000Z",
+          "uid": "35240-518f528e-9d1c-42de-a5fe-fcfae894db00"
+        }
+      ],
+      "id": "30165acd-3af3-4428-9494-2320cbed8a49",
+      "createdAt": "2026-07-28T01:11:58.000Z",
+      "updatedAt": "2026-07-28T01:11:58.000Z",
+      "uid": "35240-30165acd-3af3-4428-9494-2320cbed8a49"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization_id",
+      "value": "your-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization_id}}.platform.barndoor.ai"
+    }
+  ]
+}

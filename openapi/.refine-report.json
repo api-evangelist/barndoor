@@ -1,0 +1,24 @@
+{
+  "provider": "barndoor",
+  "sources": [
+    "barndoor-agents-api-openapi.yml",
+    "barndoor-connections-api-openapi.yml",
+    "barndoor-mcp-proxy-api-openapi.yml",
+    "barndoor-policies-api-openapi.yml",
+    "barndoor-policy-api-openapi.yml",
+    "barndoor-servers-api-openapi.yml"
+  ],
+  "outputs": [
+    "barndoor-agents-api-openapi.yml",
+    "barndoor-connections-api-openapi.yml",
+    "barndoor-mcp-proxy-api-openapi.yml",
+    "barndoor-policies-api-openapi.yml",
+    "barndoor-policy-api-openapi.yml",
+    "barndoor-servers-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

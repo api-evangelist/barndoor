@@ -1,0 +1,901 @@
+{
+  "info": {
+    "_postman_id": "a2faeff0-f8b4-48e4-879c-b6c518ff40a2",
+    "name": "Barndoor Platform Agents Connections API",
+    "description": "REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.\n\n## Authentication\n\nAll endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.\nThe SDK handles the OAuth flow automatically using interactive login.\n\n## MCP Integration\n\nThe `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers\n(Salesforce, Notion, Slack, etc.) with automatic authentication and session management.\n\n\nContact Support:\n Name: Barndoor Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:11:55.000Z",
+    "updatedAt": "2026-07-28T01:11:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a2faeff0-f8b4-48e4-879c-b6c518ff40a2"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "servers",
+          "item": [
+            {
+              "name": "{server_id}",
+              "item": [
+                {
+                  "name": "connection",
+                  "item": [
+                    {
+                      "name": "Delete Connection",
+                      "id": "b9671bfa-0a01-4ca5-a9c1-cc8c11b89a70",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id",
+                            "connection"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9fcdd7fc-bcde-4163-9eae-7d0162403fb5",
+                              "key": "server_id",
+                              "value": "<uuid>",
+                              "description": "(Required) Server UUID"
+                            }
+                          ]
+                        },
+                        "description": "Delete the current user's connection to this server.\n\nThis will remove the connection record and clean up any stored OAuth credentials.\nThe user will need to reconnect to use this server again.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "d230257d-7d66-4fd9-ad92-5c2c9c7bb2f4",
+                          "name": "Connection deleted successfully",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connection"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-d230257d-7d66-4fd9-ad92-5c2c9c7bb2f4"
+                        },
+                        {
+                          "id": "2a68c829-9287-4309-a6c8-f03f65f891c8",
+                          "name": "Unauthorized - invalid or missing JWT token",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connection"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"pariatur_2a\": 7004739,\n    \"veniam_f\": \"labor\",\n    \"consecteture\": true,\n    \"voluptate0\": 14415881\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-2a68c829-9287-4309-a6c8-f03f65f891c8"
+                        },
+                        {
+                          "id": "7f4cb962-97df-4f07-9a7e-31349bf48946",
+                          "name": "Connection not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connection"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"pariatur_2a\": 7004739,\n    \"veniam_f\": \"labor\",\n    \"consecteture\": true,\n    \"voluptate0\": 14415881\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-7f4cb962-97df-4f07-9a7e-31349bf48946"
+                        },
+                        {
+                          "id": "8ea07a25-90d8-4d42-bdf2-5182486b8fdb",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connection"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"pariatur_2a\": 7004739,\n    \"veniam_f\": \"labor\",\n    \"consecteture\": true,\n    \"voluptate0\": 14415881\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-8ea07a25-90d8-4d42-bdf2-5182486b8fdb"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:11:56.000Z",
+                      "updatedAt": "2026-07-28T01:11:56.000Z",
+                      "uid": "35240-b9671bfa-0a01-4ca5-a9c1-cc8c11b89a70"
+                    },
+                    {
+                      "name": "Get Connection Status",
+                      "id": "1a84b32a-0f30-4313-a25d-446f154c07ac",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id",
+                            "connection"
+                          ],
+                          "variable": [
+                            {
+                              "id": "8bb77c6d-abca-40c8-a4a8-1b98a60abcba",
+                              "key": "server_id",
+                              "value": "<uuid>",
+                              "description": "(Required) Server UUID"
+                            }
+                          ]
+                        },
+                        "description": "Get the user's connection status for a specific server.\nUsed to poll connection status during OAuth flows.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "c61a4031-90d1-4b39-8553-0b633a6781e4",
+                          "name": "Connection status",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connection"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"error\"\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-c61a4031-90d1-4b39-8553-0b633a6781e4"
+                        },
+                        {
+                          "id": "10dd1bc0-6b9c-4c39-ad69-3ce1273a781e",
+                          "name": "Unauthorized - invalid or missing JWT token",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connection"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"pariatur_2a\": 7004739,\n    \"veniam_f\": \"labor\",\n    \"consecteture\": true,\n    \"voluptate0\": 14415881\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-10dd1bc0-6b9c-4c39-ad69-3ce1273a781e"
+                        },
+                        {
+                          "id": "bf1c5eac-f6f9-4bcb-bcd0-b69362275805",
+                          "name": "Server not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connection"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"pariatur_2a\": 7004739,\n    \"veniam_f\": \"labor\",\n    \"consecteture\": true,\n    \"voluptate0\": 14415881\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-bf1c5eac-f6f9-4bcb-bcd0-b69362275805"
+                        },
+                        {
+                          "id": "7096b6c7-b540-43af-9c3b-254a2e2ef013",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connection",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connection"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"pariatur_2a\": 7004739,\n    \"veniam_f\": \"labor\",\n    \"consecteture\": true,\n    \"voluptate0\": 14415881\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-7096b6c7-b540-43af-9c3b-254a2e2ef013"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:11:56.000Z",
+                      "updatedAt": "2026-07-28T01:11:56.000Z",
+                      "uid": "35240-1a84b32a-0f30-4313-a25d-446f154c07ac"
+                    }
+                  ],
+                  "id": "11e291f0-5f13-484d-b2b1-94da76929895",
+                  "createdAt": "2026-07-28T01:11:56.000Z",
+                  "updatedAt": "2026-07-28T01:11:56.000Z",
+                  "uid": "35240-11e291f0-5f13-484d-b2b1-94da76929895"
+                },
+                {
+                  "name": "connect",
+                  "item": [
+                    {
+                      "name": "Initiate OAuth Connection",
+                      "id": "a3791eef-2346-44b3-92ab-8a833222cf12",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id/connect?return_url=<uri>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id",
+                            "connect"
+                          ],
+                          "query": [
+                            {
+                              "description": "Optional return URL after OAuth completion",
+                              "key": "return_url",
+                              "value": "<uri>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "0e374ee7-ac53-42f2-a3e5-0d268cde1e2c",
+                              "key": "server_id",
+                              "value": "<uuid>",
+                              "description": "(Required) Server UUID"
+                            }
+                          ]
+                        },
+                        "description": "Initiate OAuth connection flow for a server. Returns an authorization URL\nthat the user should visit to complete the OAuth flow.\n\nThe server must have OAuth configuration set up by an admin.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "c34cde32-c024-4e40-a802-196436bf69e3",
+                          "name": "Connection initiation successful",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connect?return_url=<uri>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connect"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional return URL after OAuth completion",
+                                  "key": "return_url",
+                                  "value": "<uri>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"auth_url\": \"<uri>\"\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-c34cde32-c024-4e40-a802-196436bf69e3"
+                        },
+                        {
+                          "id": "b251150f-9a41-49b7-b4b8-62d36540b517",
+                          "name": "Unauthorized - invalid or missing JWT token",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connect?return_url=<uri>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connect"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional return URL after OAuth completion",
+                                  "key": "return_url",
+                                  "value": "<uri>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"pariatur_2a\": 7004739,\n    \"veniam_f\": \"labor\",\n    \"consecteture\": true,\n    \"voluptate0\": 14415881\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-b251150f-9a41-49b7-b4b8-62d36540b517"
+                        },
+                        {
+                          "id": "5d8ffb6f-ad43-432d-9925-6a4a37071109",
+                          "name": "Server not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connect?return_url=<uri>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connect"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional return URL after OAuth completion",
+                                  "key": "return_url",
+                                  "value": "<uri>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"pariatur_2a\": 7004739,\n    \"veniam_f\": \"labor\",\n    \"consecteture\": true,\n    \"voluptate0\": 14415881\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-5d8ffb6f-ad43-432d-9925-6a4a37071109"
+                        },
+                        {
+                          "id": "e1006e4b-54c1-45e5-bd3d-6cbc5d7ef2f5",
+                          "name": "Server missing OAuth configuration or other error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/servers/:server_id/connect?return_url=<uri>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "servers",
+                                ":server_id",
+                                "connect"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optional return URL after OAuth completion",
+                                  "key": "return_url",
+                                  "value": "<uri>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "server_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"pariatur_2a\": 7004739,\n    \"veniam_f\": \"labor\",\n    \"consecteture\": true,\n    \"voluptate0\": 14415881\n  }\n}",
+                          "createdAt": "2026-07-28T01:11:56.000Z",
+                          "updatedAt": "2026-07-28T01:11:56.000Z",
+                          "uid": "35240-e1006e4b-54c1-45e5-bd3d-6cbc5d7ef2f5"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:11:56.000Z",
+                      "updatedAt": "2026-07-28T01:11:56.000Z",
+                      "uid": "35240-a3791eef-2346-44b3-92ab-8a833222cf12"
+                    }
+                  ],
+                  "id": "e49b2fe0-3845-4994-aad6-203e0d438762",
+                  "createdAt": "2026-07-28T01:11:56.000Z",
+                  "updatedAt": "2026-07-28T01:11:56.000Z",
+                  "uid": "35240-e49b2fe0-3845-4994-aad6-203e0d438762"
+                }
+              ],
+              "id": "e79e7317-5285-4bc6-b7c2-4fc07f003850",
+              "createdAt": "2026-07-28T01:11:56.000Z",
+              "updatedAt": "2026-07-28T01:11:56.000Z",
+              "uid": "35240-e79e7317-5285-4bc6-b7c2-4fc07f003850"
+            }
+          ],
+          "id": "4281a935-930e-4316-9fb6-c07c396fbad2",
+          "createdAt": "2026-07-28T01:11:56.000Z",
+          "updatedAt": "2026-07-28T01:11:56.000Z",
+          "uid": "35240-4281a935-930e-4316-9fb6-c07c396fbad2"
+        }
+      ],
+      "id": "623f8072-2e1d-4a2a-b6fb-9d9f0afd5529",
+      "createdAt": "2026-07-28T01:11:56.000Z",
+      "updatedAt": "2026-07-28T01:11:56.000Z",
+      "uid": "35240-623f8072-2e1d-4a2a-b6fb-9d9f0afd5529"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization_id",
+      "value": "your-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization_id}}.platform.barndoor.ai"
+    }
+  ]
+}

@@ -1,0 +1,992 @@
+{
+  "info": {
+    "_postman_id": "ecb848ab-1db0-4dbf-acd1-b6e5dac4fd5e",
+    "name": "Barndoor Platform Agents MCP Proxy API",
+    "description": "REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.\n\n## Authentication\n\nAll endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.\nThe SDK handles the OAuth flow automatically using interactive login.\n\n## MCP Integration\n\nThe `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers\n(Salesforce, Notion, Slack, etc.) with automatic authentication and session management.\n\n\nContact Support:\n Name: Barndoor Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:11:56.000Z",
+    "updatedAt": "2026-07-28T01:11:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ecb848ab-1db0-4dbf-acd1-b6e5dac4fd5e"
+  },
+  "item": [
+    {
+      "name": "mcp",
+      "item": [
+        {
+          "name": "{mcp_server_name}",
+          "item": [
+            {
+              "name": "MCP Server Proxy Endpoint",
+              "id": "1aec873d-ee10-4d75-a98a-0690cc7d4c5f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"<string>\",\n  \"params\": {\n    \"laboris_6\": -73239184,\n    \"laborum94e\": -2337558.7022268325,\n    \"quis_876\": \"in esse ipsum velit\"\n  },\n  \"id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mcp/:mcp_server_name",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mcp",
+                    ":mcp_server_name"
+                  ],
+                  "variable": [
+                    {
+                      "id": "237deb3d-5413-41ca-8315-332554ed5f4a",
+                      "key": "mcp_server_name",
+                      "value": "xgvp",
+                      "description": "(Required) MCP server name identifier"
+                    }
+                  ]
+                },
+                "description": "Proxies MCP JSON-RPC requests to third-party servers with automatic authentication.\n\nThis endpoint supports both regular HTTP requests and Server-Sent Events (SSE) streaming\nfor real-time MCP protocol communication.\n\n## Usage\n\n- **JSON-RPC**: Send MCP protocol requests as JSON\n- **SSE Streaming**: Use `Accept: text/event-stream` for real-time communication\n- **Session Management**: Include `x-mcp-session-id` header for session tracking\n\n## Authentication Flow\n\n1. User must first connect to the server via `/api/servers/{server_id}/connect`\n2. Complete OAuth flow for the third-party service\n3. Use this endpoint to proxy MCP requests with automatic credential injection\n"
+              },
+              "response": [
+                {
+                  "id": "ca477c5b-9ffe-4564-a7ae-3d945aea5f6a",
+                  "name": "MCP response or SSE stream",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"<string>\",\n  \"params\": {\n    \"laboris_6\": -73239184,\n    \"laborum94e\": -2337558.7022268325,\n    \"quis_876\": \"in esse ipsum velit\"\n  },\n  \"id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"<string>\",\n  \"result\": {\n    \"ametd\": -77970596\n  },\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"data\": {\n      \"anim_161\": -46827514\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-ca477c5b-9ffe-4564-a7ae-3d945aea5f6a"
+                },
+                {
+                  "id": "b93cab60-fb92-438a-8735-c4ddb5f3caa3",
+                  "name": "Unauthorized - invalid or missing JWT token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"<string>\",\n  \"params\": {\n    \"laboris_6\": -73239184,\n    \"laborum94e\": -2337558.7022268325,\n    \"quis_876\": \"in esse ipsum velit\"\n  },\n  \"id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-b93cab60-fb92-438a-8735-c4ddb5f3caa3"
+                },
+                {
+                  "id": "664b9672-3344-43e0-af67-ac0b9d4888ce",
+                  "name": "Forbidden - server not connected or access denied",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"<string>\",\n  \"params\": {\n    \"laboris_6\": -73239184,\n    \"laborum94e\": -2337558.7022268325,\n    \"quis_876\": \"in esse ipsum velit\"\n  },\n  \"id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-664b9672-3344-43e0-af67-ac0b9d4888ce"
+                },
+                {
+                  "id": "a4e556b8-4149-43c7-a12d-4b852fc27312",
+                  "name": "Server not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"<string>\",\n  \"params\": {\n    \"laboris_6\": -73239184,\n    \"laborum94e\": -2337558.7022268325,\n    \"quis_876\": \"in esse ipsum velit\"\n  },\n  \"id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-a4e556b8-4149-43c7-a12d-4b852fc27312"
+                },
+                {
+                  "id": "4ea6d76d-f6ee-422c-9ccb-361f455c84a3",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"<string>\",\n  \"params\": {\n    \"laboris_6\": -73239184,\n    \"laborum94e\": -2337558.7022268325,\n    \"quis_876\": \"in esse ipsum velit\"\n  },\n  \"id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-4ea6d76d-f6ee-422c-9ccb-361f455c84a3"
+                },
+                {
+                  "id": "363cf5bf-49e1-42e9-b48e-266226e75d14",
+                  "name": "Bad Gateway - upstream server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"<string>\",\n  \"params\": {\n    \"laboris_6\": -73239184,\n    \"laborum94e\": -2337558.7022268325,\n    \"quis_876\": \"in esse ipsum velit\"\n  },\n  \"id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/mcp/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "mcp",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Gateway",
+                  "code": 502,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-363cf5bf-49e1-42e9-b48e-266226e75d14"
+                }
+              ],
+              "createdAt": "2026-07-28T01:11:57.000Z",
+              "updatedAt": "2026-07-28T01:11:57.000Z",
+              "uid": "35240-1aec873d-ee10-4d75-a98a-0690cc7d4c5f"
+            }
+          ],
+          "id": "83a3eb51-6ca2-41c0-a279-b6ef5052bc10",
+          "createdAt": "2026-07-28T01:11:57.000Z",
+          "updatedAt": "2026-07-28T01:11:57.000Z",
+          "uid": "35240-83a3eb51-6ca2-41c0-a279-b6ef5052bc10"
+        }
+      ],
+      "id": "30d6b437-1107-4b73-b441-49b55b5473b8",
+      "createdAt": "2026-07-28T01:11:57.000Z",
+      "updatedAt": "2026-07-28T01:11:57.000Z",
+      "uid": "35240-30d6b437-1107-4b73-b441-49b55b5473b8"
+    },
+    {
+      "name": "sse",
+      "item": [
+        {
+          "name": "{mcp_server_name}",
+          "item": [
+            {
+              "name": "SSE Server Proxy Endpoint",
+              "id": "8d9be2e1-4761-46cd-a132-a87fb541d656",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"et_89\": -61438618\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sse/:mcp_server_name",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sse",
+                    ":mcp_server_name"
+                  ],
+                  "variable": [
+                    {
+                      "id": "aac643d5-c079-4fef-87eb-60f8b0e97ea8",
+                      "key": "mcp_server_name",
+                      "value": "xgvp",
+                      "description": "(Required) MCP server name identifier"
+                    }
+                  ]
+                },
+                "description": "Server-Sent Events proxy endpoint for real-time streaming communication with third-party servers.\n\nThis endpoint provides dedicated SSE streaming capabilities separate from the MCP protocol,\nallowing for custom event streaming and real-time data flows.\n\n## Usage\n\n- **SSE Streaming**: Optimized for `text/event-stream` communication\n- **Real-time Events**: Custom event types and data streaming\n- **Session Management**: Include `x-mcp-session-id` header for session tracking\n\n## Authentication Flow\n\n1. User must first connect to the server via `/api/servers/{server_id}/connect`\n2. Complete OAuth flow for the third-party service\n3. Use this endpoint for real-time event streaming with automatic credential injection\n"
+              },
+              "response": [
+                {
+                  "id": "17947351-9c9a-4ac9-8a8f-c8582882e136",
+                  "name": "SSE event stream",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/event-stream"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"et_89\": -61438618\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sse/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sse",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-17947351-9c9a-4ac9-8a8f-c8582882e136"
+                },
+                {
+                  "id": "fef0811b-ac15-462a-8264-ba3976c8e0c8",
+                  "name": "Unauthorized - invalid or missing JWT token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"et_89\": -61438618\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sse/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sse",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-fef0811b-ac15-462a-8264-ba3976c8e0c8"
+                },
+                {
+                  "id": "0d769b6e-58a7-4c5f-8c33-3a6cfe8acc78",
+                  "name": "Forbidden - server not connected or access denied",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"et_89\": -61438618\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sse/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sse",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-0d769b6e-58a7-4c5f-8c33-3a6cfe8acc78"
+                },
+                {
+                  "id": "f8e551fc-713d-4ebc-a4ea-7f6e608fc4e7",
+                  "name": "Server not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"et_89\": -61438618\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sse/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sse",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-f8e551fc-713d-4ebc-a4ea-7f6e608fc4e7"
+                },
+                {
+                  "id": "a42a24cf-cde9-4062-8d63-b38e689ec578",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"et_89\": -61438618\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sse/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sse",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-a42a24cf-cde9-4062-8d63-b38e689ec578"
+                },
+                {
+                  "id": "ef4dfa69-df32-474c-9b83-06300d2c67d6",
+                  "name": "Bad Gateway - upstream server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "MCP session identifier for request tracking",
+                        "key": "x-mcp-session-id",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"et_89\": -61438618\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sse/:mcp_server_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sse",
+                        ":mcp_server_name"
+                      ],
+                      "variable": [
+                        {
+                          "key": "mcp_server_name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Gateway",
+                  "code": 502,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"aliqua25d\": \"eiusmod\",\n    \"eu9\": -99827757,\n    \"dolore_0ca\": 60765858\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:57.000Z",
+                  "updatedAt": "2026-07-28T01:11:57.000Z",
+                  "uid": "35240-ef4dfa69-df32-474c-9b83-06300d2c67d6"
+                }
+              ],
+              "createdAt": "2026-07-28T01:11:57.000Z",
+              "updatedAt": "2026-07-28T01:11:57.000Z",
+              "uid": "35240-8d9be2e1-4761-46cd-a132-a87fb541d656"
+            }
+          ],
+          "id": "dac89ed5-cbf7-4403-a8cc-6d3d5e98400f",
+          "createdAt": "2026-07-28T01:11:57.000Z",
+          "updatedAt": "2026-07-28T01:11:57.000Z",
+          "uid": "35240-dac89ed5-cbf7-4403-a8cc-6d3d5e98400f"
+        }
+      ],
+      "id": "02e5067a-ccf0-4761-a3b7-7e938de42c11",
+      "createdAt": "2026-07-28T01:11:57.000Z",
+      "updatedAt": "2026-07-28T01:11:57.000Z",
+      "uid": "35240-02e5067a-ccf0-4761-a3b7-7e938de42c11"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization_id",
+      "value": "your-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization_id}}.platform.barndoor.ai"
+    }
+  ]
+}

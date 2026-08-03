@@ -1,0 +1,1399 @@
+{
+  "info": {
+    "_postman_id": "571312dd-88e5-458b-ac71-f5962dff47b8",
+    "name": "Barndoor Platform Agents Servers API",
+    "description": "REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.\n\n## Authentication\n\nAll endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.\nThe SDK handles the OAuth flow automatically using interactive login.\n\n## MCP Integration\n\nThe `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers\n(Salesforce, Notion, Slack, etc.) with automatic authentication and session management.\n\n\nContact Support:\n Name: Barndoor Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:11:59.000Z",
+    "updatedAt": "2026-07-28T01:11:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-571312dd-88e5-458b-ac71-f5962dff47b8"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "servers",
+          "item": [
+            {
+              "name": "{server_id}",
+              "item": [
+                {
+                  "name": "Delete MCP Server",
+                  "id": "ef230f8b-e503-4582-9caf-0bca33585b09",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers/:server_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers",
+                        ":server_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fc6d7270-dcd0-46a1-9f25-5aca472e8fb8",
+                          "key": "server_id",
+                          "value": "<uuid>",
+                          "description": "(Required) Server UUID"
+                        }
+                      ]
+                    },
+                    "description": "Delete an MCP server and all associated connections.\n\nThis will:\n- Remove all user connections to this server\n- Clean up stored OAuth credentials\n- Delete the server configuration\n\nFor custom server types, this will also delete the associated server directory.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "cdd457a9-c8ce-430a-af66-9254f2937c4f",
+                      "name": "Server deleted successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"slug\": \"ri\",\n  \"connection_status\": \"error\",\n  \"provider\": \"<string>\",\n  \"url\": \"<uri>\"\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-cdd457a9-c8ce-430a-af66-9254f2937c4f"
+                    },
+                    {
+                      "id": "440d265a-6ef6-4865-a2ce-9afd30034a23",
+                      "name": "Unauthorized - invalid or missing JWT token",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-440d265a-6ef6-4865-a2ce-9afd30034a23"
+                    },
+                    {
+                      "id": "f9424fbb-4986-41a9-83f7-595eed98cb6e",
+                      "name": "Server not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-f9424fbb-4986-41a9-83f7-595eed98cb6e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-ef230f8b-e503-4582-9caf-0bca33585b09"
+                },
+                {
+                  "name": "Get Server Details",
+                  "id": "3d674088-1473-4d98-95a7-1eacbce15d7e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers/:server_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers",
+                        ":server_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fcdacaef-0243-41b0-870b-321caa38cf68",
+                          "key": "server_id",
+                          "value": "<uuid>",
+                          "description": "(Required) Server UUID"
+                        }
+                      ]
+                    },
+                    "description": "Get detailed information about a specific MCP server.\nReturns extended information including MCP URL if available.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "145c4857-4202-462d-93dc-38d08a898424",
+                      "name": "Server details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"slug\": \"ri\",\n  \"connection_status\": \"error\",\n  \"provider\": \"<string>\",\n  \"url\": \"<uri>\"\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-145c4857-4202-462d-93dc-38d08a898424"
+                    },
+                    {
+                      "id": "302b22ed-9fdd-46c0-8576-ba4d0ef15443",
+                      "name": "Unauthorized - invalid or missing JWT token",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-302b22ed-9fdd-46c0-8576-ba4d0ef15443"
+                    },
+                    {
+                      "id": "c11441dc-4866-4e38-ad1b-ff6408ec1bba",
+                      "name": "Server not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-c11441dc-4866-4e38-ad1b-ff6408ec1bba"
+                    },
+                    {
+                      "id": "7a8c9616-94cd-4b98-b450-fe5c03ea4ff2",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-7a8c9616-94cd-4b98-b450-fe5c03ea4ff2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-3d674088-1473-4d98-95a7-1eacbce15d7e"
+                },
+                {
+                  "name": "Update MCP Server",
+                  "id": "4b168f08-9f2b-4b28-b75d-25e5c9a0f4f7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"lr-3hossae\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"esse0_\": 97690265,\n    \"sit_5\": true\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers/:server_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers",
+                        ":server_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e07028fa-727a-4f85-93ff-2c33850a9cd4",
+                          "key": "server_id",
+                          "value": "<uuid>",
+                          "description": "(Required) Server UUID"
+                        }
+                      ]
+                    },
+                    "description": "Update an existing MCP server's configuration.\n\nYou can update the name, slug, OAuth credentials, and metadata.\nIf updating OAuth credentials, provide the actual values (not obfuscated).\n"
+                  },
+                  "response": [
+                    {
+                      "id": "3da1348c-c591-424a-b922-bc3cea9e9b3d",
+                      "name": "Server updated successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"lr-3hossae\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"esse0_\": 97690265,\n    \"sit_5\": true\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"slug\": \"ri\",\n  \"connection_status\": \"error\",\n  \"provider\": \"<string>\",\n  \"url\": \"<uri>\"\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-3da1348c-c591-424a-b922-bc3cea9e9b3d"
+                    },
+                    {
+                      "id": "2e658517-b03f-4c44-997a-61837e8f833b",
+                      "name": "Unauthorized - invalid or missing JWT token",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"lr-3hossae\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"esse0_\": 97690265,\n    \"sit_5\": true\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-2e658517-b03f-4c44-997a-61837e8f833b"
+                    },
+                    {
+                      "id": "a8132e59-0a91-45ac-a64d-e5392a4c500f",
+                      "name": "Server not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"lr-3hossae\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"esse0_\": 97690265,\n    \"sit_5\": true\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-a8132e59-0a91-45ac-a64d-e5392a4c500f"
+                    },
+                    {
+                      "id": "f359d103-81af-4ccd-8152-b01181ffe1b8",
+                      "name": "Conflict - slug already in use",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"lr-3hossae\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"esse0_\": 97690265,\n    \"sit_5\": true\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-f359d103-81af-4ccd-8152-b01181ffe1b8"
+                    },
+                    {
+                      "id": "dd33b200-f0f2-43b4-9cd7-e947ff5a21b3",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"slug\": \"lr-3hossae\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"esse0_\": 97690265,\n    \"sit_5\": true\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/servers/:server_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "servers",
+                            ":server_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "server_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:12:00.000Z",
+                      "updatedAt": "2026-07-28T01:12:00.000Z",
+                      "uid": "35240-dd33b200-f0f2-43b4-9cd7-e947ff5a21b3"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-4b168f08-9f2b-4b28-b75d-25e5c9a0f4f7"
+                }
+              ],
+              "id": "886ce714-2c38-4fd8-b600-6b03f3191d42",
+              "createdAt": "2026-07-28T01:12:00.000Z",
+              "updatedAt": "2026-07-28T01:12:00.000Z",
+              "uid": "35240-886ce714-2c38-4fd8-b600-6b03f3191d42"
+            },
+            {
+              "name": "Create MCP Server",
+              "id": "2d7471af-b4e0-4798-9c4a-24bdee9f7740",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_directory_id\": \"<uuid>\",\n  \"slug\": \"qsbn38z\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"in_8cc\": \"magna ut fugiat\",\n    \"sit_ee\": \"incididunt pariatur nisi non\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/servers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "servers"
+                  ]
+                },
+                "description": "Create a new MCP server instance from a server directory template.\n\nThe server will be created in `pending` status until OAuth credentials are configured.\nIf `client_id` and `client_secret` are provided, the server will be set to `active` status.\n"
+              },
+              "response": [
+                {
+                  "id": "96b34861-b697-4f3c-845d-3328a0246011",
+                  "name": "Server created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_directory_id\": \"<uuid>\",\n  \"slug\": \"qsbn38z\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"in_8cc\": \"magna ut fugiat\",\n    \"sit_ee\": \"incididunt pariatur nisi non\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"connection_id\": \"<string>\",\n  \"auth_url\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-96b34861-b697-4f3c-845d-3328a0246011"
+                },
+                {
+                  "id": "ed88101a-483b-4681-a7d8-aea8df8b2c78",
+                  "name": "Unauthorized - invalid or missing JWT token",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_directory_id\": \"<uuid>\",\n  \"slug\": \"qsbn38z\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"in_8cc\": \"magna ut fugiat\",\n    \"sit_ee\": \"incididunt pariatur nisi non\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-ed88101a-483b-4681-a7d8-aea8df8b2c78"
+                },
+                {
+                  "id": "5c3f3387-4f51-4c07-90d3-65a5aceec6f1",
+                  "name": "Server directory template not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_directory_id\": \"<uuid>\",\n  \"slug\": \"qsbn38z\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"in_8cc\": \"magna ut fugiat\",\n    \"sit_ee\": \"incididunt pariatur nisi non\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-5c3f3387-4f51-4c07-90d3-65a5aceec6f1"
+                },
+                {
+                  "id": "299c7910-f92e-4ab0-b9f1-615b7b5eff65",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_directory_id\": \"<uuid>\",\n  \"slug\": \"qsbn38z\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"meta\": {\n    \"in_8cc\": \"magna ut fugiat\",\n    \"sit_ee\": \"incididunt pariatur nisi non\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-299c7910-f92e-4ab0-b9f1-615b7b5eff65"
+                }
+              ],
+              "createdAt": "2026-07-28T01:12:00.000Z",
+              "updatedAt": "2026-07-28T01:12:00.000Z",
+              "uid": "35240-2d7471af-b4e0-4798-9c4a-24bdee9f7740"
+            },
+            {
+              "name": "List MCP Servers",
+              "id": "aeb4df19-3f4a-476b-a044-ed0fde00b20a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/servers?page=1&limit=10&search=<string>&status=active&connection_status=pending",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "servers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Page number (1-based)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of items per page (max 100)",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Search servers by name or slug",
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by server status",
+                      "key": "status",
+                      "value": "active"
+                    },
+                    {
+                      "description": "Filter by connection status. `not_connected` expands to pending, error, and available.",
+                      "key": "connection_status",
+                      "value": "pending"
+                    }
+                  ]
+                },
+                "description": "List all MCP servers available to the caller's organization.\nReturns paginated results with server details including connection status.\n"
+              },
+              "response": [
+                {
+                  "id": "6af94a9f-72d3-4e3f-9bd3-4efe9d0b54dc",
+                  "name": "Paginated list of MCP servers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers?page=1&limit=10&search=<string>&status=active&connection_status=pending",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Page number (1-based)",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of items per page (max 100)",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Search servers by name or slug",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by server status",
+                          "key": "status",
+                          "value": "active"
+                        },
+                        {
+                          "description": "Filter by connection status. `not_connected` expands to pending, error, and available.",
+                          "key": "connection_status",
+                          "value": "pending"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"ps\",\n      \"connection_status\": \"available\",\n      \"provider\": \"<string>\",\n      \"url\": \"<uri>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"any--bvm\",\n      \"connection_status\": \"connected\",\n      \"provider\": \"<string>\",\n      \"url\": \"<uri>\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"pages\": \"<integer>\",\n    \"previous_page\": \"<integer>\",\n    \"next_page\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-6af94a9f-72d3-4e3f-9bd3-4efe9d0b54dc"
+                },
+                {
+                  "id": "55ccdd74-498f-4917-8665-41c1102579b8",
+                  "name": "Unauthorized - invalid or missing JWT token",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers?page=1&limit=10&search=<string>&status=active&connection_status=pending",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Page number (1-based)",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of items per page (max 100)",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Search servers by name or slug",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by server status",
+                          "key": "status",
+                          "value": "active"
+                        },
+                        {
+                          "description": "Filter by connection status. `not_connected` expands to pending, error, and available.",
+                          "key": "connection_status",
+                          "value": "pending"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-55ccdd74-498f-4917-8665-41c1102579b8"
+                },
+                {
+                  "id": "0cd5f340-3bb9-481a-bc17-55c0c2b52efb",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/servers?page=1&limit=10&search=<string>&status=active&connection_status=pending",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "servers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Page number (1-based)",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of items per page (max 100)",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Search servers by name or slug",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by server status",
+                          "key": "status",
+                          "value": "active"
+                        },
+                        {
+                          "description": "Filter by connection status. `not_connected` expands to pending, error, and available.",
+                          "key": "connection_status",
+                          "value": "pending"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"details\": {\n    \"Ut_c\": 46672790\n  }\n}",
+                  "createdAt": "2026-07-28T01:12:00.000Z",
+                  "updatedAt": "2026-07-28T01:12:00.000Z",
+                  "uid": "35240-0cd5f340-3bb9-481a-bc17-55c0c2b52efb"
+                }
+              ],
+              "createdAt": "2026-07-28T01:12:00.000Z",
+              "updatedAt": "2026-07-28T01:12:00.000Z",
+              "uid": "35240-aeb4df19-3f4a-476b-a044-ed0fde00b20a"
+            }
+          ],
+          "id": "ed1656cd-5f76-48cd-8d37-b5de307f1dd9",
+          "createdAt": "2026-07-28T01:12:00.000Z",
+          "updatedAt": "2026-07-28T01:12:00.000Z",
+          "uid": "35240-ed1656cd-5f76-48cd-8d37-b5de307f1dd9"
+        }
+      ],
+      "id": "a3dbaa51-dc86-49f6-85e4-394562e5181b",
+      "createdAt": "2026-07-28T01:12:00.000Z",
+      "updatedAt": "2026-07-28T01:12:00.000Z",
+      "uid": "35240-a3dbaa51-dc86-49f6-85e4-394562e5181b"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization_id",
+      "value": "your-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization_id}}.platform.barndoor.ai"
+    }
+  ]
+}

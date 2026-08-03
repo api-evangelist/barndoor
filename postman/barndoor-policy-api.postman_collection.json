@@ -1,0 +1,136 @@
+{
+  "info": {
+    "_postman_id": "638431db-cc0a-402f-ab37-c2cd60644e18",
+    "name": "Barndoor Platform Agents Policy API",
+    "description": "REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.\n\n## Authentication\n\nAll endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.\nThe SDK handles the OAuth flow automatically using interactive login.\n\n## MCP Integration\n\nThe `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers\n(Salesforce, Notion, Slack, etc.) with automatic authentication and session management.\n\n\nContact Support:\n Name: Barndoor Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:11:58.000Z",
+    "updatedAt": "2026-07-28T01:11:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-638431db-cc0a-402f-ab37-c2cd60644e18"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "policy",
+          "item": [
+            {
+              "name": "Publish  Policy",
+              "id": "d7dea2ea-0716-4be4-8ae9-674a63614d5c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/policy",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "policy"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "56f34c1e-b619-4fd1-acc2-bcf3d19d8599",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/policy",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "policy"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T01:11:59.000Z",
+                  "updatedAt": "2026-07-28T01:11:59.000Z",
+                  "uid": "35240-56f34c1e-b619-4fd1-acc2-bcf3d19d8599"
+                }
+              ],
+              "createdAt": "2026-07-28T01:11:59.000Z",
+              "updatedAt": "2026-07-28T01:11:59.000Z",
+              "uid": "35240-d7dea2ea-0716-4be4-8ae9-674a63614d5c"
+            }
+          ],
+          "id": "b684fb66-07f9-4a34-8c7e-c94bda35cd63",
+          "createdAt": "2026-07-28T01:11:59.000Z",
+          "updatedAt": "2026-07-28T01:11:59.000Z",
+          "uid": "35240-b684fb66-07f9-4a34-8c7e-c94bda35cd63"
+        }
+      ],
+      "id": "cc99183a-1a2f-4300-8485-9e27338c3866",
+      "createdAt": "2026-07-28T01:11:59.000Z",
+      "updatedAt": "2026-07-28T01:11:59.000Z",
+      "uid": "35240-cc99183a-1a2f-4300-8485-9e27338c3866"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization_id",
+      "value": "your-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization_id}}.platform.barndoor.ai"
+    }
+  ]
+}

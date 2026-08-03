@@ -1,0 +1,760 @@
+{
+  "info": {
+    "_postman_id": "106b289c-1d5f-4fe3-b3d7-fe5bd33b6ad1",
+    "name": "Barndoor Platform Agents API",
+    "description": "REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.\n\n## Authentication\n\nAll endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.\nThe SDK handles the OAuth flow automatically using interactive login.\n\n## MCP Integration\n\nThe `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers\n(Salesforce, Notion, Slack, etc.) with automatic authentication and session management.\n\n\nContact Support:\n Name: Barndoor Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:11:54.000Z",
+    "updatedAt": "2026-07-28T01:11:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-106b289c-1d5f-4fe3-b3d7-fe5bd33b6ad1"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "agents",
+          "item": [
+            {
+              "name": "counts",
+              "item": [
+                {
+                  "name": "Get Agent Counts",
+                  "id": "efb1a38a-e746-48d8-bc5d-d05b68b14cc4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/agents/counts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "agents",
+                        "counts"
+                      ]
+                    },
+                    "description": "Get counts of agents grouped by type (internal vs external)."
+                  },
+                  "response": [
+                    {
+                      "id": "05fa561a-a32c-479d-afad-b57db7abebe3",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/agents/counts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "agents",
+                            "counts"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"all\": \"<integer>\",\n  \"internal\": \"<integer>\",\n  \"external\": \"<integer>\"\n}",
+                      "createdAt": "2026-07-28T01:11:55.000Z",
+                      "updatedAt": "2026-07-28T01:11:55.000Z",
+                      "uid": "35240-05fa561a-a32c-479d-afad-b57db7abebe3"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:11:55.000Z",
+                  "updatedAt": "2026-07-28T01:11:55.000Z",
+                  "uid": "35240-efb1a38a-e746-48d8-bc5d-d05b68b14cc4"
+                }
+              ],
+              "id": "08c1f4f4-a4f0-41d6-a539-0b6b8a36620d",
+              "createdAt": "2026-07-28T01:11:55.000Z",
+              "updatedAt": "2026-07-28T01:11:55.000Z",
+              "uid": "35240-08c1f4f4-a4f0-41d6-a539-0b6b8a36620d"
+            },
+            {
+              "name": "{agent_id}",
+              "item": [
+                {
+                  "name": "Unregister Agent",
+                  "id": "d069adb5-1045-487f-a9ab-f02521751e93",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "dd7670c2-779d-48ba-af2a-015d52cd73e2",
+                          "key": "agent_id",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Unregister an agent from Barndoor.\n\nThis removes the agent's registration but does not delete the underlying \napplication directory. The agent can be re-registered using the same \napplication_directory_id.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "35749fdf-0c73-479e-a71a-c573530011ad",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/agents/:agent_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "agents",
+                            ":agent_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:11:55.000Z",
+                      "updatedAt": "2026-07-28T01:11:55.000Z",
+                      "uid": "35240-35749fdf-0c73-479e-a71a-c573530011ad"
+                    },
+                    {
+                      "id": "6d22dd09-21e9-4b39-9797-41c64f005d13",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/agents/:agent_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "agents",
+                            ":agent_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:11:55.000Z",
+                      "updatedAt": "2026-07-28T01:11:55.000Z",
+                      "uid": "35240-6d22dd09-21e9-4b39-9797-41c64f005d13"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:11:55.000Z",
+                  "updatedAt": "2026-07-28T01:11:55.000Z",
+                  "uid": "35240-d069adb5-1045-487f-a9ab-f02521751e93"
+                },
+                {
+                  "name": "Get Agent",
+                  "id": "b5bb5b62-eb0a-4596-a96a-23125ed628e0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "838ecddd-7c8a-4977-b42c-9b2ae72b1698",
+                          "key": "agent_id",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Get details of a specific agent by ID, including its application directory configuration."
+                  },
+                  "response": [
+                    {
+                      "id": "fed38975-48f5-4997-88fe-175faacb69e1",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/agents/:agent_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "agents",
+                            ":agent_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"organization_id\": \"<uuid>\",\n  \"application_directory_id\": \"<uuid>\",\n  \"application_directory\": {\n    \"id\": \"<uuid>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"organization_id\": \"<uuid>\",\n    \"external_id\": \"<string>\",\n    \"public\": \"<boolean>\",\n    \"dcr\": \"<boolean>\",\n    \"post_login_success\": \"<boolean>\",\n    \"callbacks\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"agent_type\": \"internal\"\n}",
+                      "createdAt": "2026-07-28T01:11:55.000Z",
+                      "updatedAt": "2026-07-28T01:11:55.000Z",
+                      "uid": "35240-fed38975-48f5-4997-88fe-175faacb69e1"
+                    },
+                    {
+                      "id": "b5c770b5-f8ed-4b91-b1e9-e3fa99b7faa7",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/agents/:agent_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "agents",
+                            ":agent_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:11:55.000Z",
+                      "updatedAt": "2026-07-28T01:11:55.000Z",
+                      "uid": "35240-b5c770b5-f8ed-4b91-b1e9-e3fa99b7faa7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:11:55.000Z",
+                  "updatedAt": "2026-07-28T01:11:55.000Z",
+                  "uid": "35240-b5bb5b62-eb0a-4596-a96a-23125ed628e0"
+                }
+              ],
+              "id": "959f3ed0-4adf-4cd5-9af1-a6a83b94d33a",
+              "createdAt": "2026-07-28T01:11:55.000Z",
+              "updatedAt": "2026-07-28T01:11:55.000Z",
+              "uid": "35240-959f3ed0-4adf-4cd5-9af1-a6a83b94d33a"
+            },
+            {
+              "name": "List Agents",
+              "id": "e2249155-4e07-49db-a4d3-43d5a0400354",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/agents?search=<string>&agent_type=internal&page=1&limit=10",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "agents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Search applications by name or description",
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by agent type",
+                      "key": "agent_type",
+                      "value": "internal"
+                    },
+                    {
+                      "description": "Page number (1-based)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of items per page (max 100)",
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "List registered agents with pagination."
+              },
+              "response": [
+                {
+                  "id": "e59aae68-7cb3-46b9-9eba-ee9f025d2abd",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/agents?search=<string>&agent_type=internal&page=1&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "agents"
+                      ],
+                      "query": [
+                        {
+                          "description": "Search applications by name or description",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by agent type",
+                          "key": "agent_type",
+                          "value": "internal"
+                        },
+                        {
+                          "description": "Page number (1-based)",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of items per page (max 100)",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<uuid>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"organization_id\": \"<uuid>\",\n      \"application_directory_id\": \"<uuid>\",\n      \"application_directory\": {\n        \"id\": \"<uuid>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"organization_id\": \"<uuid>\",\n        \"external_id\": \"<string>\",\n        \"public\": \"<boolean>\",\n        \"dcr\": \"<boolean>\",\n        \"post_login_success\": \"<boolean>\",\n        \"callbacks\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"agent_type\": \"external\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"organization_id\": \"<uuid>\",\n      \"application_directory_id\": \"<uuid>\",\n      \"application_directory\": {\n        \"id\": \"<uuid>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\",\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"organization_id\": \"<uuid>\",\n        \"external_id\": \"<string>\",\n        \"public\": \"<boolean>\",\n        \"dcr\": \"<boolean>\",\n        \"post_login_success\": \"<boolean>\",\n        \"callbacks\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"agent_type\": \"external\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"total\": \"<integer>\",\n    \"pages\": \"<integer>\",\n    \"previous_page\": \"<integer>\",\n    \"next_page\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:11:55.000Z",
+                  "updatedAt": "2026-07-28T01:11:55.000Z",
+                  "uid": "35240-e59aae68-7cb3-46b9-9eba-ee9f025d2abd"
+                },
+                {
+                  "id": "a4e82bc4-8f7f-4f1a-8583-d613c5202468",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/agents?search=<string>&agent_type=internal&page=1&limit=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "agents"
+                      ],
+                      "query": [
+                        {
+                          "description": "Search applications by name or description",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by agent type",
+                          "key": "agent_type",
+                          "value": "internal"
+                        },
+                        {
+                          "description": "Page number (1-based)",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of items per page (max 100)",
+                          "key": "limit",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:11:55.000Z",
+                  "updatedAt": "2026-07-28T01:11:55.000Z",
+                  "uid": "35240-a4e82bc4-8f7f-4f1a-8583-d613c5202468"
+                }
+              ],
+              "createdAt": "2026-07-28T01:11:55.000Z",
+              "updatedAt": "2026-07-28T01:11:55.000Z",
+              "uid": "35240-e2249155-4e07-49db-a4d3-43d5a0400354"
+            },
+            {
+              "name": "Register Agent",
+              "id": "1a4e5f73-7d0a-4e81-a201-ec3afd301105",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"application_directory_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/agents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "agents"
+                  ]
+                },
+                "description": "Register a new agent with Barndoor.\n\nAgents represent AI applications that can access MCP servers through Barndoor.\nEach agent must be associated with an application directory (OAuth client configuration).\n"
+              },
+              "response": [
+                {
+                  "id": "b9bf7942-aaf2-4481-953a-c916994164ed",
+                  "name": "Successful Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"application_directory_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/agents",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "agents"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\",\n  \"organization_id\": \"<uuid>\",\n  \"application_directory_id\": \"<uuid>\"\n}",
+                  "createdAt": "2026-07-28T01:11:55.000Z",
+                  "updatedAt": "2026-07-28T01:11:55.000Z",
+                  "uid": "35240-b9bf7942-aaf2-4481-953a-c916994164ed"
+                },
+                {
+                  "id": "4c20ae8c-dea8-4fc4-8f95-902ff76a7fd5",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"application_directory_id\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/agents",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "agents"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\",\n      \"input\": {\n        \"title\": \"Input\"\n      },\n      \"ctx\": {}\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:11:55.000Z",
+                  "updatedAt": "2026-07-28T01:11:55.000Z",
+                  "uid": "35240-4c20ae8c-dea8-4fc4-8f95-902ff76a7fd5"
+                }
+              ],
+              "createdAt": "2026-07-28T01:11:55.000Z",
+              "updatedAt": "2026-07-28T01:11:55.000Z",
+              "uid": "35240-1a4e5f73-7d0a-4e81-a201-ec3afd301105"
+            }
+          ],
+          "id": "eeaa5a8d-0df0-49c9-b3ea-71b9ee6c0d12",
+          "createdAt": "2026-07-28T01:11:55.000Z",
+          "updatedAt": "2026-07-28T01:11:55.000Z",
+          "uid": "35240-eeaa5a8d-0df0-49c9-b3ea-71b9ee6c0d12"
+        }
+      ],
+      "id": "b729b666-cdf0-4084-93a7-7c0d7837d796",
+      "createdAt": "2026-07-28T01:11:55.000Z",
+      "updatedAt": "2026-07-28T01:11:55.000Z",
+      "uid": "35240-b729b666-cdf0-4084-93a7-7c0d7837d796"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organization_id",
+      "value": "your-org"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{organization_id}}.platform.barndoor.ai"
+    }
+  ]
+}
