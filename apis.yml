@@ -248,6 +248,15 @@ apis:
   - type: SDKs
     url: https://docs.barndoor.ai/sdks/introduction
 common:
+  - type: Releases
+    url: https://github.com/barndoor-ai/barndoor-python-sdk/releases
+  - type: SecurityPolicy
+    url: https://github.com/barndoor-ai/barndoor-python-sdk/blob/main/SECURITY.md
+  - type: ContributionGuide
+    url: https://github.com/barndoor-ai/barndoor-python-sdk/blob/main/CONTRIBUTING.md
+  - type: License
+    name: MIT
+    url: https://github.com/barndoor-ai/barndoor-python-sdk/blob/main/LICENSE
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/barndoor/overview
   - type: AgenticAccess
@@ -272,7 +281,7 @@ common:
     url: https://docs.barndoor.ai/api-reference/introduction
     name: Barndoor API Reference
   - type: OpenAPI
-    url: openapi/barndoor-openapi.yml
+    url: openapi/_original/barndoor-openapi.yml
     name: Barndoor Platform API OpenAPI
   - type: Authentication
     url: https://docs.barndoor.ai/api-reference/introduction
