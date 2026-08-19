@@ -1,0 +1,1052 @@
+{
+  "item": [
+    {
+      "id": "358dde48-a945-4648-bbf6-dd10f33c8372",
+      "name": "MCP Proxy",
+      "description": {
+        "content": "Proxy requests to MCP servers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f8d5a38f-d013-43ca-9b39-c6812479b341",
+          "name": "MCP Server Proxy Endpoint",
+          "request": {
+            "name": "MCP Server Proxy Endpoint",
+            "description": {
+              "content": "Proxies MCP JSON-RPC requests to third-party servers with automatic authentication.\n\nThis endpoint supports both regular HTTP requests and Server-Sent Events (SSE) streaming\nfor real-time MCP protocol communication.\n\n## Usage\n\n- **JSON-RPC**: Send MCP protocol requests as JSON\n- **SSE Streaming**: Use `Accept: text/event-stream` for real-time communication\n- **Session Management**: Include `x-mcp-session-id` header for session tracking\n\n## Authentication Flow\n\n1. User must first connect to the server via `/api/servers/{server_id}/connect`\n2. Complete OAuth flow for the third-party service\n3. Use this endpoint to proxy MCP requests with automatic credential injection\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mcp",
+                ":mcp_server_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcp_server_name",
+                  "description": "(Required) MCP server name identifier"
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "MCP session identifier for request tracking",
+                "key": "x-mcp-session-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"method\": \"<string>\",\n  \"params\": {\n    \"key_0\": 7063.484852066808\n  },\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e1ab97e-65ae-4e43-b986-c921bae3ff55",
+              "name": "MCP response or SSE stream",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"method\": \"tools/list\",\n  \"params\": {\n    \"key_0\": \"string\"\n  },\n  \"id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": \"string\",\n  \"result\": {\n    \"key_0\": false,\n    \"key_1\": 5025\n  },\n  \"error\": {\n    \"code\": 4575,\n    \"message\": \"string\",\n    \"data\": {\n      \"key_0\": 3393,\n      \"key_1\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f736e24f-974c-4191-ae74-2c4979f65ff7",
+              "name": "Unauthorized - invalid or missing JWT token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"method\": \"tools/list\",\n  \"params\": {\n    \"key_0\": \"string\"\n  },\n  \"id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ServerNotFound\",\n  \"message\": \"Server with ID '123' not found\",\n  \"details\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5778.996522555585\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfc4d70c-127d-4d94-b6f4-ad7da8c34dea",
+              "name": "Forbidden - server not connected or access denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"method\": \"tools/list\",\n  \"params\": {\n    \"key_0\": \"string\"\n  },\n  \"id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ServerNotConnected\",\n  \"message\": \"Server 'salesforce' is not connected. Please initiate connection first.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20c8e8c9-eb58-489b-8b06-3b4b3886b849",
+              "name": "Server not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"method\": \"tools/list\",\n  \"params\": {\n    \"key_0\": \"string\"\n  },\n  \"id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ServerNotFound\",\n  \"message\": \"Server with ID '123' not found\",\n  \"details\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5778.996522555585\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18226ec5-9a7c-439b-8165-e027546c9b98",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"method\": \"tools/list\",\n  \"params\": {\n    \"key_0\": \"string\"\n  },\n  \"id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ServerNotFound\",\n  \"message\": \"Server with ID '123' not found\",\n  \"details\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5778.996522555585\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f1575a9-63bc-4e13-ab39-42ab353e6153",
+              "name": "Bad Gateway - upstream server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"method\": \"tools/list\",\n  \"params\": {\n    \"key_0\": \"string\"\n  },\n  \"id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"UpstreamError\",\n  \"message\": \"Failed to connect to Salesforce API\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7986e385-cf4a-4fd9-bdb3-0ab8a2643934",
+          "name": "SSE Server Proxy Endpoint",
+          "request": {
+            "name": "SSE Server Proxy Endpoint",
+            "description": {
+              "content": "Server-Sent Events proxy endpoint for real-time streaming communication with third-party servers.\n\nThis endpoint provides dedicated SSE streaming capabilities separate from the MCP protocol,\nallowing for custom event streaming and real-time data flows.\n\n## Usage\n\n- **SSE Streaming**: Optimized for `text/event-stream` communication\n- **Real-time Events**: Custom event types and data streaming\n- **Session Management**: Include `x-mcp-session-id` header for session tracking\n\n## Authentication Flow\n\n1. User must first connect to the server via `/api/servers/{server_id}/connect`\n2. Complete OAuth flow for the third-party service\n3. Use this endpoint for real-time event streaming with automatic credential injection\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sse",
+                ":mcp_server_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcp_server_name",
+                  "description": "(Required) MCP server name identifier"
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "MCP session identifier for request tracking",
+                "key": "x-mcp-session-id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af34381d-46db-4208-90d7-5117d23e95f5",
+              "name": "SSE event stream",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sse",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_types\": [\n    \"data_update\",\n    \"status_change\"\n  ],\n  \"filters\": {\n    \"object_type\": \"Account\",\n    \"limit\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"streaming_not_supported\",\n  \"message\": \"Client does not support SSE, use /mcp endpoint instead\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d806957f-d3c0-4cfc-b007-06706ff7a791",
+              "name": "Unauthorized - invalid or missing JWT token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sse",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_types\": [\n    \"data_update\",\n    \"status_change\"\n  ],\n  \"filters\": {\n    \"object_type\": \"Account\",\n    \"limit\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ServerNotFound\",\n  \"message\": \"Server with ID '123' not found\",\n  \"details\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5778.996522555585\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cec9869-db54-4212-9810-cca987f0c3d5",
+              "name": "Forbidden - server not connected or access denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sse",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_types\": [\n    \"data_update\",\n    \"status_change\"\n  ],\n  \"filters\": {\n    \"object_type\": \"Account\",\n    \"limit\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ServerNotConnected\",\n  \"message\": \"Server 'salesforce' is not connected. Please initiate connection first.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3da6698d-f7d1-4dc3-904b-53febc7090b2",
+              "name": "Server not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sse",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_types\": [\n    \"data_update\",\n    \"status_change\"\n  ],\n  \"filters\": {\n    \"object_type\": \"Account\",\n    \"limit\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ServerNotFound\",\n  \"message\": \"Server with ID '123' not found\",\n  \"details\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5778.996522555585\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a209af18-089e-42fc-b845-de7bc075bc14",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sse",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_types\": [\n    \"data_update\",\n    \"status_change\"\n  ],\n  \"filters\": {\n    \"object_type\": \"Account\",\n    \"limit\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ServerNotFound\",\n  \"message\": \"Server with ID '123' not found\",\n  \"details\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5778.996522555585\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44599080-8efc-46ab-abf4-0ff78748cad0",
+              "name": "Bad Gateway - upstream server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sse",
+                    ":mcp_server_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcp_server_name",
+                      "description": "(Required) MCP server name identifier"
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "MCP session identifier for request tracking",
+                    "key": "x-mcp-session-id",
+                    "value": "sess_1234567890abcdef"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_types\": [\n    \"data_update\",\n    \"status_change\"\n  ],\n  \"filters\": {\n    \"object_type\": \"Account\",\n    \"limit\": 100\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"UpstreamError\",\n  \"message\": \"Failed to connect to Salesforce streaming API\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your organization identifier",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-org",
+      "key": "organization_id"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization_id}}.platform.barndoor.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "20f87b48-b5b1-41e3-a788-47d4f9f61840",
+    "name": "Barndoor Platform Agents MCP Proxy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.\n\n## Authentication\n\nAll endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.\nThe SDK handles the OAuth flow automatically using interactive login.\n\n## MCP Integration\n\nThe `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers\n(Salesforce, Notion, Slack, etc.) with automatic authentication and session management.\n\n\nContact Support:\n Name: Barndoor Support",
+      "type": "text/plain"
+    }
+  }
+}

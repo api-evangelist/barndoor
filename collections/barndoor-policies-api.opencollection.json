@@ -1,0 +1,290 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Barndoor Platform Agents Policies API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Clone Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/:policy_id/clone",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Clone an existing policy, creating a new policy with the same configuration\nbut with a modified name (appending \" Copy\") and DRAFT status."
+        },
+        {
+          "info": {
+            "name": "Disable Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/policies/restrictions/disable/:restriction_name",
+            "params": [
+              {
+                "name": "restriction_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Disable Restriction"
+        },
+        {
+          "info": {
+            "name": "Enable Restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/policies/restrictions/enable/:restriction_name",
+            "params": [
+              {
+                "name": "restriction_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Enable Restriction"
+        },
+        {
+          "info": {
+            "name": "Get Filter Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/filter-definitions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return filter categories for the policies list UI.\n\nStatic filter options for status, plus dynamic filters for\nMCP servers and agents based on the organization's registry."
+        },
+        {
+          "info": {
+            "name": "Get Policies Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/summary",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return summary counts of policies by status."
+        },
+        {
+          "info": {
+            "name": "Get Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/:policy_id",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get Policy"
+        },
+        {
+          "info": {
+            "name": "Update Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/:policy_id",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Policy"
+        },
+        {
+          "info": {
+            "name": "List Policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search by policy ID, name, description, or support contact"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status values"
+              },
+              {
+                "name": "mcp_server_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by MCP server IDs"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by agent/application IDs"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (max 100)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List Policies"
+        },
+        {
+          "info": {
+            "name": "List Policy Revisions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/:policy_id/revisions",
+            "params": [
+              {
+                "name": "policy_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "changes_summary",
+                "value": "",
+                "type": "query",
+                "description": "Include human-readable change descriptions in response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (max 100)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all revisions for a given policy with pagination.\n\nUses the same authorization as get_policy - if a user can read a policy,\nthey can view its revision history.\n\nArgs:\n    changes_summary: Include human-readable change descriptions in response"
+        },
+        {
+          "info": {
+            "name": "Validate Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/v2/policies/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Validate a policy before creation or update.\nChecks for duplicate names and overlapping MCP server/agent combinations.\nWhen exclude_policy_id is provided (edit mode), that policy is excluded from validation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

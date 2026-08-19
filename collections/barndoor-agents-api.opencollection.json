@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Barndoor Platform Agents API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Agent Counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents/counts"
+          },
+          "docs": "Get counts of agents grouped by type (internal vs external)."
+        },
+        {
+          "info": {
+            "name": "Get Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get details of a specific agent by ID, including its application directory configuration."
+        },
+        {
+          "info": {
+            "name": "Unregister Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Unregister an agent from Barndoor.\n\nThis removes the agent's registration but does not delete the underlying \napplication directory. The agent can be re-registered using the same \napplication_directory_id.\n"
+        },
+        {
+          "info": {
+            "name": "List Agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search applications by name or description"
+              },
+              {
+                "name": "agent_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by agent type"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (max 100)"
+              }
+            ]
+          },
+          "docs": "List registered agents with pagination."
+        },
+        {
+          "info": {
+            "name": "Register Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/agents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a new agent with Barndoor.\n\nAgents represent AI applications that can access MCP servers through Barndoor.\nEach agent must be associated with an application directory (OAuth client configuration).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

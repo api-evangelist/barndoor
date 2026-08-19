@@ -1,0 +1,858 @@
+{
+  "item": [
+    {
+      "id": "d61ee0b7-593c-4c29-8120-fa65c64104ab",
+      "name": "Agents",
+      "description": {
+        "content": "Manage AI agent registrations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fba2dcb9-69c4-464e-af0b-38051b92239e",
+          "name": "Get Agent Counts",
+          "request": {
+            "name": "Get Agent Counts",
+            "description": {
+              "content": "Get counts of agents grouped by type (internal vs external).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "agents",
+                "counts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "99e709b2-beff-4eb8-bcc6-0164347fce47",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "agents",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"all\": 4896,\n  \"internal\": 8902,\n  \"external\": 9523\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2767234c-3afe-405f-814e-b485d5aa37cb",
+          "name": "Unregister Agent",
+          "request": {
+            "name": "Unregister Agent",
+            "description": {
+              "content": "Unregister an agent from Barndoor.\n\nThis removes the agent's registration but does not delete the underlying \napplication directory. The agent can be re-registered using the same \napplication_directory_id.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "agents",
+                ":agent_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a70a8077-3384-400a-80e8-8047d74bbbca",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0ba9cf7-90c7-4547-8492-19bf2b47738f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b1152f8-d696-47fc-bf35-01f3b8228b30",
+          "name": "Get Agent",
+          "request": {
+            "name": "Get Agent",
+            "description": {
+              "content": "Get details of a specific agent by ID, including its application directory configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "agents",
+                ":agent_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agent_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c71272db-e64c-44e4-bbe6-c57aae1020cb",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"27739016-9300-860f-b29f-a770e33d43c9\",\n  \"created_at\": \"1966-03-27T09:04:06.417Z\",\n  \"updated_at\": \"2004-07-27T02:55:50.909Z\",\n  \"organization_id\": \"0a90b09d-2102-45f8-32bd-bc5bbc1b514b\",\n  \"application_directory_id\": \"251e46b8-bf87-7929-0e10-d86621eb558b\",\n  \"application_directory\": {\n    \"id\": \"4fc13bc0-070a-ade0-5e57-a40c115c9a10\",\n    \"created_at\": \"1952-03-22T12:00:35.254Z\",\n    \"updated_at\": \"1985-02-15T21:00:25.206Z\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"organization_id\": \"b40172e9-869f-6340-7b1d-53bc4d56dda6\",\n    \"external_id\": \"string\",\n    \"public\": false,\n    \"dcr\": true,\n    \"post_login_success\": true,\n    \"callbacks\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"agent_type\": \"external\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3db392c4-ea9c-4cd3-9610-c21889e4204f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agent_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c51f2ec-3d59-4d34-8290-2e2b90ffc503",
+          "name": "List Agents",
+          "request": {
+            "name": "List Agents",
+            "description": {
+              "content": "List registered agents with pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search applications by name or description"
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_type",
+                  "value": "<string>",
+                  "description": "Filter by agent type"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page (max 100)"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a55df1eb-a4a1-476a-8ccf-1953c8b1448e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_type",
+                      "value": "external"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"fe386ac5-671e-6267-0c61-656ac18793a0\",\n      \"created_at\": \"1952-12-03T07:30:27.371Z\",\n      \"updated_at\": \"2011-11-16T16:55:30.163Z\",\n      \"organization_id\": \"a3d379b7-e27f-6ac1-884b-3efb70a4620f\",\n      \"application_directory_id\": \"f7ab0693-020e-a01f-cba9-e26958058db4\",\n      \"application_directory\": {\n        \"id\": \"39c51da5-6271-502f-9ec7-ab9df003a78b\",\n        \"created_at\": \"1965-10-29T13:39:58.132Z\",\n        \"updated_at\": \"1963-12-22T11:42:08.915Z\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"organization_id\": \"5a66feaf-a78f-0a1d-ca0d-cf3cb9d7daa8\",\n        \"external_id\": \"string\",\n        \"public\": true,\n        \"dcr\": true,\n        \"post_login_success\": true,\n        \"callbacks\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"agent_type\": \"internal\"\n    },\n    {\n      \"id\": \"c6165bf8-77df-bcfe-8dff-74cd153b41de\",\n      \"created_at\": \"2003-05-02T10:04:48.508Z\",\n      \"updated_at\": \"1999-08-14T15:14:59.355Z\",\n      \"organization_id\": \"8fcc50be-c7ca-0d8b-f356-5f302d62a1e6\",\n      \"application_directory_id\": \"00c0d4cb-9926-1283-39bc-72e1f1f4e47f\",\n      \"application_directory\": {\n        \"id\": \"c999fd48-ab5d-8d0d-5dd3-b1153f3e35a7\",\n        \"created_at\": \"1967-02-16T02:31:18.327Z\",\n        \"updated_at\": \"1952-07-17T05:03:45.469Z\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"organization_id\": \"f787fcf7-ca89-2667-845c-2f520643799f\",\n        \"external_id\": \"string\",\n        \"public\": true,\n        \"dcr\": false,\n        \"post_login_success\": false,\n        \"callbacks\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"agent_type\": \"external\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 902,\n    \"limit\": 9553,\n    \"total\": 2511,\n    \"pages\": 7425,\n    \"previous_page\": 33,\n    \"next_page\": 3682\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c043ff0-e7fd-4e87-aca9-99638582eb87",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_type",
+                      "value": "external"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c4245ec-f1b5-4ac4-b35c-8fc89d63f16e",
+          "name": "Register Agent",
+          "request": {
+            "name": "Register Agent",
+            "description": {
+              "content": "Register a new agent with Barndoor.\n\nAgents represent AI applications that can access MCP servers through Barndoor.\nEach agent must be associated with an application directory (OAuth client configuration).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"application_directory_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aae6e972-6a06-4343-b30b-b3f5325c6689",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"application_directory_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"44000a76-33a5-3e8f-07af-e310e495da1b\",\n  \"created_at\": \"1974-11-09T14:34:49.589Z\",\n  \"updated_at\": \"1971-06-27T19:19:10.194Z\",\n  \"organization_id\": \"3c7c3091-7cf4-3400-91c1-2d543afbed57\",\n  \"application_directory_id\": \"542889d9-6b07-1214-6498-9d4192d8733e\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1ca7dce-128a-47f6-a440-b2b0b0ed548c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"application_directory_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your organization identifier",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-org",
+      "key": "organization_id"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization_id}}.platform.barndoor.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "42751628-ac50-4829-aaaa-e8e4222cdc1a",
+    "name": "Barndoor Platform Agents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.\n\n## Authentication\n\nAll endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.\nThe SDK handles the OAuth flow automatically using interactive login.\n\n## MCP Integration\n\nThe `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers\n(Salesforce, Notion, Slack, etc.) with automatic authentication and session management.\n\n\nContact Support:\n Name: Barndoor Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,140 @@
+# Barndoor Documentation
+
+## Docs
+
+- [Introduction](https://docs.barndoor.ai/index.md): Welcome to the Barndoor documentation portal. Explore guides, tutorials, SDKs, code samples, reference docs, and more.
+- [Trial Guide](https://docs.barndoor.ai/how-tos/trial-guide.md): Complete guide to set up and configure your Barndoor platform from start to finish
+- [Agent Profiles](https://docs.barndoor.ai/how-tos/agent-profile/overview.md): Configuring agents that operate with their own access credentials to MCPs and LLMs and provides visibility to what your agents are doing and what their models costs are.
+- [Adding Your Agents](https://docs.barndoor.ai/how-tos/agent-profile/add-an-agent.md): Step-by-step guide for adding an agent in Barndoor.
+- [Registering MCP Servers](https://docs.barndoor.ai/how-tos/add-an-mcp-server.md): Step-by-step guide to register a new MCP server in Barndoor.
+- [Managing Policies](https://docs.barndoor.ai/how-tos/manage-policies.md): Step-by-step guide to validate, create, activate, update, clone, and audit policies with the v2 API.
+- [Connecting Accounts to Barndoor](https://docs.barndoor.ai/how-tos/connected-accounts.md): Step-by-step guide for connecting external accounts (like Salesforce) in Barndoor.
+- [Connect AI clients to Barndoor](https://docs.barndoor.ai/how-tos/connecting-barndoor-to-agents.md): Step-by-Step: Connect your ToolIQ universal endpoint to your MCP Servers for Claude, ChatGPT, and other AI clients
+- [Using the LLM Gateway](https://docs.barndoor.ai/how-tos/use-llm-gateway.md): Send LLM traffic from Cursor, Claude Code, Codex, your apps, and the OpenAI / Anthropic SDKs through the Barndoor LLM Gateway.
+- [Quickstart Guide](https://docs.barndoor.ai/how-tos/llm-gateway-quickstart.md): Configure the Barndoor LLM Gateway, connect your tools (Cursor, Claude Code, Codex, the OpenAI/Anthropic SDKs), send requests, and troubleshoot.
+- [Use Codex with the LLM Gateway](https://docs.barndoor.ai/how-tos/use-codex-with-llm-gateway.md): Point Codex CLI and Codex Desktop at the Barndoor LLM Gateway using the OpenAI Responses wire format.
+- [Managing Model Pricing](https://docs.barndoor.ai/how-tos/manage-model-pricing.md): Set per-million-token costs for the models you serve through the Barndoor LLM Gateway so spending budgets, cost reports, and usage telemetry are accurate.
+- [Configuring LLM Controls](https://docs.barndoor.ai/how-tos/use-llm-controls.md): Set token budgets, rate limits, and model access policies on traffic flowing through the Barndoor LLM Gateway.
+- [Get the most out of your Claude subscription](https://docs.barndoor.ai/how-tos/llm-gateway-failover.md): Run Claude Code on your Claude subscription through the Barndoor LLM Gateway and keep working past your rate limit with automatic failover, so each developer gets the full value of the seat you pay for.
+- [Connect your IdP](https://docs.barndoor.ai/how-tos/idp-setup.md): Set up SSO login and automatically provision user roles using any OIDC / SAML 2.0 compatible IdP
+- [Connect Okta as your IdP](https://docs.barndoor.ai/how-tos/okta-custom-app-setup.md): Step-by-step guide for configuring Okta as an OIDC Identity Provider for Barndoor SSO and automatic role mapping
+- [Connect Okta through Okta Integration Network](https://docs.barndoor.ai/how-tos/okta-oin-setup.md): Configure Barndoor SSO using the official OIN app with SCIM provisioning
+- [Connect Microsoft Entra ID as your IdP](https://docs.barndoor.ai/how-tos/entra-idp-setup.md): Step-by-step guide for configuring Microsoft Entra ID (formerly Azure AD) as an OIDC Identity Provider with SCIM Provisioning
+- [Redirect URI Allowlisting](https://docs.barndoor.ai/how-tos/redirect-uri-allowlisting.md): Allowlist Barndoor redirect URIs in your OAuth application
+- [IP Allow Listing](https://docs.barndoor.ai/how-tos/ip-allowlisting.md): Configure your firewall to allow Barndoor MCP traffic
+- [Export audit logs to your S3 bucket](https://docs.barndoor.ai/how-tos/log-export.md): Stream Barndoor audit events to your own S3-compatible storage in near real time
+- [Lock Down Claude Enterprise to One Barndoor URL](https://docs.barndoor.ai/how-tos/claude-enterprise-barndoor-universal-url.md): How to configure Claude with Barndoor to manage the MCP access of your organization's users.
+- [Data Control Center](https://docs.barndoor.ai/how-tos/data-control-center/overview.md): Detect, block, redact, or observe sensitive data as it flows through AI agents and the MCP layer.
+- [Protection Profiles](https://docs.barndoor.ai/how-tos/data-control-center/protection-profiles.md): Create named detection engines that define which data types to scan for. Policies can't be created until at least one profile exists.
+- [MCP Policies](https://docs.barndoor.ai/how-tos/data-control-center/mcp-policies.md): Govern enforcement on MCP tool calls — the structured requests and responses between AI agents and connected servers.
+- [Field Controls](https://docs.barndoor.ai/how-tos/data-control-center/field-controls.md): Deterministic, field-level redaction for specific MCP tools — independent of text-based detection.
+- [Barndoor API Reference](https://docs.barndoor.ai/api-reference/introduction.md)
+- [List MCP servers](https://docs.barndoor.ai/api-reference/servers/listServers.md): List all MCP servers available to the caller's organization. Returns paginated results with server details including connection status.
+- [Create MCP Server](https://docs.barndoor.ai/api-reference/servers/createServer.md): Create a new MCP server instance from a server directory template.
+- [Get Server by Id](https://docs.barndoor.ai/api-reference/servers/getServer.md): Get detailed information about a specific MCP server. Returns extended information including MCP URL if available.
+- [Delete Server by Id](https://docs.barndoor.ai/api-reference/servers/deleteServer.md): Delete an MCP server and all associated connections.
+- [Update MCP Server](https://docs.barndoor.ai/api-reference/servers/updateServer.md): Update an existing MCP server's configuration.
+- [Get Connection Status](https://docs.barndoor.ai/api-reference/connections/getConnectionStatus.md): Get the user's connection status for a specific server. Used to poll connection status during OAuth flows.
+- [Initiate OAuth connection](https://docs.barndoor.ai/api-reference/connections/initiateConnection.md): Initiate OAuth connection flow for a server. Returns an authorization URL that the user should visit to complete the OAuth flow.
+- [Delete connection](https://docs.barndoor.ai/api-reference/connections/deleteConnection.md): Delete the current user's connection to this server.
+- [MCP server proxy endpoint](https://docs.barndoor.ai/api-reference/mcp/proxyMcpRequest.md): Proxies MCP JSON-RPC requests to third-party servers with automatic authentication.
+- [SSE server proxy endpoint](https://docs.barndoor.ai/api-reference/sse/proxySSERequest.md): Server-Sent Events proxy endpoint for real-time streaming communication with third-party servers.
+- [List Policies](https://docs.barndoor.ai/api-reference/policies/listPolicies.md)
+- [Create or Update Policy](https://docs.barndoor.ai/api-reference/policies/createPolicy.md)
+- [Validate Policy](https://docs.barndoor.ai/api-reference/policies/validatePolicy.md): Validate a policy before creation or update. Checks for duplicate names and overlapping MCP server/agent combinations. When exclude_policy_id is provided (edit mode), that policy is excluded from validation.
+- [Get Policy](https://docs.barndoor.ai/api-reference/policies/getPolicy.md)
+- [List Policy Revisions](https://docs.barndoor.ai/api-reference/policies/listPolicyRevisions.md): List all revisions for a given policy with pagination.
+- [Update Policy](https://docs.barndoor.ai/api-reference/policies/updatePolicy.md)
+- [Clone Policy](https://docs.barndoor.ai/api-reference/policies/clonePolicy.md): Clone an existing policy, creating a new policy with the same configuration but with a modified name (appending " Copy") and DRAFT status.
+- [Enable Restriction](https://docs.barndoor.ai/api-reference/policies/enableRestriction.md)
+- [Disable Restriction](https://docs.barndoor.ai/api-reference/policies/disableRestriction.md)
+- [Get Filter Definitions](https://docs.barndoor.ai/api-reference/policies/getFilterDefinitions.md): Return filter categories for the policies list UI.
+- [Get Policies Summary](https://docs.barndoor.ai/api-reference/policies/getPoliciesSummary.md): Return summary counts of policies by status.
+- [Reload Policy Cache](https://docs.barndoor.ai/api-reference/policies/reloadCache.md)
+- [List Agents](https://docs.barndoor.ai/api-reference/agents/listAgents.md): List registered agents with pagination.
+- [GET Agent by Id](https://docs.barndoor.ai/api-reference/agents/getAgent.md): Get details of a specific agent by ID, including its application directory configuration.
+- [Register Agent](https://docs.barndoor.ai/api-reference/agents/registerAgent.md): Register a new agent with Barndoor.
+- [Delete Agent by Id](https://docs.barndoor.ai/api-reference/agents/deleteAgent.md): Unregister an agent from Barndoor.
+- [Get Agent Counts](https://docs.barndoor.ai/api-reference/agents/counts/getAgentCounts.md): Get counts of agents grouped by type (internal vs external).
+- [Get User Info](https://docs.barndoor.ai/api-reference/identity/getUserInfo.md): Returns identity information for the user associated with a Barndoor API key.
+- [LLM Gateway API](https://docs.barndoor.ai/api-reference/llm-gateway/introduction.md): Programmatically configure and operate the Barndoor LLM Gateway: providers, model routes, pricing, governance, and gateway API keys.
+- [List credentials](https://docs.barndoor.ai/api-reference/llm-gateway/credentials/listCredentials.md): Returns every reusable credential configured in your organization.
+- [Create a Credential](https://docs.barndoor.ai/api-reference/llm-gateway/credentials/createCredential.md): Stores a new upstream credential. The plaintext `api_key` (or `credentials` object) is written to Barndoor's encrypted secret store and is never returned by any endpoint.
+- [Get a credential](https://docs.barndoor.ai/api-reference/llm-gateway/credentials/getCredential.md)
+- [Update a credential](https://docs.barndoor.ai/api-reference/llm-gateway/credentials/updateCredential.md): Patches a credential. Only fields you send are changed. If you include `api_key` or `credentials` the upstream secret is rotated.
+- [Delete a credential](https://docs.barndoor.ai/api-reference/llm-gateway/credentials/deleteCredential.md)
+- [Get Barndoor's AWS principal](https://docs.barndoor.ai/api-reference/llm-gateway/credentials/getAwsRoleConfig.md): Returns the AWS IAM principal customers should add to the trust policy of any role they hand out to Barndoor for AWS Bedrock IAM-role auth.
+- [Validate AWS role access](https://docs.barndoor.ai/api-reference/llm-gateway/credentials/validateAwsRole.md): Performs a real STS assume-role chain against the supplied role to confirm Barndoor can reach Bedrock. Returns the AWS error verbatim if validation fails — useful for iterating on the trust policy before saving the credential.
+- [Validate Google Vertex access](https://docs.barndoor.ai/api-reference/llm-gateway/credentials/validateGoogleVertex.md): Fetches a token via your chosen Vertex auth method and asks Vertex about a model, confirming end-to-end that both auth and model access work before saving the credential.
+- [Get AWS trust info](https://docs.barndoor.ai/api-reference/llm-gateway/credentials/getAwsTrustInfo.md): Returns the Barndoor principal ARN and external ID for an AWS-role credential. Useful for re-auditing the trust policy after the fact.
+- [List the provider catalog](https://docs.barndoor.ai/api-reference/llm-gateway/providers/listProviderCatalog.md): Read-only catalog of upstream providers Barndoor knows about. Use these entries as templates when creating providers — `slug`, `default_base_url`, `default_models`, and `auth_type` are pre-filled sensible defaults.
+- [List providers](https://docs.barndoor.ai/api-reference/llm-gateway/providers/listProviders.md)
+- [Create a Provider](https://docs.barndoor.ai/api-reference/llm-gateway/providers/createProvider.md): Creates a new named provider. Either supply a `connection_id` to share an existing credential, or supply `api_key` / `credentials` to create an inline secret as part of the request.
+- [Get a provider](https://docs.barndoor.ai/api-reference/llm-gateway/providers/getProvider.md)
+- [Update a provider](https://docs.barndoor.ai/api-reference/llm-gateway/providers/updateProvider.md): Patches a provider. To detach a provider from a shared credential and switch it back to an inline API key, send `connection_id: null` and the new `api_key` (or `credentials`) in the same request.
+- [Delete a provider](https://docs.barndoor.ai/api-reference/llm-gateway/providers/deleteProvider.md): Deleting a provider also removes every model route that pointed at it.
+- [List all model routes](https://docs.barndoor.ai/api-reference/llm-gateway/model-routes/listAllRoutes.md): Returns every model route in the org, with their owning provider's name.
+- [List a provider's model routes](https://docs.barndoor.ai/api-reference/llm-gateway/model-routes/listProviderRoutes.md)
+- [Create a Model Route](https://docs.barndoor.ai/api-reference/llm-gateway/model-routes/createRoute.md): Creates a model route. A 1:1 enablement (`model_alias == upstream_model`) for an existing provider/model pair will fold into the existing row rather than failing — this lets you re-issue the same create call idempotently from automation.
+- [Update a model route](https://docs.barndoor.ai/api-reference/llm-gateway/model-routes/updateRoute.md)
+- [Reorder model routes](https://docs.barndoor.ai/api-reference/llm-gateway/model-routes/reorderRoutes.md): Bulk-update the `priority` of multiple routes in one call. Used to change the failover order for routes that share an alias.
+- [Delete a model route](https://docs.barndoor.ai/api-reference/llm-gateway/model-routes/deleteRoute.md)
+- [List pricing rules](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/listPricing.md): One row per logical pricing rule, each with the currently-effective version, a `version_count`, and a `scheduled_count` of any future-dated changes waiting to activate.
+- [Create or Schedule Pricing](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/createPricing.md): - Omit (or `null`) `effective_from` to activate the price now. - Pass a future `effective_from` to schedule the change ahead of time.
+- [Get a pricing rule's history](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/getPricingHistory.md): Returns every version of a single rule (current, scheduled, archived, and prior live versions), newest first.
+- [List archived pricing rules](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/listArchivedPricing.md)
+- [Look up a single pricing version](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/getPricingVersion.md): Returns one specific version of a pricing rule by id. Useful for resolving a `pricing_rule_id` recorded in an audit event when that version is no longer the current one.
+- [Edit a scheduled pricing version](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/updatePricing.md): Updates a future-dated (scheduled) pricing version in place. Past versions are immutable — to change the active price create a new version via `POST /admin/model-pricing` instead.
+- [Archive or cancel a pricing version](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/archivePricing.md): Behavior depends on whether the targeted version is in the past or future:
+- [Restore an archived pricing rule](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/restorePricing.md): Resurrects a previously archived pricing rule. The id should be the archived version's id, as returned from `GET /admin/model-pricing/archived`.
+- [List Barndoor's default pricing](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/listPricingDefaults.md): The default pricing catalog Barndoor maintains. Use as a starting point for `import-defaults` and `sync-defaults`.
+- [Import default pricing](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/importPricingDefaults.md): Inserts entries from Barndoor's managed pricing catalog into your organization. Existing rows are not touched (use `sync-defaults` to update those).
+- [Sync to default pricing](https://docs.barndoor.ai/api-reference/llm-gateway/model-pricing/syncPricingDefaults.md): Overwrites pricing rows in your org whose costs have drifted from the current Barndoor-managed defaults. Org-managed (`pinned`) rows are not touched.
+- [List rate limits](https://docs.barndoor.ai/api-reference/llm-gateway/rate-limits/listRateLimits.md)
+- [Create a rate limit](https://docs.barndoor.ai/api-reference/llm-gateway/rate-limits/createRateLimit.md)
+- [Update a rate limit](https://docs.barndoor.ai/api-reference/llm-gateway/rate-limits/updateRateLimit.md)
+- [Delete a rate limit](https://docs.barndoor.ai/api-reference/llm-gateway/rate-limits/deleteRateLimit.md)
+- [Get live rate-limit status](https://docs.barndoor.ai/api-reference/llm-gateway/rate-limits/getRateLimitStatus.md): Returns each enabled rate-limit policy with its current 60-second window usage (requests and tokens).
+- [List token budgets](https://docs.barndoor.ai/api-reference/llm-gateway/token-budgets/listBudgets.md)
+- [Create a token budget](https://docs.barndoor.ai/api-reference/llm-gateway/token-budgets/createBudget.md)
+- [Update a token budget](https://docs.barndoor.ai/api-reference/llm-gateway/token-budgets/updateBudget.md)
+- [Delete a token budget](https://docs.barndoor.ai/api-reference/llm-gateway/token-budgets/deleteBudget.md)
+- [Get live budget status](https://docs.barndoor.ai/api-reference/llm-gateway/token-budgets/getBudgetStatus.md): Returns each budget with its current period's usage and percentage.
+- [List model access policies](https://docs.barndoor.ai/api-reference/llm-gateway/model-access/listModelAccess.md)
+- [Create a model access policy](https://docs.barndoor.ai/api-reference/llm-gateway/model-access/createModelAccess.md): Either an allowlist (only listed targets are permitted) or a denylist (listed targets are blocked). Targets can specify a model alias, an upstream model, a provider, or a (provider, model) combination.
+- [Update a model access policy](https://docs.barndoor.ai/api-reference/llm-gateway/model-access/updateModelAccess.md)
+- [Delete a model access policy](https://docs.barndoor.ai/api-reference/llm-gateway/model-access/deleteModelAccess.md)
+- [List smart-model policies](https://docs.barndoor.ai/api-reference/llm-gateway/smart-models/listSmartModels.md)
+- [Create a smart-model policy](https://docs.barndoor.ai/api-reference/llm-gateway/smart-models/createSmartModel.md)
+- [Preview a smart-model decision](https://docs.barndoor.ai/api-reference/llm-gateway/smart-models/previewSmartModel.md): Dry-runs the determiner against an in-flight policy draft and a sample request body. Useful for checking how a new policy would route real traffic before saving it.
+- [Update a smart-model policy](https://docs.barndoor.ai/api-reference/llm-gateway/smart-models/updateSmartModel.md)
+- [Delete a smart-model policy](https://docs.barndoor.ai/api-reference/llm-gateway/smart-models/deleteSmartModel.md)
+- [Get governance configuration](https://docs.barndoor.ai/api-reference/llm-gateway/governance/getGovernanceConfig.md)
+- [Update governance configuration](https://docs.barndoor.ai/api-reference/llm-gateway/governance/updateGovernanceConfig.md)
+- [Get Route Health](https://docs.barndoor.ai/api-reference/llm-gateway/route-health/getRouteHealth.md): Returns a per-route operational view of upstream health: which routes are currently healthy, half-open (probing), or ejected (cooling down), along with consecutive-failure counts and recent state transitions. Useful for dashboards and incident triage.
+- [Reset a route to healthy](https://docs.barndoor.ai/api-reference/llm-gateway/route-health/resetRouteHealth.md): Force a `(provider, upstream model)` route back to healthy, clearing any active cooldown both on the local pod and across the fleet. Useful after an upstream incident is resolved and you don't want to wait for natural recovery.
+- [List org API keys](https://docs.barndoor.ai/api-reference/llm-gateway/api-keys/listApiKeys.md): Lists every gateway API key in the organization (one entry per key). The raw key value is never returned — only its prefix and metadata.
+- [Create an Org API Key](https://docs.barndoor.ai/api-reference/llm-gateway/api-keys/createApiKey.md): Creates a new `bd-...` gateway API key. The raw key is returned in this response and never again — copy it immediately. Either assign the key to a `user_id` or bind it to a `group_name`; not both.
+- [Get an API key](https://docs.barndoor.ai/api-reference/llm-gateway/api-keys/getApiKey.md)
+- [Revoke an API key](https://docs.barndoor.ai/api-reference/llm-gateway/api-keys/revokeApiKey.md): Revoking a key disables it for all future requests.
+- [List models I can call](https://docs.barndoor.ai/api-reference/llm-gateway/user/listUserModels.md): Returns every model the authenticated user is allowed to call, filtered by your organization's model-access policies and the user's IdP groups and roles. Use the `display_model` field as the value of the `model` parameter on `/v1/...` requests.
+- [List my API keys](https://docs.barndoor.ai/api-reference/llm-gateway/user/listUserApiKeys.md): Lists the gateway API keys created by the authenticated user.
+- [Create a personal API key](https://docs.barndoor.ai/api-reference/llm-gateway/user/createUserApiKey.md): Creates an API key owned by the authenticated user. Equivalent to the Settings - My Models flow in the Barndoor portal.
+- [Revoke one of my API keys](https://docs.barndoor.ai/api-reference/llm-gateway/user/revokeUserApiKey.md)
+- [Terraform Provider](https://docs.barndoor.ai/terraform/index.md): Manage your Barndoor organization as code with the official Terraform provider
+- [Getting Started](https://docs.barndoor.ai/terraform/getting-started.md): Generate a provider credential, configure the Barndoor Terraform provider, and apply your first resource
+- [Manage MCP Access](https://docs.barndoor.ai/terraform/manage-mcp-access.md): Onboard an MCP server, connect it tenant-wide, register an AI Agent, and govern access with a policy — all in Terraform
+- [Manage the LLM Gateway](https://docs.barndoor.ai/terraform/llm-gateway.md): Configure LLM providers, model routing with failover, access policies, rate limits, and token budgets in Terraform
+- [Manage Data Protection](https://docs.barndoor.ai/terraform/data-protection.md): Define custom detection types, allow lists, and enforcement policies as code, with a dry-run-first rollout
+- [Best Practices](https://docs.barndoor.ai/terraform/best-practices.md): Importing existing configuration, avoiding drift, destroy semantics, secrets hygiene, and running the Barndoor provider in CI
+- [Barndoor SDKs](https://docs.barndoor.ai/sdks/introduction.md): The Barndoor SDKs empowers developers to connect to governed Model Context Protocol (MCP) servers, enabling seamless interaction with platforms like Salesforce, Notion, and GitHub. Whether you're building AI-driven applications with OpenAI or performing direct API calls, the SDK simplifies authentic…
+- [Python](https://docs.barndoor.ai/sdks/python.md)
+- [Typescript](https://docs.barndoor.ai/sdks/typescript.md)
+- [General](https://docs.barndoor.ai/sdks/examples/general.md)
+- [CrewAI](https://docs.barndoor.ai/sdks/examples/crewAI.md)
+- [Mcp servers](https://docs.barndoor.ai/mcp-servers/index.md)
+
+## OpenAPI Specs
+
+- [openapi](https://docs.barndoor.ai/api-reference/openapi.yml)
+- [llm-gateway-openapi](https://docs.barndoor.ai/api-reference/llm-gateway-openapi.yml)

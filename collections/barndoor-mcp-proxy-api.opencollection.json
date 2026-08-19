@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Barndoor Platform Agents MCP Proxy API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MCP Proxy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "MCP Server Proxy Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/mcp/:mcp_server_name",
+            "headers": [
+              {
+                "name": "x-mcp-session-id",
+                "value": "sess_1234567890abcdef"
+              }
+            ],
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "salesforce",
+                "type": "path",
+                "description": "MCP server name identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Proxies MCP JSON-RPC requests to third-party servers with automatic authentication.\n\nThis endpoint supports both regular HTTP requests and Server-Sent Events (SSE) streaming\nfor real-time MCP protocol communication.\n\n## Usage\n\n- **JSON-RPC**: Send MCP protocol requests as JSON\n- **SSE Streaming**: Use `Accept: text/event-stream` for real-time communication\n- **Session Management**: Include `x-mcp-session-id` header for session tracking\n\n## Authentication Flow\n\n1. User must first connect to the s"
+        },
+        {
+          "info": {
+            "name": "SSE Server Proxy Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/sse/:mcp_server_name",
+            "headers": [
+              {
+                "name": "x-mcp-session-id",
+                "value": "sess_1234567890abcdef"
+              }
+            ],
+            "params": [
+              {
+                "name": "mcp_server_name",
+                "value": "salesforce",
+                "type": "path",
+                "description": "MCP server name identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Server-Sent Events proxy endpoint for real-time streaming communication with third-party servers.\n\nThis endpoint provides dedicated SSE streaming capabilities separate from the MCP protocol,\nallowing for custom event streaming and real-time data flows.\n\n## Usage\n\n- **SSE Streaming**: Optimized for `text/event-stream` communication\n- **Real-time Events**: Custom event types and data streaming\n- **Session Management**: Include `x-mcp-session-id` header for session tracking\n\n## Authentication Flow\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

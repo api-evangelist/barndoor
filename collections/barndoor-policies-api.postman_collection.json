@@ -1,0 +1,1944 @@
+{
+  "item": [
+    {
+      "id": "3d600ea2-9e4b-4f97-92b0-392fa09351c8",
+      "name": "Policies",
+      "description": {
+        "content": "Manage access control policies for agents and servers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4971eb94-1aef-4d26-b9c3-808b3533a14c",
+          "name": "Clone Policy",
+          "request": {
+            "name": "Clone Policy",
+            "description": {
+              "content": "Clone an existing policy, creating a new policy with the same configuration\nbut with a modified name (appending \" Copy\") and DRAFT status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "policies",
+                ":policy_id",
+                "clone"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policy_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8376da8f-b682-4c7e-8774-f6c1071db68c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    ":policy_id",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policy_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policy\": {\n    \"id\": \"28b2d966-293b-70a1-6eaa-03be64aed2f1\",\n    \"organization_id\": \"string\",\n    \"name\": \"string\",\n    \"status\": \"string\",\n    \"mcp_server_id\": \"string\",\n    \"created_at\": \"1968-02-12T11:35:55.536Z\",\n    \"updated_at\": \"1954-08-13T10:03:31.472Z\",\n    \"created_by_user_id\": \"string\",\n    \"updated_by_user_id\": \"string\",\n    \"support_contact\": \"string\",\n    \"description\": \"string\",\n    \"application_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"rules\": [\n      {\n        \"name\": \"string\",\n        \"authorized\": false,\n        \"actions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"roles_groups\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"authorized\": true,\n        \"actions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"roles_groups\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0627869-93a9-4462-9a95-47b69c0fea2a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    ":policy_id",
+                    "clone"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policy_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1708ba3a-09b7-409d-989e-1867dbefc662",
+          "name": "Disable Restriction",
+          "request": {
+            "name": "Disable Restriction",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "policies",
+                "restrictions",
+                "disable",
+                ":restriction_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "restriction_name",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5b151225-97ee-4db8-a495-bb66421ba9f2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "policies",
+                    "restrictions",
+                    "disable",
+                    ":restriction_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restriction_name",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5349222b-7781-4368-b6fc-9d3b07e4871a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "policies",
+                    "restrictions",
+                    "disable",
+                    ":restriction_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restriction_name",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d82739ba-0047-4f97-95b1-89c431176ef4",
+          "name": "Enable Restriction",
+          "request": {
+            "name": "Enable Restriction",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "policies",
+                "restrictions",
+                "enable",
+                ":restriction_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "restriction_name",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b1b5a96a-56db-494a-a5fb-8bde5fc12f72",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "policies",
+                    "restrictions",
+                    "enable",
+                    ":restriction_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restriction_name",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2975b107-06db-4c63-aec8-86d2fcb6020c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "policies",
+                    "restrictions",
+                    "enable",
+                    ":restriction_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restriction_name",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7efa3a96-bca9-4d55-b1e5-b3a9e7059c60",
+          "name": "Get Filter Definitions",
+          "request": {
+            "name": "Get Filter Definitions",
+            "description": {
+              "content": "Return filter categories for the policies list UI.\n\nStatic filter options for status, plus dynamic filters for\nMCP servers and agents based on the organization's registry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "policies",
+                "filter-definitions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "75f1be2b-ebf8-4d55-8e4e-3195ac881352",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    "filter-definitions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"label\": \"string\",\n    \"options\": [\n      {\n        \"value\": \"string\",\n        \"label\": \"string\"\n      },\n      {\n        \"value\": \"string\",\n        \"label\": \"string\"\n      }\n    ]\n  },\n  {\n    \"id\": \"string\",\n    \"label\": \"string\",\n    \"options\": [\n      {\n        \"value\": \"string\",\n        \"label\": \"string\"\n      },\n      {\n        \"value\": \"string\",\n        \"label\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d539584f-9a7e-4310-a71c-b6455f15c339",
+          "name": "Get Policies Summary",
+          "request": {
+            "name": "Get Policies Summary",
+            "description": {
+              "content": "Return summary counts of policies by status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "policies",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ca452a7d-81a0-43f3-9fa5-0cb9dbb9d1f1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"active\": 0,\n  \"draft\": 0,\n  \"inactive\": 0,\n  \"archived\": 0,\n  \"total\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6639959-17a9-4907-aaeb-4b9a36e859b9",
+          "name": "Get Policy",
+          "request": {
+            "name": "Get Policy",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "policies",
+                ":policy_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "policy_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b1be74d3-035f-45d8-af3a-a846eec3587d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    ":policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "policy_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policy\": {\n    \"id\": \"28b2d966-293b-70a1-6eaa-03be64aed2f1\",\n    \"organization_id\": \"string\",\n    \"name\": \"string\",\n    \"status\": \"string\",\n    \"mcp_server_id\": \"string\",\n    \"created_at\": \"1968-02-12T11:35:55.536Z\",\n    \"updated_at\": \"1954-08-13T10:03:31.472Z\",\n    \"created_by_user_id\": \"string\",\n    \"updated_by_user_id\": \"string\",\n    \"support_contact\": \"string\",\n    \"description\": \"string\",\n    \"application_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"rules\": [\n      {\n        \"name\": \"string\",\n        \"authorized\": false,\n        \"actions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"roles_groups\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"authorized\": true,\n        \"actions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"roles_groups\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "978c0905-88b2-438c-a374-666b094466aa",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    ":policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "policy_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b29c6028-b8e9-4762-bcb3-62ebab2802a5",
+          "name": "Update Policy",
+          "request": {
+            "name": "Update Policy",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "policies",
+                ":policy_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "policy_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"support_contact\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rules\": [\n    {\n      \"name\": \"<string>\",\n      \"authorized\": \"<boolean>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"roles_groups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"authorized\": \"<boolean>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"roles_groups\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "290ebf64-a385-4a86-87d2-06ed021f3d2c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    ":policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "policy_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"support_contact\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"ARCHIVED\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rules\": [\n    {\n      \"name\": \"string\",\n      \"authorized\": true,\n      \"actions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"roles_groups\": [\n        \"string\",\n        \"string\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"authorized\": true,\n      \"actions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"roles_groups\": [\n        \"string\",\n        \"string\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policy\": {\n    \"id\": \"28b2d966-293b-70a1-6eaa-03be64aed2f1\",\n    \"organization_id\": \"string\",\n    \"name\": \"string\",\n    \"status\": \"string\",\n    \"mcp_server_id\": \"string\",\n    \"created_at\": \"1968-02-12T11:35:55.536Z\",\n    \"updated_at\": \"1954-08-13T10:03:31.472Z\",\n    \"created_by_user_id\": \"string\",\n    \"updated_by_user_id\": \"string\",\n    \"support_contact\": \"string\",\n    \"description\": \"string\",\n    \"application_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"rules\": [\n      {\n        \"name\": \"string\",\n        \"authorized\": false,\n        \"actions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"roles_groups\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"authorized\": true,\n        \"actions\": [\n          \"string\",\n          \"string\"\n        ],\n        \"roles_groups\": [\n          \"string\",\n          \"string\"\n        ],\n        \"condition\": {\n          \"match\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7c018cf-cd35-488f-b3ca-955049af6134",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    ":policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "policy_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"support_contact\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"ARCHIVED\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"rules\": [\n    {\n      \"name\": \"string\",\n      \"authorized\": true,\n      \"actions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"roles_groups\": [\n        \"string\",\n        \"string\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"name\": \"string\",\n      \"authorized\": true,\n      \"actions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"roles_groups\": [\n        \"string\",\n        \"string\"\n      ],\n      \"condition\": {\n        \"match\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50aa8ad3-a4d7-4363-91a0-8a652382ab53",
+          "name": "List Policies",
+          "request": {
+            "name": "List Policies",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search by policy ID, name, description, or support contact"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by status values"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by status values"
+                },
+                {
+                  "disabled": false,
+                  "key": "mcp_server_id",
+                  "value": "<string>",
+                  "description": "Filter by MCP server IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "mcp_server_id",
+                  "value": "<string>",
+                  "description": "Filter by MCP server IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "Filter by agent/application IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<string>",
+                  "description": "Filter by agent/application IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page (max 100)"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "98764da1-8757-444b-a3ff-ff46ff0c3334",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mcp_server_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mcp_server_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"8d1e4b48-dff4-7fd6-46a4-55be0232f3db\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"mcp_server_id\": \"string\",\n      \"updated_at\": \"1968-09-10T09:08:13.050Z\",\n      \"updated_by_user_id\": \"string\",\n      \"mcp_server_name\": \"string\",\n      \"application_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"application_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_by_user_name\": \"string\",\n      \"description\": \"string\",\n      \"rules_count\": 0\n    },\n    {\n      \"id\": \"4f7eec36-505d-55ab-442b-69f04ff01ef7\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"mcp_server_id\": \"string\",\n      \"updated_at\": \"2008-06-13T21:52:44.519Z\",\n      \"updated_by_user_id\": \"string\",\n      \"mcp_server_name\": \"string\",\n      \"application_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"application_names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_by_user_name\": \"string\",\n      \"description\": \"string\",\n      \"rules_count\": 0\n    }\n  ],\n  \"pagination\": {\n    \"page\": 2137,\n    \"limit\": 377,\n    \"total\": 8998,\n    \"pages\": 6195,\n    \"previous_page\": 1491,\n    \"next_page\": 4720\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cc99165-0655-4bfc-b447-3e5c4d3a4aca",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mcp_server_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mcp_server_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79dff154-fe65-4c60-a3a0-2bf394161bdf",
+          "name": "List Policy Revisions",
+          "request": {
+            "name": "List Policy Revisions",
+            "description": {
+              "content": "List all revisions for a given policy with pagination.\n\nUses the same authorization as get_policy - if a user can read a policy,\nthey can view its revision history.\n\nArgs:\n    changes_summary: Include human-readable change descriptions in response",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "policies",
+                ":policy_id",
+                "revisions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "changes_summary",
+                  "value": "false",
+                  "description": "Include human-readable change descriptions in response"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page (max 100)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "policy_id",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bb325769-2a4b-4180-b782-8e8d76dd4734",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    ":policy_id",
+                    "revisions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "changes_summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "policy_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"949e7f8d-14bf-b639-48c5-bd20e4c903d5\",\n      \"policy_id\": \"96dbf3cf-67ba-5883-22ee-2636d7fd618c\",\n      \"changes\": {\n        \"key_0\": true\n      },\n      \"revised_at\": \"1964-10-13T03:08:20.182Z\",\n      \"revised_by\": \"string\",\n      \"changes_summary\": [\n        \"string\",\n        \"string\"\n      ],\n      \"revised_by_name\": \"string\"\n    },\n    {\n      \"id\": \"c3a46200-293f-bfe9-e189-7c6f22f2dbf7\",\n      \"policy_id\": \"88b726bd-c183-6eb8-0215-c84021f62c08\",\n      \"changes\": {\n        \"key_0\": false,\n        \"key_1\": 5833,\n        \"key_2\": \"string\"\n      },\n      \"revised_at\": \"2013-02-07T01:31:45.949Z\",\n      \"revised_by\": \"string\",\n      \"changes_summary\": [\n        \"string\",\n        \"string\"\n      ],\n      \"revised_by_name\": \"string\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 3995,\n    \"limit\": 4581,\n    \"total\": 5344,\n    \"pages\": 9878,\n    \"previous_page\": 3394,\n    \"next_page\": 1083\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5ef418c-141b-490f-9ce8-3080f0d1fb61",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    ":policy_id",
+                    "revisions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "changes_summary",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "policy_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "301bcd00-53ab-4ed9-91a4-9e00d9659139",
+          "name": "Validate Policy",
+          "request": {
+            "name": "Validate Policy",
+            "description": {
+              "content": "Validate a policy before creation or update.\nChecks for duplicate names and overlapping MCP server/agent combinations.\nWhen exclude_policy_id is provided (edit mode), that policy is excluded from validation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "policies",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your organization identifier",
+                  "type": "any",
+                  "value": "{{organization_id}}",
+                  "key": "organization_id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_id\": \"<string>\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_policy_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "785c2330-f21e-481c-b73b-e3d425466e40",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_id\": \"<string>\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_policy_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name_is_unique\": false,\n  \"no_overlap_if_active\": true,\n  \"overlapping_policy_names\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bef08882-3b76-4618-b6bf-c333eb08f24d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "policies",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your organization identifier",
+                      "type": "any",
+                      "value": "{{organization_id}}",
+                      "key": "organization_id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"mcp_server_id\": \"<string>\",\n  \"application_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_policy_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your organization identifier",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-org",
+      "key": "organization_id"
+    },
+    {
+      "type": "string",
+      "value": "https://{{organization_id}}.platform.barndoor.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1b886b0c-de7b-4d7c-8749-4a613e336a2b",
+    "name": "Barndoor Platform Agents Policies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.\n\n## Authentication\n\nAll endpoints require a JWT Bearer token obtained through Auth0 OAuth 2.0 flow with PKCE.\nThe SDK handles the OAuth flow automatically using interactive login.\n\n## MCP Integration\n\nThe `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers\n(Salesforce, Notion, Slack, etc.) with automatic authentication and session management.\n\n\nContact Support:\n Name: Barndoor Support",
+      "type": "text/plain"
+    }
+  }
+}

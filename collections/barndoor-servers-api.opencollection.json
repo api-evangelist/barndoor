@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Barndoor Platform Agents Servers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Servers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List MCP Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (max 100)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search servers by name or slug"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by server status"
+              },
+              {
+                "name": "connection_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by connection status. `not_connected` expands to pending, error, and available."
+              }
+            ]
+          },
+          "docs": "List all MCP servers available to the caller's organization.\nReturns paginated results with server details including connection status.\n"
+        },
+        {
+          "info": {
+            "name": "Create MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new MCP server instance from a server directory template.\n\nThe server will be created in `pending` status until OAuth credentials are configured.\nIf `client_id` and `client_secret` are provided, the server will be set to `active` status.\n"
+        },
+        {
+          "info": {
+            "name": "Get Server Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers/:server_id",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "Server UUID"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific MCP server.\nReturns extended information including MCP URL if available.\n"
+        },
+        {
+          "info": {
+            "name": "Update MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers/:server_id",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "Server UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing MCP server's configuration.\n\nYou can update the name, slug, OAuth credentials, and metadata.\nIf updating OAuth credentials, provide the actual values (not obfuscated).\n"
+        },
+        {
+          "info": {
+            "name": "Delete MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{organization_id}.platform.barndoor.ai/api/servers/:server_id",
+            "params": [
+              {
+                "name": "server_id",
+                "value": "",
+                "type": "path",
+                "description": "Server UUID"
+              }
+            ]
+          },
+          "docs": "Delete an MCP server and all associated connections.\n\nThis will:\n- Remove all user connections to this server\n- Clean up stored OAuth credentials\n- Delete the server configuration\n\nFor custom server types, this will also delete the associated server directory.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
