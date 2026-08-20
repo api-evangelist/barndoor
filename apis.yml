@@ -29,6 +29,17 @@ tags:
   - AI Governance
   - Agentic AI
   - MCP
+  - Policy Enforcement
+  - Authentication
+  - Identity
+  - Security
+  - Audit
+  - Control Plane
+tags_raw:
+  - AI Agents
+  - AI Governance
+  - Agentic AI
+  - MCP
   - Model Context Protocol
   - Policy Enforcement
   - OAuth
@@ -129,6 +140,12 @@ apis:
   baseURL: https://github.com/barndoor-ai/mcp-auth-compliance
   tags:
   - MCP
+  - Authentication
+  - Compliance
+  - Rust
+  - Conformance
+  tags_raw:
+  - MCP
   - OAuth
   - Compliance
   - Rust
@@ -144,6 +161,11 @@ apis:
   humanURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
   baseURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
   tags:
+  - CrewAI
+  - Python
+  - Example
+  - MCP
+  tags_raw:
   - Crew AI
   - Python
   - Example
