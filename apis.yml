@@ -10,6 +10,20 @@ description: >-
   API manages servers, connections, policies, agents, and MCP / SSE request proxying. Python, TypeScript, and Go SDKs
   are published on GitHub alongside Rust SDKs (Cerbos, official MCP, MCP OAuth compliance suite) and a Crew AI example.
   Deployment options include SaaS (trial), private cloud, and on-premises (Enterprise).
+deliveryModel:
+  model: open-core
+  license: MIT
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
