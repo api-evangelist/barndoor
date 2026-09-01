@@ -175,7 +175,7 @@ apis:
   humanURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
   baseURL: https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example
   tags:
-  - Crew AI
+  - CrewAI
   - Python
   - Example
   - MCP
