@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Barndoor Platform Agents Servers API
+  title: Barndoor Platform Servers API
   version: 1.0.0
   description: 'REST API for the Barndoor Platform - manage MCP servers, OAuth connections, and proxy MCP requests.
 
@@ -18,9 +18,7 @@ info:
 
     The `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers
 
-    (Salesforce, Notion, Slack, etc.) with automatic authentication and session management.
-
-    '
+    (Salesforce, Notion, Slack, etc.) with automatic authentication and session management.'
   contact:
     name: Barndoor Support
     url: https://barndoor.ai
@@ -65,9 +63,7 @@ paths:
 
         The server will be created in `pending` status until OAuth credentials are configured.
 
-        If `client_id` and `client_secret` are provided, the server will be set to `active` status.
-
-        '
+        If `client_id` and `client_secret` are provided, the server will be set to `active` status.'
       operationId: createServer
       requestBody:
         required: true
@@ -106,9 +102,7 @@ paths:
       summary: List MCP Servers
       description: 'List all MCP servers available to the caller''s organization.
 
-        Returns paginated results with server details including connection status.
-
-        '
+        Returns paginated results with server details including connection status.'
       operationId: listServers
       parameters:
       - name: page
@@ -192,9 +186,7 @@ paths:
         - Delete the server configuration
 
 
-        For custom server types, this will also delete the associated server directory.
-
-        '
+        For custom server types, this will also delete the associated server directory.'
       operationId: deleteServer
       parameters:
       - name: server_id
@@ -229,9 +221,7 @@ paths:
       summary: Get Server Details
       description: 'Get detailed information about a specific MCP server.
 
-        Returns extended information including MCP URL if available.
-
-        '
+        Returns extended information including MCP URL if available.'
       operationId: getServer
       parameters:
       - name: server_id
@@ -276,9 +266,7 @@ paths:
 
         You can update the name, slug, OAuth credentials, and metadata.
 
-        If updating OAuth credentials, provide the actual values (not obfuscated).
-
-        '
+        If updating OAuth credentials, provide the actual values (not obfuscated).'
       operationId: updateServer
       parameters:
       - name: server_id
@@ -327,6 +315,29 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    PaginationResponse_ServerResponse_:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerDetail'
+          description: Array of servers for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
+      required:
+      - data
+      - pagination
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ServerCreateRequest:
       type: object
       required:
@@ -355,6 +366,35 @@ components:
           type: object
           description: Additional metadata for the server
           additionalProperties: true
+    Error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type identifier
+          example: ServerNotFound
+        message:
+          type: string
+          description: Human-readable error message
+          example: Server with ID '123' not found
+        details:
+          type: object
+          description: Additional error details
+          additionalProperties: true
+    ServerDetail:
+      allOf:
+      - $ref: '#/components/schemas/ServerSummary'
+      - type: object
+        properties:
+          url:
+            type: string
+            format: uri
+            nullable: true
+            description: MCP base URL from the server directory
+            example: https://api.salesforce.com/mcp
     ServerCreateResponse:
       type: object
       properties:
@@ -370,26 +410,6 @@ components:
           type: string
           nullable: true
           description: OAuth authorization URL if authentication is required
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ServerDetail:
-      allOf:
-      - $ref: '#/components/schemas/ServerSummary'
-      - type: object
-        properties:
-          url:
-            type: string
-            format: uri
-            nullable: true
-            description: MCP base URL from the server directory
-            example: https://api.salesforce.com/mcp
     ServerSummary:
       type: object
       required:
@@ -436,6 +456,46 @@ components:
 
             '
           example: connected
+    PaginationMeta:
+      properties:
+        page:
+          type: integer
+          title: Page
+          description: Current page number
+        limit:
+          type: integer
+          title: Limit
+          description: Items per page
+        total:
+          type: integer
+          title: Total
+          description: Total number of items
+        pages:
+          type: integer
+          title: Pages
+          description: Total number of pages
+        previous_page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Previous Page
+          description: Previous page number (null if first page)
+        next_page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Next Page
+          description: Next page number (null if last page)
+      type: object
+      required:
+      - page
+      - limit
+      - total
+      - pages
+      - previous_page
+      - next_page
+      title: PaginationMeta
+      description: Pagination metadata.
     ServerUpdateRequest:
       type: object
       properties:
@@ -483,78 +543,6 @@ components:
       - msg
       - type
       title: ValidationError
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type identifier
-          example: ServerNotFound
-        message:
-          type: string
-          description: Human-readable error message
-          example: Server with ID '123' not found
-        details:
-          type: object
-          description: Additional error details
-          additionalProperties: true
-    PaginationResponse_ServerResponse_:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerDetail'
-          description: Array of servers for current page
-        pagination:
-          $ref: '#/components/schemas/PaginationMeta'
-          description: Pagination metadata
-      required:
-      - data
-      - pagination
-    PaginationMeta:
-      properties:
-        page:
-          type: integer
-          title: Page
-          description: Current page number
-        limit:
-          type: integer
-          title: Limit
-          description: Items per page
-        total:
-          type: integer
-          title: Total
-          description: Total number of items
-        pages:
-          type: integer
-          title: Pages
-          description: Total number of pages
-        previous_page:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Previous Page
-          description: Previous page number (null if first page)
-        next_page:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Next Page
-          description: Next page number (null if last page)
-      type: object
-      required:
-      - page
-      - limit
-      - total
-      - pages
-      - previous_page
-      - next_page
-      title: PaginationMeta
-      description: Pagination metadata.
   securitySchemes:
     BearerAuth:
       type: http

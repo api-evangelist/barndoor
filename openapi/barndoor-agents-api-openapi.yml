@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Barndoor Platform Agents API
   version: 1.0.0
@@ -18,9 +18,7 @@ info:
 
     The `/mcp/{mcp_server_name}` endpoints provide streaming proxy access to third-party MCP servers
 
-    (Salesforce, Notion, Slack, etc.) with automatic authentication and session management.
-
-    '
+    (Salesforce, Notion, Slack, etc.) with automatic authentication and session management.'
   contact:
     name: Barndoor Support
     url: https://barndoor.ai
@@ -74,7 +72,14 @@ paths:
       tags:
       - Agents
       summary: Unregister Agent
-      description: "Unregister an agent from Barndoor.\n\nThis removes the agent's registration but does not delete the underlying \napplication directory. The agent can be re-registered using the same \napplication_directory_id.\n"
+      description: 'Unregister an agent from Barndoor.
+
+
+        This removes the agent''s registration but does not delete the underlying
+
+        application directory. The agent can be re-registered using the same
+
+        application_directory_id.'
       operationId: unregisterAgent
       parameters:
       - name: agent_id
@@ -191,9 +196,7 @@ paths:
 
         Agents represent AI applications that can access MCP servers through Barndoor.
 
-        Each agent must be associated with an application directory (OAuth client configuration).
-
-        '
+        Each agent must be associated with an application directory (OAuth client configuration).'
       operationId: registerAgent
       requestBody:
         required: true
@@ -216,32 +219,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AgentPayload:
-      properties:
-        application_directory_id:
-          type: string
-          title: Agent Directory Id
-      type: object
-      required:
-      - application_directory_id
-      title: AgentPayload
-    AgentCounts:
-      properties:
-        all:
-          type: integer
-          title: All
-        internal:
-          type: integer
-          title: Internal
-        external:
-          type: integer
-          title: External
-      type: object
-      required:
-      - all
-      - internal
-      - external
-      title: AgentCounts
     HTTPValidationError:
       properties:
         detail:
@@ -251,32 +228,60 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ValidationError:
+    AgentResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        id:
           type: string
-          title: Message
-        type:
+          format: uuid
+          title: Id
+        created_at:
           type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        application_directory_id:
+          type: string
+          format: uuid
+          title: Agent Directory Id
+        application_directory:
+          $ref: '#/components/schemas/AgentDirectoryBase'
+        agent_type:
+          $ref: '#/components/schemas/AgentType'
+          description: Determine agent type based on application directory properties.
+          readOnly: true
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - id
+      - created_at
+      - updated_at
+      - organization_id
+      - application_directory_id
+      - application_directory
+      - agent_type
+      title: AgentResponse
+    AgentType:
+      type: string
+      enum:
+      - internal
+      - external
+      title: AgentType
+      description: Agent type classification for applications.
+    AgentPayload:
+      properties:
+        application_directory_id:
+          type: string
+          title: Agent Directory Id
+      type: object
+      required:
+      - application_directory_id
+      title: AgentPayload
     AgentDirectoryBase:
       properties:
         id:
@@ -339,6 +344,22 @@ components:
       - post_login_success
       - callbacks
       title: AgentDirectoryBase
+    PaginationResponse_AgentResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AgentResponse'
+          type: array
+          title: Data
+          description: Array of items for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
+      type: object
+      required:
+      - data
+      - pagination
+      title: PaginationResponse[AgentResponse]
     PaginationMeta:
       properties:
         page:
@@ -379,51 +400,6 @@ components:
       - next_page
       title: PaginationMeta
       description: Pagination metadata.
-    AgentResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        organization_id:
-          type: string
-          format: uuid
-          title: Organization Id
-        application_directory_id:
-          type: string
-          format: uuid
-          title: Agent Directory Id
-        application_directory:
-          $ref: '#/components/schemas/AgentDirectoryBase'
-        agent_type:
-          $ref: '#/components/schemas/AgentType'
-          description: Determine agent type based on application directory properties.
-          readOnly: true
-      type: object
-      required:
-      - id
-      - created_at
-      - updated_at
-      - organization_id
-      - application_directory_id
-      - application_directory
-      - agent_type
-      title: AgentResponse
-    AgentType:
-      type: string
-      enum:
-      - internal
-      - external
-      title: AgentType
-      description: Agent type classification for applications.
     Agent:
       properties:
         id:
@@ -454,22 +430,49 @@ components:
       - organization_id
       - application_directory_id
       title: Agent
-    PaginationResponse_AgentResponse_:
+    AgentCounts:
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AgentResponse'
-          type: array
-          title: Data
-          description: Array of items for current page
-        pagination:
-          $ref: '#/components/schemas/PaginationMeta'
-          description: Pagination metadata
+        all:
+          type: integer
+          title: All
+        internal:
+          type: integer
+          title: Internal
+        external:
+          type: integer
+          title: External
       type: object
       required:
-      - data
-      - pagination
-      title: PaginationResponse[AgentResponse]
+      - all
+      - internal
+      - external
+      title: AgentCounts
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     BearerAuth:
       type: http

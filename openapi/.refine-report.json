@@ -1,12 +1,7 @@
 {
   "provider": "barndoor",
   "sources": [
-    "barndoor-agents-api-openapi.yml",
-    "barndoor-connections-api-openapi.yml",
-    "barndoor-mcp-proxy-api-openapi.yml",
-    "barndoor-policies-api-openapi.yml",
-    "barndoor-policy-api-openapi.yml",
-    "barndoor-servers-api-openapi.yml"
+    "_original/barndoor-openapi.yml"
   ],
   "outputs": [
     "barndoor-agents-api-openapi.yml",
@@ -19,6 +14,29 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "barndoor-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "barndoor-openapi.yml: tagged paths POST /api/v2/policies/{policy_id}/clone -> Policies",
+    "barndoor-openapi.yml: tagged paths POST /api/policy -> Policy",
+    "barndoor-openapi.yml: tagged paths PUT /api/policies/restrictions/disable/{restriction_name} -> Policies",
+    "barndoor-openapi.yml: tagged paths PUT /api/policies/restrictions/enable/{restriction_name} -> Policies",
+    "barndoor-openapi.yml: tagged paths GET /api/v2/policies/filter-definitions -> Policies",
+    "barndoor-openapi.yml: tagged paths GET /api/v2/policies/summary -> Policies",
+    "barndoor-openapi.yml: tagged paths GET /api/v2/policies/{policy_id} -> Policies",
+    "barndoor-openapi.yml: tagged paths PATCH /api/v2/policies/{policy_id} -> Policies",
+    "barndoor-openapi.yml: tagged paths GET /api/v2/policies -> Policies",
+    "barndoor-openapi.yml: tagged paths GET /api/v2/policies/{policy_id}/revisions -> Policies",
+    "barndoor-openapi.yml: tagged paths POST /api/v2/policies/validate -> Policies",
+    "barndoor-openapi.yml: declared missing tag: Policy",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "barndoor-agents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "barndoor-connections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "barndoor-mcp-proxy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "barndoor-policies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "barndoor-policy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "barndoor-servers-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
