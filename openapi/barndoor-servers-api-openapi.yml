@@ -315,6 +315,59 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ServerDetail:
+      allOf:
+      - $ref: '#/components/schemas/ServerSummary'
+      - type: object
+        properties:
+          url:
+            type: string
+            format: uri
+            nullable: true
+            description: MCP base URL from the server directory
+            example: https://api.salesforce.com/mcp
+    PaginationResponse_ServerResponse_:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerDetail'
+          description: Array of servers for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
+      required:
+      - data
+      - pagination
+    ServerCreateRequest:
+      type: object
+      required:
+      - name
+      - mcp_server_directory_id
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the server
+          example: My Salesforce Instance
+        mcp_server_directory_id:
+          type: string
+          format: uuid
+          description: ID of the server directory template to create from
+        slug:
+          type: string
+          description: Optional URL-friendly identifier (auto-generated if not provided)
+          pattern: ^[a-z0-9-]+$
+        client_id:
+          type: string
+          description: OAuth client ID (for OAuth-enabled servers)
+        client_secret:
+          type: string
+          description: OAuth client secret (for OAuth-enabled servers)
+        meta:
+          type: object
+          description: Additional metadata for the server
+          additionalProperties: true
     HTTPValidationError:
       properties:
         detail:
@@ -324,6 +377,32 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     PaginationMeta:
       properties:
         page:
@@ -364,50 +443,6 @@ components:
       - next_page
       title: PaginationMeta
       description: Pagination metadata.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Error type identifier
-          example: ServerNotFound
-        message:
-          type: string
-          description: Human-readable error message
-          example: Server with ID '123' not found
-        details:
-          type: object
-          description: Additional error details
-          additionalProperties: true
     ServerUpdateRequest:
       type: object
       properties:
@@ -429,20 +464,39 @@ components:
           type: object
           description: Additional metadata for the server
           additionalProperties: true
-    PaginationResponse_ServerResponse_:
+    ServerCreateResponse:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServerDetail'
-          description: Array of servers for current page
-        pagination:
-          $ref: '#/components/schemas/PaginationMeta'
-          description: Pagination metadata
+        id:
+          type: string
+          format: uuid
+          description: ID of the newly created server
+        connection_id:
+          type: string
+          nullable: true
+          description: Connection ID if a connection was created
+        auth_url:
+          type: string
+          nullable: true
+          description: OAuth authorization URL if authentication is required
+    Error:
+      type: object
       required:
-      - data
-      - pagination
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Error type identifier
+          example: ServerNotFound
+        message:
+          type: string
+          description: Human-readable error message
+          example: Server with ID '123' not found
+        details:
+          type: object
+          description: Additional error details
+          additionalProperties: true
     ServerSummary:
       type: object
       required:
@@ -489,60 +543,6 @@ components:
 
             '
           example: connected
-    ServerDetail:
-      allOf:
-      - $ref: '#/components/schemas/ServerSummary'
-      - type: object
-        properties:
-          url:
-            type: string
-            format: uri
-            nullable: true
-            description: MCP base URL from the server directory
-            example: https://api.salesforce.com/mcp
-    ServerCreateRequest:
-      type: object
-      required:
-      - name
-      - mcp_server_directory_id
-      properties:
-        name:
-          type: string
-          description: Human-readable name for the server
-          example: My Salesforce Instance
-        mcp_server_directory_id:
-          type: string
-          format: uuid
-          description: ID of the server directory template to create from
-        slug:
-          type: string
-          description: Optional URL-friendly identifier (auto-generated if not provided)
-          pattern: ^[a-z0-9-]+$
-        client_id:
-          type: string
-          description: OAuth client ID (for OAuth-enabled servers)
-        client_secret:
-          type: string
-          description: OAuth client secret (for OAuth-enabled servers)
-        meta:
-          type: object
-          description: Additional metadata for the server
-          additionalProperties: true
-    ServerCreateResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: ID of the newly created server
-        connection_id:
-          type: string
-          nullable: true
-          description: Connection ID if a connection was created
-        auth_url:
-          type: string
-          nullable: true
-          description: OAuth authorization URL if authentication is required
   securitySchemes:
     BearerAuth:
       type: http

@@ -219,15 +219,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     AgentDirectoryBase:
       properties:
         id:
@@ -290,13 +281,6 @@ components:
       - post_login_success
       - callbacks
       title: AgentDirectoryBase
-    AgentType:
-      type: string
-      enum:
-      - internal
-      - external
-      title: AgentType
-      description: Agent type classification for applications.
     Agent:
       properties:
         id:
@@ -327,32 +311,32 @@ components:
       - organization_id
       - application_directory_id
       title: Agent
-    ValidationError:
+    AgentCounts:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+        all:
+          type: integer
+          title: All
+        internal:
+          type: integer
+          title: Internal
+        external:
+          type: integer
+          title: External
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - all
+      - internal
+      - external
+      title: AgentCounts
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     AgentPayload:
       properties:
         application_directory_id:
@@ -362,60 +346,6 @@ components:
       required:
       - application_directory_id
       title: AgentPayload
-    PaginationResponse_AgentResponse_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AgentResponse'
-          type: array
-          title: Data
-          description: Array of items for current page
-        pagination:
-          $ref: '#/components/schemas/PaginationMeta'
-          description: Pagination metadata
-      type: object
-      required:
-      - data
-      - pagination
-      title: PaginationResponse[AgentResponse]
-    AgentResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        organization_id:
-          type: string
-          format: uuid
-          title: Organization Id
-        application_directory_id:
-          type: string
-          format: uuid
-          title: Agent Directory Id
-        application_directory:
-          $ref: '#/components/schemas/AgentDirectoryBase'
-        agent_type:
-          $ref: '#/components/schemas/AgentType'
-          description: Determine agent type based on application directory properties.
-          readOnly: true
-      type: object
-      required:
-      - id
-      - created_at
-      - updated_at
-      - organization_id
-      - application_directory_id
-      - application_directory
-      - agent_type
-      title: AgentResponse
     PaginationMeta:
       properties:
         page:
@@ -456,23 +386,93 @@ components:
       - next_page
       title: PaginationMeta
       description: Pagination metadata.
-    AgentCounts:
+    ValidationError:
       properties:
-        all:
-          type: integer
-          title: All
-        internal:
-          type: integer
-          title: Internal
-        external:
-          type: integer
-          title: External
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - all
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AgentResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        application_directory_id:
+          type: string
+          format: uuid
+          title: Agent Directory Id
+        application_directory:
+          $ref: '#/components/schemas/AgentDirectoryBase'
+        agent_type:
+          $ref: '#/components/schemas/AgentType'
+          description: Determine agent type based on application directory properties.
+          readOnly: true
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - organization_id
+      - application_directory_id
+      - application_directory
+      - agent_type
+      title: AgentResponse
+    AgentType:
+      type: string
+      enum:
       - internal
       - external
-      title: AgentCounts
+      title: AgentType
+      description: Agent type classification for applications.
+    PaginationResponse_AgentResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AgentResponse'
+          type: array
+          title: Data
+          description: Array of items for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
+      type: object
+      required:
+      - data
+      - pagination
+      title: PaginationResponse[AgentResponse]
   securitySchemes:
     BearerAuth:
       type: http

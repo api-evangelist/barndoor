@@ -218,6 +218,15 @@ components:
           - error
           description: Current connection status
           example: connected
+    ConnectionInitiationResponse:
+      type: object
+      properties:
+        auth_url:
+          type: string
+          format: uri
+          description: OAuth authorization URL to redirect user to
+          example: https://login.salesforce.com/services/oauth2/authorize?...
+      additionalProperties: true
     Error:
       type: object
       required:
@@ -236,15 +245,6 @@ components:
           type: object
           description: Additional error details
           additionalProperties: true
-    ConnectionInitiationResponse:
-      type: object
-      properties:
-        auth_url:
-          type: string
-          format: uri
-          description: OAuth authorization URL to redirect user to
-          example: https://login.salesforce.com/services/oauth2/authorize?...
-      additionalProperties: true
   securitySchemes:
     BearerAuth:
       type: http
