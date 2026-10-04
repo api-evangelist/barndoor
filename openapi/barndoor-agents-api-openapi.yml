@@ -219,6 +219,70 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    AgentCounts:
+      properties:
+        all:
+          type: integer
+          title: All
+        internal:
+          type: integer
+          title: Internal
+        external:
+          type: integer
+          title: External
+      type: object
+      required:
+      - all
+      - internal
+      - external
+      title: AgentCounts
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AgentResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        application_directory_id:
+          type: string
+          format: uuid
+          title: Agent Directory Id
+        application_directory:
+          $ref: '#/components/schemas/AgentDirectoryBase'
+        agent_type:
+          $ref: '#/components/schemas/AgentType'
+          description: Determine agent type based on application directory properties.
+          readOnly: true
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - organization_id
+      - application_directory_id
+      - application_directory
+      - agent_type
+      title: AgentResponse
     AgentDirectoryBase:
       properties:
         id:
@@ -281,62 +345,6 @@ components:
       - post_login_success
       - callbacks
       title: AgentDirectoryBase
-    Agent:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        organization_id:
-          type: string
-          format: uuid
-          title: Organization Id
-        application_directory_id:
-          type: string
-          format: uuid
-          title: Agent Directory Id
-      type: object
-      required:
-      - id
-      - created_at
-      - updated_at
-      - organization_id
-      - application_directory_id
-      title: Agent
-    AgentCounts:
-      properties:
-        all:
-          type: integer
-          title: All
-        internal:
-          type: integer
-          title: Internal
-        external:
-          type: integer
-          title: External
-      type: object
-      required:
-      - all
-      - internal
-      - external
-      title: AgentCounts
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     AgentPayload:
       properties:
         application_directory_id:
@@ -346,6 +354,13 @@ components:
       required:
       - application_directory_id
       title: AgentPayload
+    AgentType:
+      type: string
+      enum:
+      - internal
+      - external
+      title: AgentType
+      description: Agent type classification for applications.
     PaginationMeta:
       properties:
         page:
@@ -412,7 +427,7 @@ components:
       - msg
       - type
       title: ValidationError
-    AgentResponse:
+    Agent:
       properties:
         id:
           type: string
@@ -434,12 +449,6 @@ components:
           type: string
           format: uuid
           title: Agent Directory Id
-        application_directory:
-          $ref: '#/components/schemas/AgentDirectoryBase'
-        agent_type:
-          $ref: '#/components/schemas/AgentType'
-          description: Determine agent type based on application directory properties.
-          readOnly: true
       type: object
       required:
       - id
@@ -447,16 +456,7 @@ components:
       - updated_at
       - organization_id
       - application_directory_id
-      - application_directory
-      - agent_type
-      title: AgentResponse
-    AgentType:
-      type: string
-      enum:
-      - internal
-      - external
-      title: AgentType
-      description: Agent type classification for applications.
+      title: Agent
     PaginationResponse_AgentResponse_:
       properties:
         data:
