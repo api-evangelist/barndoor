@@ -286,6 +286,9 @@ apis:
   - type: SDKs
     url: https://docs.barndoor.ai/sdks/introduction
 common:
+  - type: CapabilityMap
+    url: capabilities/barndoor-capability-edges.yml
+    name: Barndoor Business Capability Map
   - type: Releases
     url: https://github.com/barndoor-ai/barndoor-python-sdk/releases
   - type: SecurityPolicy
