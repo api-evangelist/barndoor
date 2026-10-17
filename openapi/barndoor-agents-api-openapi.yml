@@ -219,23 +219,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AgentCounts:
-      properties:
-        all:
-          type: integer
-          title: All
-        internal:
-          type: integer
-          title: Internal
-        external:
-          type: integer
-          title: External
-      type: object
-      required:
-      - all
-      - internal
-      - external
-      title: AgentCounts
     HTTPValidationError:
       properties:
         detail:
@@ -245,7 +228,30 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    AgentResponse:
+    PaginationResponse_AgentResponse_:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AgentResponse'
+          type: array
+          title: Data
+          description: Array of items for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
+      type: object
+      required:
+      - data
+      - pagination
+      title: PaginationResponse[AgentResponse]
+    AgentType:
+      type: string
+      enum:
+      - internal
+      - external
+      title: AgentType
+      description: Agent type classification for applications.
+    Agent:
       properties:
         id:
           type: string
@@ -267,12 +273,6 @@ components:
           type: string
           format: uuid
           title: Agent Directory Id
-        application_directory:
-          $ref: '#/components/schemas/AgentDirectoryBase'
-        agent_type:
-          $ref: '#/components/schemas/AgentType'
-          description: Determine agent type based on application directory properties.
-          readOnly: true
       type: object
       required:
       - id
@@ -280,9 +280,64 @@ components:
       - updated_at
       - organization_id
       - application_directory_id
-      - application_directory
-      - agent_type
-      title: AgentResponse
+      title: Agent
+    AgentCounts:
+      properties:
+        all:
+          type: integer
+          title: All
+        internal:
+          type: integer
+          title: Internal
+        external:
+          type: integer
+          title: External
+      type: object
+      required:
+      - all
+      - internal
+      - external
+      title: AgentCounts
+    PaginationMeta:
+      properties:
+        page:
+          type: integer
+          title: Page
+          description: Current page number
+        limit:
+          type: integer
+          title: Limit
+          description: Items per page
+        total:
+          type: integer
+          title: Total
+          description: Total number of items
+        pages:
+          type: integer
+          title: Pages
+          description: Total number of pages
+        previous_page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Previous Page
+          description: Previous page number (null if first page)
+        next_page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Next Page
+          description: Next page number (null if last page)
+      type: object
+      required:
+      - page
+      - limit
+      - total
+      - pages
+      - previous_page
+      - next_page
+      title: PaginationMeta
+      description: Pagination metadata.
     AgentDirectoryBase:
       properties:
         id:
@@ -345,6 +400,44 @@ components:
       - post_login_success
       - callbacks
       title: AgentDirectoryBase
+    AgentResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        application_directory_id:
+          type: string
+          format: uuid
+          title: Agent Directory Id
+        application_directory:
+          $ref: '#/components/schemas/AgentDirectoryBase'
+        agent_type:
+          $ref: '#/components/schemas/AgentType'
+          description: Determine agent type based on application directory properties.
+          readOnly: true
+      type: object
+      required:
+      - id
+      - created_at
+      - updated_at
+      - organization_id
+      - application_directory_id
+      - application_directory
+      - agent_type
+      title: AgentResponse
     AgentPayload:
       properties:
         application_directory_id:
@@ -354,53 +447,6 @@ components:
       required:
       - application_directory_id
       title: AgentPayload
-    AgentType:
-      type: string
-      enum:
-      - internal
-      - external
-      title: AgentType
-      description: Agent type classification for applications.
-    PaginationMeta:
-      properties:
-        page:
-          type: integer
-          title: Page
-          description: Current page number
-        limit:
-          type: integer
-          title: Limit
-          description: Items per page
-        total:
-          type: integer
-          title: Total
-          description: Total number of items
-        pages:
-          type: integer
-          title: Pages
-          description: Total number of pages
-        previous_page:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Previous Page
-          description: Previous page number (null if first page)
-        next_page:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Next Page
-          description: Next page number (null if last page)
-      type: object
-      required:
-      - page
-      - limit
-      - total
-      - pages
-      - previous_page
-      - next_page
-      title: PaginationMeta
-      description: Pagination metadata.
     ValidationError:
       properties:
         loc:
@@ -427,52 +473,6 @@ components:
       - msg
       - type
       title: ValidationError
-    Agent:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        organization_id:
-          type: string
-          format: uuid
-          title: Organization Id
-        application_directory_id:
-          type: string
-          format: uuid
-          title: Agent Directory Id
-      type: object
-      required:
-      - id
-      - created_at
-      - updated_at
-      - organization_id
-      - application_directory_id
-      title: Agent
-    PaginationResponse_AgentResponse_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AgentResponse'
-          type: array
-          title: Data
-          description: Array of items for current page
-        pagination:
-          $ref: '#/components/schemas/PaginationMeta'
-          description: Pagination metadata
-      type: object
-      required:
-      - data
-      - pagination
-      title: PaginationResponse[AgentResponse]
   securitySchemes:
     BearerAuth:
       type: http

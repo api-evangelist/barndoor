@@ -450,15 +450,29 @@ paths:
       - Policies
 components:
   schemas:
-    PolicyDetailResponse:
+    ConditionOf-Input:
       properties:
-        policy:
-          $ref: '#/components/schemas/PolicyDetail'
+        of:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/Expression'
+            - $ref: '#/components/schemas/OperatorAll-Input'
+            - $ref: '#/components/schemas/OperatorAny-Input'
+            - $ref: '#/components/schemas/OperatorNone-Input'
+          type: array
+          title: Of
       type: object
       required:
-      - policy
-      title: PolicyDetailResponse
-      description: Envelope for detail responses.
+      - of
+      title: ConditionOf
+    OperatorAny-Input:
+      properties:
+        any:
+          $ref: '#/components/schemas/ConditionOf-Input'
+      type: object
+      required:
+      - any
+      title: OperatorAny
     PolicyRevisionSummary:
       properties:
         id:
@@ -504,92 +518,114 @@ components:
       - revised_by
       title: PolicyRevisionSummary
       description: Summary of a policy revision.
-    FilterOption:
+    PolicyRule-Input:
       properties:
-        value:
-          type: string
-          title: Value
-        label:
-          type: string
-          title: Label
-      type: object
-      required:
-      - value
-      - label
-      title: FilterOption
-      description: Individual filter option.
-    FilterCategory:
-      properties:
-        id:
-          type: string
-          title: Id
-        label:
-          type: string
-          title: Label
-        options:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Optional display name for the rule
+          default: ''
+        authorized:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Authorized
+          description: Determines if the actions are allowed (True) or denied (False)
+          default: false
+        actions:
           items:
-            $ref: '#/components/schemas/FilterOption'
+            type: string
           type: array
-          title: Options
-      type: object
-      required:
-      - id
-      - label
-      title: FilterCategory
-      description: Category of filter options for the advanced filter UI.
-    ConditionOf-Input:
-      properties:
-        of:
+          title: Actions
+          description: Actions this rule applies to
+        roles_groups:
           items:
-            oneOf:
-            - $ref: '#/components/schemas/Expression'
-            - $ref: '#/components/schemas/OperatorAll-Input'
-            - $ref: '#/components/schemas/OperatorAny-Input'
-            - $ref: '#/components/schemas/OperatorNone-Input'
+            type: string
           type: array
-          title: Of
+          title: Roles Groups
+          description: Roles or groups this rule applies to
+        condition:
+          anyOf:
+          - $ref: '#/components/schemas/PolicyRuleCondition-Input'
+          - type: 'null'
+          description: Optional condition that must be met for the rule to apply
+      type: object
+      title: PolicyRule
+      description: Represents a single policy rule with compatible conditions.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidatePolicyResponse:
+      properties:
+        name_is_unique:
+          type: boolean
+          title: Name Is Unique
+          description: Whether the policy name is unique within the organization
+        no_overlap_if_active:
+          type: boolean
+          title: No Overlap If Active
+          description: Whether the policy would overlap with existing active policies
+        overlapping_policy_names:
+          items:
+            type: string
+          type: array
+          title: Overlapping Policy Names
+          description: Names of overlapping active policies, if any
       type: object
       required:
-      - of
-      title: ConditionOf
-    PolicySummaryResponse:
+      - name_is_unique
+      - no_overlap_if_active
+      title: ValidatePolicyResponse
+      description: Response for policy validation.
+    PaginationResponse_PolicySummary_:
       properties:
-        active:
-          type: integer
-          title: Active
-          default: 0
-        draft:
-          type: integer
-          title: Draft
-          default: 0
-        inactive:
-          type: integer
-          title: Inactive
-          default: 0
-        archived:
-          type: integer
-          title: Archived
-          default: 0
-        total:
-          type: integer
-          title: Total
-          default: 0
-      type: object
-      title: PolicySummaryResponse
-      description: Summary counts of policies by status.
-    PolicyRuleCondition-Input:
-      properties:
-        match:
-          oneOf:
-          - $ref: '#/components/schemas/Expression'
-          - $ref: '#/components/schemas/OperatorAll-Input'
-          - $ref: '#/components/schemas/OperatorAny-Input'
-          - $ref: '#/components/schemas/OperatorNone-Input'
-          title: Match
+        data:
+          items:
+            $ref: '#/components/schemas/PolicySummary'
+          type: array
+          title: Data
+          description: Array of items for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
       type: object
       required:
-      - match
-      title: PolicyRuleCondition
+      - data
+      - pagination
+      title: PaginationResponse[PolicySummary]
+    OperatorNone-Output:
+      properties:
+        none:
+          $ref: '#/components/schemas/ConditionOf-Output'
+      type: object
+      required:
+      - none
+      title: OperatorNone
+    OperatorAny-Output:
+      properties:
+        any:
+          $ref: '#/components/schemas/ConditionOf-Output'
+      type: object
+      required:
+      - any
+      title: OperatorAny
+    Expression:
+      properties:
+        expr:
+          type: string
+          title: Expr
+      type: object
+      required:
+      - expr
+      title: Expression
     ValidatePolicyRequest:
       properties:
         name:
@@ -623,55 +659,53 @@ components:
       - name
       title: ValidatePolicyRequest
       description: Request body for validating a policy before creation.
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    OperatorNone-Output:
-      properties:
-        none:
-          $ref: '#/components/schemas/ConditionOf-Output'
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - none
-      title: OperatorNone
-    OperatorAll-Input:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PolicyRuleCondition-Input:
+      properties:
+        match:
+          oneOf:
+          - $ref: '#/components/schemas/Expression'
+          - $ref: '#/components/schemas/OperatorAll-Input'
+          - $ref: '#/components/schemas/OperatorAny-Input'
+          - $ref: '#/components/schemas/OperatorNone-Input'
+          title: Match
+      type: object
+      required:
+      - match
+      title: PolicyRuleCondition
+    OperatorAll-Output:
       properties:
         all:
-          $ref: '#/components/schemas/ConditionOf-Input'
+          $ref: '#/components/schemas/ConditionOf-Output'
       type: object
       required:
       - all
       title: OperatorAll
-    PaginationResponse_PolicySummary_:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/PolicySummary'
-          type: array
-          title: Data
-          description: Array of items for current page
-        pagination:
-          $ref: '#/components/schemas/PaginationMeta'
-          description: Pagination metadata
-      type: object
-      required:
-      - data
-      - pagination
-      title: PaginationResponse[PolicySummary]
-    OperatorAny-Output:
-      properties:
-        any:
-          $ref: '#/components/schemas/ConditionOf-Output'
-      type: object
-      required:
-      - any
-      title: OperatorAny
     PolicyStatus:
       type: string
       enum:
@@ -681,157 +715,75 @@ components:
       - ARCHIVED
       title: PolicyStatus
       description: Policy lifecycle status.
-    UpdatePolicy:
+    PolicyRule-Output:
       properties:
         name:
           anyOf:
           - type: string
           - type: 'null'
           title: Name
-          description: Human-friendly policy name, unique within an organization
-        description:
+          description: Optional display name for the rule
+          default: ''
+        authorized:
           anyOf:
-          - type: string
+          - type: boolean
           - type: 'null'
-          title: Description
-          description: Longer description of the policy.
-        support_contact:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Support Contact
-          description: Primary point of contact associated with the policy.
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: Tags for categorizing the policy.
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/PolicyStatus'
-          - type: 'null'
-          description: The current lifecycle status of the policy.
-        application_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Application Ids
-          description: List of application (agent) identifiers to which this policy applies.
-        rules:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/PolicyRule-Input'
-            type: array
-          - type: 'null'
-          title: Rules
-          description: Full set of rules that govern the policy.
-      type: object
-      title: UpdatePolicy
-      description: Request body for partial updates to an existing policy.
-    PaginationResponse_PolicyRevisionSummary_:
-      properties:
-        data:
+          title: Authorized
+          description: Determines if the actions are allowed (True) or denied (False)
+          default: false
+        actions:
           items:
-            $ref: '#/components/schemas/PolicyRevisionSummary'
+            type: string
           type: array
-          title: Data
-          description: Array of items for current page
-        pagination:
-          $ref: '#/components/schemas/PaginationMeta'
-          description: Pagination metadata
+          title: Actions
+          description: Actions this rule applies to
+        roles_groups:
+          items:
+            type: string
+          type: array
+          title: Roles Groups
+          description: Roles or groups this rule applies to
+        condition:
+          anyOf:
+          - $ref: '#/components/schemas/PolicyRuleCondition-Output'
+          - type: 'null'
+          description: Optional condition that must be met for the rule to apply
       type: object
-      required:
-      - data
-      - pagination
-      title: PaginationResponse[PolicyRevisionSummary]
-    Expression:
+      title: PolicyRule
+      description: Represents a single policy rule with compatible conditions.
+    FilterOption:
       properties:
-        expr:
+        value:
           type: string
-          title: Expr
+          title: Value
+        label:
+          type: string
+          title: Label
       type: object
       required:
-      - expr
-      title: Expression
-    OperatorNone-Input:
-      properties:
-        none:
-          $ref: '#/components/schemas/ConditionOf-Input'
-      type: object
-      required:
-      - none
-      title: OperatorNone
-    PolicySummary:
+      - value
+      - label
+      title: FilterOption
+      description: Individual filter option.
+    FilterCategory:
       properties:
         id:
           type: string
-          format: uuid
           title: Id
-        name:
+        label:
           type: string
-          title: Name
-        status:
-          type: string
-          title: Status
-        mcp_server_id:
-          type: string
-          title: Mcp Server Id
-        mcp_server_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Mcp Server Name
-        application_ids:
+          title: Label
+        options:
           items:
-            type: string
+            $ref: '#/components/schemas/FilterOption'
           type: array
-          title: Application Ids
-        application_names:
-          items:
-            type: string
-          type: array
-          title: Application Names
-        tags:
-          items:
-            type: string
-          type: array
-          title: Tags
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        updated_by_user_id:
-          type: string
-          title: Updated By User Id
-        updated_by_user_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Updated By User Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        rules_count:
-          type: integer
-          title: Rules Count
-          default: 0
+          title: Options
       type: object
       required:
       - id
-      - name
-      - status
-      - mcp_server_id
-      - updated_at
-      - updated_by_user_id
-      title: PolicySummary
-      description: Summary row used for policy list views.
+      - label
+      title: FilterCategory
+      description: Category of filter options for the advanced filter UI.
     PaginationMeta:
       properties:
         page:
@@ -872,72 +824,6 @@ components:
       - next_page
       title: PaginationMeta
       description: Pagination metadata.
-    OperatorAll-Output:
-      properties:
-        all:
-          $ref: '#/components/schemas/ConditionOf-Output'
-      type: object
-      required:
-      - all
-      title: OperatorAll
-    PolicyRule-Output:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: Optional display name for the rule
-          default: ''
-        authorized:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Authorized
-          description: Determines if the actions are allowed (True) or denied (False)
-          default: false
-        actions:
-          items:
-            type: string
-          type: array
-          title: Actions
-          description: Actions this rule applies to
-        roles_groups:
-          items:
-            type: string
-          type: array
-          title: Roles Groups
-          description: Roles or groups this rule applies to
-        condition:
-          anyOf:
-          - $ref: '#/components/schemas/PolicyRuleCondition-Output'
-          - type: 'null'
-          description: Optional condition that must be met for the rule to apply
-      type: object
-      title: PolicyRule
-      description: Represents a single policy rule with compatible conditions.
-    ValidatePolicyResponse:
-      properties:
-        name_is_unique:
-          type: boolean
-          title: Name Is Unique
-          description: Whether the policy name is unique within the organization
-        no_overlap_if_active:
-          type: boolean
-          title: No Overlap If Active
-          description: Whether the policy would overlap with existing active policies
-        overlapping_policy_names:
-          items:
-            type: string
-          type: array
-          title: Overlapping Policy Names
-          description: Names of overlapping active policies, if any
-      type: object
-      required:
-      - name_is_unique
-      - no_overlap_if_active
-      title: ValidatePolicyResponse
-      description: Response for policy validation.
     PolicyRuleCondition-Output:
       properties:
         match:
@@ -951,57 +837,6 @@ components:
       required:
       - match
       title: PolicyRuleCondition
-    PolicyRule-Input:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: Optional display name for the rule
-          default: ''
-        authorized:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Authorized
-          description: Determines if the actions are allowed (True) or denied (False)
-          default: false
-        actions:
-          items:
-            type: string
-          type: array
-          title: Actions
-          description: Actions this rule applies to
-        roles_groups:
-          items:
-            type: string
-          type: array
-          title: Roles Groups
-          description: Roles or groups this rule applies to
-        condition:
-          anyOf:
-          - $ref: '#/components/schemas/PolicyRuleCondition-Input'
-          - type: 'null'
-          description: Optional condition that must be met for the rule to apply
-      type: object
-      title: PolicyRule
-      description: Represents a single policy rule with compatible conditions.
-    ConditionOf-Output:
-      properties:
-        of:
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/Expression'
-            - $ref: '#/components/schemas/OperatorAll-Output'
-            - $ref: '#/components/schemas/OperatorAny-Output'
-            - $ref: '#/components/schemas/OperatorNone-Output'
-          type: array
-          title: Of
-      type: object
-      required:
-      - of
-      title: ConditionOf
     PolicyDetail:
       properties:
         id:
@@ -1072,40 +907,205 @@ components:
       - updated_by_user_id
       title: PolicyDetail
       description: Detailed representation of a policy including rules.
-    ValidationError:
+    PolicyDetailResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+        policy:
+          $ref: '#/components/schemas/PolicyDetail'
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    OperatorAny-Input:
+      - policy
+      title: PolicyDetailResponse
+      description: Envelope for detail responses.
+    PaginationResponse_PolicyRevisionSummary_:
       properties:
-        any:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicyRevisionSummary'
+          type: array
+          title: Data
+          description: Array of items for current page
+        pagination:
+          $ref: '#/components/schemas/PaginationMeta'
+          description: Pagination metadata
+      type: object
+      required:
+      - data
+      - pagination
+      title: PaginationResponse[PolicyRevisionSummary]
+    UpdatePolicy:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Human-friendly policy name, unique within an organization
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Longer description of the policy.
+        support_contact:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Support Contact
+          description: Primary point of contact associated with the policy.
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: Tags for categorizing the policy.
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/PolicyStatus'
+          - type: 'null'
+          description: The current lifecycle status of the policy.
+        application_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Application Ids
+          description: List of application (agent) identifiers to which this policy applies.
+        rules:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/PolicyRule-Input'
+            type: array
+          - type: 'null'
+          title: Rules
+          description: Full set of rules that govern the policy.
+      type: object
+      title: UpdatePolicy
+      description: Request body for partial updates to an existing policy.
+    ConditionOf-Output:
+      properties:
+        of:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/Expression'
+            - $ref: '#/components/schemas/OperatorAll-Output'
+            - $ref: '#/components/schemas/OperatorAny-Output'
+            - $ref: '#/components/schemas/OperatorNone-Output'
+          type: array
+          title: Of
+      type: object
+      required:
+      - of
+      title: ConditionOf
+    PolicySummary:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        status:
+          type: string
+          title: Status
+        mcp_server_id:
+          type: string
+          title: Mcp Server Id
+        mcp_server_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Mcp Server Name
+        application_ids:
+          items:
+            type: string
+          type: array
+          title: Application Ids
+        application_names:
+          items:
+            type: string
+          type: array
+          title: Application Names
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        updated_by_user_id:
+          type: string
+          title: Updated By User Id
+        updated_by_user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updated By User Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        rules_count:
+          type: integer
+          title: Rules Count
+          default: 0
+      type: object
+      required:
+      - id
+      - name
+      - status
+      - mcp_server_id
+      - updated_at
+      - updated_by_user_id
+      title: PolicySummary
+      description: Summary row used for policy list views.
+    OperatorAll-Input:
+      properties:
+        all:
           $ref: '#/components/schemas/ConditionOf-Input'
       type: object
       required:
-      - any
-      title: OperatorAny
+      - all
+      title: OperatorAll
+    OperatorNone-Input:
+      properties:
+        none:
+          $ref: '#/components/schemas/ConditionOf-Input'
+      type: object
+      required:
+      - none
+      title: OperatorNone
+    PolicySummaryResponse:
+      properties:
+        active:
+          type: integer
+          title: Active
+          default: 0
+        draft:
+          type: integer
+          title: Draft
+          default: 0
+        inactive:
+          type: integer
+          title: Inactive
+          default: 0
+        archived:
+          type: integer
+          title: Archived
+          default: 0
+        total:
+          type: integer
+          title: Total
+          default: 0
+      type: object
+      title: PolicySummaryResponse
+      description: Summary counts of policies by status.
   securitySchemes:
     BearerAuth:
       type: http
