@@ -1,0 +1,293 @@
+# Barndoor (barndoor)
+
+<!-- API-EVANGELIST-PROVENANCE:BEGIN -->
+> ### About this repository
+>
+> **This is not our API.** This repository is an independent, third-party profile of a company's
+> **publicly available** API surface, maintained by [API Evangelist](https://apievangelist.com).
+> API Evangelist does not operate, host, resell, or support this company's APIs, and is not
+> affiliated with or endorsed by the company unless stated on the profile.
+>
+> **Where the information came from.** Everything here is assembled from material a member of the
+> public can reach with a browser and no credentials — the company's own website, developer portal
+> and documentation, the specifications it publishes for public use (OpenAPI, AsyncAPI, JSON Schema,
+> `apis.json`, `llms.txt` and similar), its public repositories, and its public status, pricing and
+> changelog pages. **Nothing here is obtained by breaching a system, defeating an access control, or
+> using credentials of any kind.**
+>
+> **The rating is an independent assessment.** The Kin Score and Agent Readiness rating are
+> independently calculated scores of a company's *public* API artifacts, produced by API Evangelist
+> against a published rubric. They are not certifications, endorsements, security assessments, or
+> audits, and they score published artifacts — not the quality, safety, or security of the software.
+>
+> **Corrections, re-scores, and removal are free.** No partnership, contract, or purchase is
+> required, and you do not need to justify the request.
+>
+> - **Something wrong?** Open an issue on this repository, or email
+>   [info@apievangelist.com](mailto:info@apievangelist.com).
+> - **Published something new?** Ask for a re-score and we will re-run the rating.
+> - **Want the listing taken down?** Say so and we will honor it. The profile is reduced to your
+>   company name, a factual description, and a link to your own site, and the company is recorded as
+>   **unrated** — never scored zero for having asked.
+>
+> **Response times.** Acknowledgement within **one business day**; removal or restriction within
+> **two business days**; corrections and re-scores within **five business days**.
+>
+> **Not from the company, and here with a question?** You are welcome here — we would rather be the
+> front line and point you the right way than have a good report go nowhere. What this repository
+> can answer is narrow, though, so it is worth knowing who you are actually looking for:
+>
+> - **A question about how the API works, an account, billing, or a bug in the service** — that is
+>   the company's own support, not us. We profile this API; we do not operate it and cannot see
+>   your account.
+> - **A bug in an open-source project we only catalog** — file it on that project's own repository.
+>   This has happened with a real and correct bug report that reached us instead of the people who
+>   could fix it, which helped nobody.
+> - **Anything about this listing itself** — the description, the tags, the rating, a missing or
+>   wrong artifact — is ours. Open an issue here.
+> - **Not sure, or something general about API Evangelist or APIs.io** — open an issue on the
+>   [APIs.io Inbox](https://github.com/api-search/inbox) and we will route it.
+>
+> **This repository contains no software, and we will never ask you to download anything.** There is
+> no build, release, installer, or binary here — only text and machine-readable API descriptions, so
+> there is nothing here that can be "corrupt" or need "repairing". Any issue, comment, or email
+> claiming otherwise and offering a download link is not from us and is hostile. Do not follow the
+> link; it is a lure. Report it to GitHub and, if you like, tell us at
+> [info@apievangelist.com](mailto:info@apievangelist.com) so we can take it down.
+>
+> **On a security or compliance team?** Email
+> [info@apievangelist.com](mailto:info@apievangelist.com) with *security* in the subject line and
+> you will get a person, not a form. We will tell you exactly which public URLs this profile was
+> built from so your team can see the same surface we did, and we will take the listing down on
+> request while you work through it.
+>
+> Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
+<!-- API-EVANGELIST-PROVENANCE:END -->
+
+Barndoor AI is the control plane for agentic AI, providing secure access and governance for AI agents and Model Context Protocol (MCP) servers. Founded in 2024 by Oren Michels (founder of Mashery), Barndoor enables enterprise IT, security, and developer teams to register agents, govern MCP server access through policy, broker OAuth connections to backend SaaS, and proxy MCP traffic with runtime policy enforcement and full audit trails. The Barndoor Platform REST API manages servers, connections, policies, agents, and MCP / SSE request proxying. Python, TypeScript, and Go SDKs are published on GitHub alongside Rust SDKs (Cerbos, official MCP, MCP OAuth compliance suite) and a Crew AI example. Deployment options include SaaS (trial), private cloud, and on-premises (Enterprise).
+
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/barndoor/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/barndoor/refs/heads/main/apis.yml)
+
+## Tags
+
+- AI Agents
+- AI Governance
+- Agentic AI
+- MCP
+- Model Context Protocol
+- Policy Enforcement
+- OAuth
+- Identity
+- Security
+- Audit
+- Control Plane
+
+## Timestamps
+
+- **Created:** 2026-03-16
+- **Modified:** 2026-05-19
+
+## APIs
+
+### Barndoor Platform API
+
+REST API for the Barndoor Platform. Manage MCP server registrations, OAuth connections from agents to backend SaaS, access-control policies (with rules, restrictions, revisions, validation), AI agent registrations, and proxy live MCP requests (`/mcp/{server_name}`) and SSE streams (`/sse/{server_name}`) through Barndoor's policy enforcement and audit pipeline. JWT Bearer authentication via Auth0 OAuth 2.0 with PKCE; the SDK's `loginInteractive()` handles the OAuth flow.
+
+- **Human URL:** [https://docs.barndoor.ai/api-reference/introduction](https://docs.barndoor.ai/api-reference/introduction)
+- **Base URL:** `https://{organization_id}.platform.barndoor.ai`
+
+#### Tags
+
+- Platform API
+- MCP
+- Policy
+- Agents
+- Servers
+- Connections
+- Proxy
+
+#### Properties
+
+- [Documentation](https://docs.barndoor.ai/api-reference/introduction)
+- [OpenAPI](openapi/barndoor-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Authentication](https://docs.barndoor.ai/api-reference/introduction)
+- [SDK](https://docs.barndoor.ai/sdks/introduction)
+
+### Barndoor Python SDK
+
+Python SDK for the Barndoor AI Platform. Wraps the Platform REST API, handles Auth0 PKCE login (`loginInteractive()`), discovers governed MCP tools, brokers OAuth connections to backend SaaS, and exposes the catalog through Pythonic helpers compatible with OpenAI tool-calling and frameworks such as Crew AI.
+
+- **Human URL:** [https://docs.barndoor.ai/sdks/python](https://docs.barndoor.ai/sdks/python)
+- **Base URL:** `https://github.com/barndoor-ai/barndoor-python-sdk`
+
+#### Tags
+
+- Python SDK
+- SDK
+- MCP
+
+#### Properties
+
+- [Documentation](https://docs.barndoor.ai/sdks/python)
+- [Repository](https://github.com/barndoor-ai/barndoor-python-sdk)
+- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Barndoor TypeScript SDK
+
+TypeScript SDK for the Barndoor AI Platform. Browser- and Node-friendly client for Auth0 PKCE login, governed MCP tool discovery, OAuth connection initiation, and proxying MCP / SSE requests through Barndoor.
+
+- **Human URL:** [https://docs.barndoor.ai/sdks/typescript](https://docs.barndoor.ai/sdks/typescript)
+- **Base URL:** `https://github.com/barndoor-ai/barndoor-ts-sdk`
+
+#### Tags
+
+- TypeScript SDK
+- SDK
+- MCP
+
+#### Properties
+
+- [Documentation](https://docs.barndoor.ai/sdks/typescript)
+- [Repository](https://github.com/barndoor-ai/barndoor-ts-sdk)
+- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Barndoor Go SDK
+
+Go SDK for the Barndoor AI Platform. Server-side client for registering agents, managing MCP servers and policies, brokering OAuth connections, and proxying MCP requests from Go services.
+
+- **Human URL:** [https://github.com/barndoor-ai/barndoor-go-sdk](https://github.com/barndoor-ai/barndoor-go-sdk)
+- **Base URL:** `https://github.com/barndoor-ai/barndoor-go-sdk`
+
+#### Tags
+
+- Go SDK
+- SDK
+- MCP
+
+#### Properties
+
+- [Repository](https://github.com/barndoor-ai/barndoor-go-sdk)
+- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Official MCP Rust SDK
+
+The official Rust SDK for the Model Context Protocol. Maintained under the Barndoor AI GitHub organization; provides primitives to build MCP clients and servers in Rust.
+
+- **Human URL:** [https://github.com/barndoor-ai/official-mcp-rust-sdk](https://github.com/barndoor-ai/official-mcp-rust-sdk)
+- **Base URL:** `https://github.com/barndoor-ai/official-mcp-rust-sdk`
+
+#### Tags
+
+- MCP
+- Rust
+- SDK
+
+#### Properties
+
+- [Repository](https://github.com/barndoor-ai/official-mcp-rust-sdk)
+- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Cerbos Rust SDK
+
+Rust SDK for Cerbos, the policy-decision-point used by Barndoor for attribute-based access control. Lets Rust services request policy decisions from a Cerbos PDP.
+
+- **Human URL:** [https://github.com/barndoor-ai/cerbos-sdk-rust](https://github.com/barndoor-ai/cerbos-sdk-rust)
+- **Base URL:** `https://github.com/barndoor-ai/cerbos-sdk-rust`
+
+#### Tags
+
+- Cerbos
+- ABAC
+- Policy
+- Rust
+- SDK
+
+#### Properties
+
+- [Repository](https://github.com/barndoor-ai/cerbos-sdk-rust)
+- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### MCP OAuth Compliance Suite
+
+Rust test suite that validates remote MCP servers against the MCP authorization specification - RFC 9728 (Protected Resource Metadata), RFC 8414 (Authorization Server Metadata), RFC 7591 (Dynamic Client Registration), and OAuth 2.1. Useful for vendors and customers verifying MCP server conformance before onboarding to Barndoor.
+
+- **Human URL:** [https://github.com/barndoor-ai/mcp-auth-compliance](https://github.com/barndoor-ai/mcp-auth-compliance)
+- **Base URL:** `https://github.com/barndoor-ai/mcp-auth-compliance`
+
+#### Tags
+
+- MCP
+- OAuth
+- Compliance
+- Rust
+- Conformance
+
+#### Properties
+
+- [Repository](https://github.com/barndoor-ai/mcp-auth-compliance)
+- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Barndoor + Crew AI Example
+
+Reference Python demo application showing how to plug Barndoor-governed MCP tools into a Crew AI multi-agent workflow.
+
+- **Human URL:** [https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example](https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example)
+- **Base URL:** `https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example`
+
+#### Tags
+
+- Crew AI
+- Python
+- Example
+- MCP
+
+#### Properties
+
+- [Repository](https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example)
+- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+## Common Properties
+
+- [LinkedIn](https://www.linkedin.com/company/barndoor-ai)
+- [Website](https://barndoor.ai/)
+- [Documentation](https://docs.barndoor.ai/)
+- [API Reference](https://docs.barndoor.ai/api-reference/introduction)
+- [OpenAPI](openapi/barndoor-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Authentication](https://docs.barndoor.ai/api-reference/introduction)
+- [SDK](https://docs.barndoor.ai/sdks/introduction)
+- [Portal](https://app.barndoor.ai/)
+- [Sign Up](https://app.barndoor.ai/auth/signup/trial)
+- [Tokens Management](https://app.barndoor.ai/settings/tokens)
+- [Pricing](https://barndoor.ai/pricing)
+- [Plans](plans/barndoor-plans-pricing.yml)
+- [Rate Limits](rate-limits/barndoor-rate-limits.yml)
+- [Fin Ops](finops/barndoor-finops.yml)
+- [Git Hub](https://github.com/barndoor-ai)
+- [Security](https://barndoor.ai/security/)
+- [Trust Center](https://trust.barndoor.ai)
+- [About](https://barndoor.ai/about-us/)
+- [M C P Catalog](https://docs.barndoor.ai/mcp-servers/servers)
+- [I P Allowlist](https://docs.barndoor.ai/how-tos/ip-whitelisting)
+- [Log Export](https://docs.barndoor.ai/how-tos/log-export)
+- [Spectral Rules](rules/barndoor-spectral-rules.yml)
+- [Vocabulary](vocabulary/barndoor-vocabulary.yaml)
+- [JSON-LD](json-ld/barndoor-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Features](undefined)
+- [Use Cases](undefined)
+- [Solutions](undefined)
+- [Compliance](undefined)
+- [L L Ms Txt](https://docs.barndoor.ai/llms.txt)
+
+## Maintainers
+
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
