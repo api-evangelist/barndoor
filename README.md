@@ -1,4 +1,4 @@
-# Barndoor (barndoor)
+# Barndoor
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,228 +66,259 @@
 
 Barndoor AI is the control plane for agentic AI, providing secure access and governance for AI agents and Model Context Protocol (MCP) servers. Founded in 2024 by Oren Michels (founder of Mashery), Barndoor enables enterprise IT, security, and developer teams to register agents, govern MCP server access through policy, broker OAuth connections to backend SaaS, and proxy MCP traffic with runtime policy enforcement and full audit trails. The Barndoor Platform REST API manages servers, connections, policies, agents, and MCP / SSE request proxying. Python, TypeScript, and Go SDKs are published on GitHub alongside Rust SDKs (Cerbos, official MCP, MCP OAuth compliance suite) and a Crew AI example. Deployment options include SaaS (trial), private cloud, and on-premises (Enterprise).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/barndoor/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/barndoor/refs/heads/main/apis.yml)
+**Areas:** AI Agents · AI Governance · MCP · Policy Enforcement · Authentication · Identity · Security · Audit · Control Plane
 
-## Tags
+## Barndoor on APIs.io
 
-- AI Agents
-- AI Governance
-- Agentic AI
-- MCP
-- Model Context Protocol
-- Policy Enforcement
-- OAuth
-- Identity
-- Security
-- Audit
-- Control Plane
+Everything profiled for Barndoor is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/barndoor/](https://apis.io/providers/barndoor/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (13)
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-05-19
+- [Barndoor Python SDK](https://apis.io/apis/barndoor/python-sdk/) — Python SDK for the Barndoor AI Platform. Wraps the Platform REST API, handles Auth0 PKCE login (`loginInteractive()`), discovers governed MCP tools, brokers…
+- [Barndoor TypeScript SDK](https://apis.io/apis/barndoor/typescript-sdk/) — TypeScript SDK for the Barndoor AI Platform. Browser- and Node-friendly client for Auth0 PKCE login, governed MCP tool discovery, OAuth connection…
+- [Barndoor Go SDK](https://apis.io/apis/barndoor/go-sdk/) — Go SDK for the Barndoor AI Platform. Server-side client for registering agents, managing MCP servers and policies, brokering OAuth connections, and proxying…
+- [Official MCP Rust SDK](https://apis.io/apis/barndoor/official-mcp-rust-sdk/) — The official Rust SDK for the Model Context Protocol. Maintained under the Barndoor AI GitHub organization; provides primitives to build MCP clients and…
+- [Cerbos Rust SDK](https://apis.io/apis/barndoor/cerbos-sdk-rust/) — Rust SDK for Cerbos, the policy-decision-point used by Barndoor for attribute-based access control. Lets Rust services request policy decisions from a…
+- [MCP OAuth Compliance Suite](https://apis.io/apis/barndoor/mcp-auth-compliance/) — Rust test suite that validates remote MCP servers against the MCP authorization specification - RFC 9728 (Protected Resource Metadata), RFC 8414…
+- [Barndoor + Crew AI Example](https://apis.io/apis/barndoor/crew-ai-example/) — Reference Python demo application showing how to plug Barndoor-governed MCP tools into a Crew AI multi-agent workflow.
+- [Barndoor Agents API](https://apis.io/apis/barndoor/barndoor-agents-api/) — Manage AI agent registrations
+- [Barndoor Connections API](https://apis.io/apis/barndoor/barndoor-connections-api/) — Manage OAuth connections to MCP servers
+- [Barndoor MCP Proxy API](https://apis.io/apis/barndoor/barndoor-mcp-proxy-api/) — Proxy requests to MCP servers
+- [Barndoor Policies API](https://apis.io/apis/barndoor/barndoor-policies-api/) — Manage access control policies for agents and servers
+- [Barndoor Policy API](https://apis.io/apis/barndoor/barndoor-policy-api/) — The Policy API from Barndoor — 1 operation(s) for policy.
+- [Barndoor Servers API](https://apis.io/apis/barndoor/barndoor-servers-api/) — Manage MCP server instances
 
-## APIs
+### Published properties
 
-### Barndoor Platform API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-REST API for the Barndoor Platform. Manage MCP server registrations, OAuth connections from agents to backend SaaS, access-control policies (with rules, restrictions, revisions, validation), AI agent registrations, and proxy live MCP requests (`/mcp/{server_name}`) and SSE streams (`/sse/{server_name}`) through Barndoor's policy enforcement and audit pipeline. JWT Bearer authentication via Auth0 OAuth 2.0 with PKCE; the SDK's `loginInteractive()` handles the OAuth flow.
+#### MCP servers (1)
 
-- **Human URL:** [https://docs.barndoor.ai/api-reference/introduction](https://docs.barndoor.ai/api-reference/introduction)
-- **Base URL:** `https://{organization_id}.platform.barndoor.ai`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [Moved to /providers/barndoor/](https://apis.io/servers/barndoor/barndoor/)
 
-- Platform API
-- MCP
-- Policy
-- Agents
-- Servers
-- Connections
-- Proxy
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.barndoor.ai/api-reference/introduction)
-- [OpenAPI](openapi/barndoor-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Authentication](https://docs.barndoor.ai/api-reference/introduction)
-- [SDK](https://docs.barndoor.ai/sdks/introduction)
+- [Barndoor Agentic Access](https://apis.io/agentic-access/barndoor/barndoor-agentic-access/)
 
-### Barndoor Python SDK
+#### JSON Schema (24)
 
-Python SDK for the Barndoor AI Platform. Wraps the Platform REST API, handles Auth0 PKCE login (`loginInteractive()`), discovers governed MCP tools, brokers OAuth connections to backend SaaS, and exposes the catalog through Pythonic helpers compatible with OpenAI tool-calling and frameworks such as Crew AI.
+The data models the API reads and writes.
 
-- **Human URL:** [https://docs.barndoor.ai/sdks/python](https://docs.barndoor.ai/sdks/python)
-- **Base URL:** `https://github.com/barndoor-ai/barndoor-python-sdk`
+- [Agent](https://apis.io/schemas/barndoor/barndoor-agent/)
+- [AgentCounts](https://apis.io/schemas/barndoor/barndoor-agent-counts/)
+- [AgentDirectoryBase](https://apis.io/schemas/barndoor/barndoor-agent-directory-base/)
+- [AgentPayload](https://apis.io/schemas/barndoor/barndoor-agent-payload/)
+- [AgentResponse](https://apis.io/schemas/barndoor/barndoor-agent-response/)
+- [ConnectionInitiationResponse](https://apis.io/schemas/barndoor/barndoor-connection-initiation-response/)
+- [ConnectionStatusResponse](https://apis.io/schemas/barndoor/barndoor-connection-status-response/)
+- [Error](https://apis.io/schemas/barndoor/barndoor-error/)
+- [FilterCategory](https://apis.io/schemas/barndoor/barndoor-filter-category/)
+- [FilterOption](https://apis.io/schemas/barndoor/barndoor-filter-option/)
+- [PaginationMeta](https://apis.io/schemas/barndoor/barndoor-pagination-meta/)
+- [PolicyDetail](https://apis.io/schemas/barndoor/barndoor-policy-detail/)
+- [PolicyRevisionSummary](https://apis.io/schemas/barndoor/barndoor-policy-revision-summary/)
+- [PolicyRule](https://apis.io/schemas/barndoor/barndoor-policy-rule/)
+- [PolicyRuleCondition](https://apis.io/schemas/barndoor/barndoor-policy-rule-condition/)
+- [PolicySummary](https://apis.io/schemas/barndoor/barndoor-policy-summary/)
+- [ServerCreateRequest](https://apis.io/schemas/barndoor/barndoor-server-create-request/)
+- [ServerCreateResponse](https://apis.io/schemas/barndoor/barndoor-server-create-response/)
+- [ServerDetail](https://apis.io/schemas/barndoor/barndoor-server-detail/)
+- [ServerSummary](https://apis.io/schemas/barndoor/barndoor-server-summary/)
+- [ServerUpdateRequest](https://apis.io/schemas/barndoor/barndoor-server-update-request/)
+- [UpdatePolicy](https://apis.io/schemas/barndoor/barndoor-update-policy/)
+- [ValidatePolicyRequest](https://apis.io/schemas/barndoor/barndoor-validate-policy-request/)
+- [ValidatePolicyResponse](https://apis.io/schemas/barndoor/barndoor-validate-policy-response/)
 
-#### Tags
+#### JSON Structure (24)
 
-- Python SDK
-- SDK
-- MCP
+Data models expressed in JSON Structure.
 
-#### Properties
+- [Barndoor Agent Counts Structure](https://apis.io/json-structure/barndoor/barndoor-agent-counts-structure/)
+- [Barndoor Agent Directory Base Structure](https://apis.io/json-structure/barndoor/barndoor-agent-directory-base-structure/)
+- [Barndoor Agent Payload Structure](https://apis.io/json-structure/barndoor/barndoor-agent-payload-structure/)
+- [Barndoor Agent Response Structure](https://apis.io/json-structure/barndoor/barndoor-agent-response-structure/)
+- [Barndoor Agent Structure](https://apis.io/json-structure/barndoor/barndoor-agent-structure/)
+- [Barndoor Connection Initiation Response Structure](https://apis.io/json-structure/barndoor/barndoor-connection-initiation-response-structure/)
+- [Barndoor Connection Status Response Structure](https://apis.io/json-structure/barndoor/barndoor-connection-status-response-structure/)
+- [Barndoor Error Structure](https://apis.io/json-structure/barndoor/barndoor-error-structure/)
+- [Barndoor Filter Category Structure](https://apis.io/json-structure/barndoor/barndoor-filter-category-structure/)
+- [Barndoor Filter Option Structure](https://apis.io/json-structure/barndoor/barndoor-filter-option-structure/)
+- [Barndoor Pagination Meta Structure](https://apis.io/json-structure/barndoor/barndoor-pagination-meta-structure/)
+- [Barndoor Policy Detail Structure](https://apis.io/json-structure/barndoor/barndoor-policy-detail-structure/)
+- [Barndoor Policy Revision Summary Structure](https://apis.io/json-structure/barndoor/barndoor-policy-revision-summary-structure/)
+- [Barndoor Policy Rule Condition Structure](https://apis.io/json-structure/barndoor/barndoor-policy-rule-condition-structure/)
+- [Barndoor Policy Rule Structure](https://apis.io/json-structure/barndoor/barndoor-policy-rule-structure/)
+- [Barndoor Policy Summary Structure](https://apis.io/json-structure/barndoor/barndoor-policy-summary-structure/)
+- [Barndoor Server Create Request Structure](https://apis.io/json-structure/barndoor/barndoor-server-create-request-structure/)
+- [Barndoor Server Create Response Structure](https://apis.io/json-structure/barndoor/barndoor-server-create-response-structure/)
+- [Barndoor Server Detail Structure](https://apis.io/json-structure/barndoor/barndoor-server-detail-structure/)
+- [Barndoor Server Summary Structure](https://apis.io/json-structure/barndoor/barndoor-server-summary-structure/)
+- [Barndoor Server Update Request Structure](https://apis.io/json-structure/barndoor/barndoor-server-update-request-structure/)
+- [Barndoor Update Policy Structure](https://apis.io/json-structure/barndoor/barndoor-update-policy-structure/)
+- [Barndoor Validate Policy Request Structure](https://apis.io/json-structure/barndoor/barndoor-validate-policy-request-structure/)
+- [Barndoor Validate Policy Response Structure](https://apis.io/json-structure/barndoor/barndoor-validate-policy-response-structure/)
 
-- [Documentation](https://docs.barndoor.ai/sdks/python)
-- [Repository](https://github.com/barndoor-ai/barndoor-python-sdk)
-- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON-LD (1)
 
-### Barndoor TypeScript SDK
+Linked-data contexts for the provider's vocabulary.
 
-TypeScript SDK for the Barndoor AI Platform. Browser- and Node-friendly client for Auth0 PKCE login, governed MCP tool discovery, OAuth connection initiation, and proxying MCP / SSE requests through Barndoor.
+- [Barndoor Context](https://apis.io/jsonld/barndoor/barndoor-context/)
 
-- **Human URL:** [https://docs.barndoor.ai/sdks/typescript](https://docs.barndoor.ai/sdks/typescript)
-- **Base URL:** `https://github.com/barndoor-ai/barndoor-ts-sdk`
+#### Vocabulary (1)
 
-#### Tags
+The provider's domain terms, defined.
 
-- TypeScript SDK
-- SDK
-- MCP
+- [barndoor API Vocabulary](https://apis.io/vocabularies/barndoor/barndoor-vocabulary/)
 
-#### Properties
+#### Examples (48)
 
-- [Documentation](https://docs.barndoor.ai/sdks/typescript)
-- [Repository](https://github.com/barndoor-ai/barndoor-ts-sdk)
-- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Example requests and responses.
 
-### Barndoor Go SDK
+- [Barndoor Agent Counts Example](https://apis.io/examples/barndoor/barndoor-agent-counts-example/)
+- [Barndoor Agent Directory Base Example](https://apis.io/examples/barndoor/barndoor-agent-directory-base-example/)
+- [Barndoor Agent Example](https://apis.io/examples/barndoor/barndoor-agent-example/)
+- [Barndoor Agent Payload Example](https://apis.io/examples/barndoor/barndoor-agent-payload-example/)
+- [Barndoor Agent Response Example](https://apis.io/examples/barndoor/barndoor-agent-response-example/)
+- [Barndoor Clone Policy Example](https://apis.io/examples/barndoor/barndoor-clone-policy-example/)
+- [Barndoor Connection Initiation Response Example](https://apis.io/examples/barndoor/barndoor-connection-initiation-response-example/)
+- [Barndoor Connection Status Response Example](https://apis.io/examples/barndoor/barndoor-connection-status-response-example/)
+- [Barndoor Create Server Example](https://apis.io/examples/barndoor/barndoor-create-server-example/)
+- [Barndoor Delete Connection Example](https://apis.io/examples/barndoor/barndoor-delete-connection-example/)
+- [Barndoor Delete Server Example](https://apis.io/examples/barndoor/barndoor-delete-server-example/)
+- [Barndoor Disable Restriction Example](https://apis.io/examples/barndoor/barndoor-disable-restriction-example/)
+- [Barndoor Enable Restriction Example](https://apis.io/examples/barndoor/barndoor-enable-restriction-example/)
+- [Barndoor Error Example](https://apis.io/examples/barndoor/barndoor-error-example/)
+- [Barndoor Filter Category Example](https://apis.io/examples/barndoor/barndoor-filter-category-example/)
+- [Barndoor Filter Option Example](https://apis.io/examples/barndoor/barndoor-filter-option-example/)
+- [Barndoor Get Agent Counts Example](https://apis.io/examples/barndoor/barndoor-get-agent-counts-example/)
+- [Barndoor Get Agent Example](https://apis.io/examples/barndoor/barndoor-get-agent-example/)
+- [Barndoor Get Connection Status Example](https://apis.io/examples/barndoor/barndoor-get-connection-status-example/)
+- [Barndoor Get Filter Definitions Example](https://apis.io/examples/barndoor/barndoor-get-filter-definitions-example/)
+- [Barndoor Get Policies Summary Example](https://apis.io/examples/barndoor/barndoor-get-policies-summary-example/)
+- [Barndoor Get Policy Example](https://apis.io/examples/barndoor/barndoor-get-policy-example/)
+- [Barndoor Get Server Example](https://apis.io/examples/barndoor/barndoor-get-server-example/)
+- [Barndoor Initiate Connection Example](https://apis.io/examples/barndoor/barndoor-initiate-connection-example/)
+- [Barndoor List Agents Example](https://apis.io/examples/barndoor/barndoor-list-agents-example/)
+- …and 23 more published on APIs.io
 
-Go SDK for the Barndoor AI Platform. Server-side client for registering agents, managing MCP servers and policies, brokering OAuth connections, and proxying MCP requests from Go services.
+#### Collections (13)
 
-- **Human URL:** [https://github.com/barndoor-ai/barndoor-go-sdk](https://github.com/barndoor-ai/barndoor-go-sdk)
-- **Base URL:** `https://github.com/barndoor-ai/barndoor-go-sdk`
+Postman and Open Collection request collections.
 
-#### Tags
+- [Barndoor Platform API](https://apis.io/collections/barndoor/open-barndoor/)
+- [Barndoor Platform Agents API](https://apis.io/collections/barndoor/open-barndoor-agents-api/)
+- [Barndoor Platform Agents Connections API](https://apis.io/collections/barndoor/open-barndoor-connections-api/)
+- [Barndoor Platform Agents MCP Proxy API](https://apis.io/collections/barndoor/open-barndoor-mcp-proxy-api/)
+- [Barndoor Platform Agents Policies API](https://apis.io/collections/barndoor/open-barndoor-policies-api/)
+- [Barndoor Platform Agents Policy API](https://apis.io/collections/barndoor/open-barndoor-policy-api/)
+- [Barndoor Platform Agents Servers API](https://apis.io/collections/barndoor/open-barndoor-servers-api/)
+- [Barndoor Platform Agents API](https://apis.io/collections/barndoor/postman-barndoor-agents-api/)
+- [Barndoor Platform Agents Connections API](https://apis.io/collections/barndoor/postman-barndoor-connections-api/)
+- [Barndoor Platform Agents MCP Proxy API](https://apis.io/collections/barndoor/postman-barndoor-mcp-proxy-api/)
+- [Barndoor Platform Agents Policies API](https://apis.io/collections/barndoor/postman-barndoor-policies-api/)
+- [Barndoor Platform Agents Policy API](https://apis.io/collections/barndoor/postman-barndoor-policy-api/)
+- [Barndoor Platform Agents Servers API](https://apis.io/collections/barndoor/postman-barndoor-servers-api/)
 
-- Go SDK
-- SDK
-- MCP
+#### Governance rules (2)
 
-#### Properties
+Spectral rulesets for the provider's contracts.
 
-- [Repository](https://github.com/barndoor-ai/barndoor-go-sdk)
-- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Barndoor — jsonschema rules](https://apis.io/rules/barndoor/barndoor-jsonschema-spectral-rules/)
+- [Barndoor API Rules](https://apis.io/rules/barndoor/barndoor-spectral-rules/)
 
-### Official MCP Rust SDK
+#### Security (3)
 
-The official Rust SDK for the Model Context Protocol. Maintained under the Barndoor AI GitHub organization; provides primitives to build MCP clients and servers in Rust.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://github.com/barndoor-ai/official-mcp-rust-sdk](https://github.com/barndoor-ai/official-mcp-rust-sdk)
-- **Base URL:** `https://github.com/barndoor-ai/official-mcp-rust-sdk`
+- [Barndoor Authentication](https://apis.io/security/barndoor/barndoor-authentication/)
+- [Barndoor Domain Security](https://apis.io/security/barndoor/barndoor-domain-security/)
+- [Barndoor Vulnerability Disclosure](https://apis.io/security/barndoor/barndoor-vulnerability-disclosure/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- MCP
-- Rust
-- SDK
+Published plans, tiers and prices.
 
-#### Properties
+- [Barndoor Plans Pricing](https://apis.io/plans/barndoor/barndoor-plans-pricing/)
 
-- [Repository](https://github.com/barndoor-ai/official-mcp-rust-sdk)
-- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### Cerbos Rust SDK
+Published request limits.
 
-Rust SDK for Cerbos, the policy-decision-point used by Barndoor for attribute-based access control. Lets Rust services request policy decisions from a Cerbos PDP.
+- [Barndoor Rate Limits](https://apis.io/rate-limits/barndoor/barndoor-rate-limits/)
 
-- **Human URL:** [https://github.com/barndoor-ai/cerbos-sdk-rust](https://github.com/barndoor-ai/cerbos-sdk-rust)
-- **Base URL:** `https://github.com/barndoor-ai/cerbos-sdk-rust`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Cerbos
-- ABAC
-- Policy
-- Rust
-- SDK
+- [Barndoor Finops](https://apis.io/finops/barndoor/barndoor-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Repository](https://github.com/barndoor-ai/cerbos-sdk-rust)
-- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### MCP OAuth Compliance Suite
-
-Rust test suite that validates remote MCP servers against the MCP authorization specification - RFC 9728 (Protected Resource Metadata), RFC 8414 (Authorization Server Metadata), RFC 7591 (Dynamic Client Registration), and OAuth 2.1. Useful for vendors and customers verifying MCP server conformance before onboarding to Barndoor.
-
-- **Human URL:** [https://github.com/barndoor-ai/mcp-auth-compliance](https://github.com/barndoor-ai/mcp-auth-compliance)
-- **Base URL:** `https://github.com/barndoor-ai/mcp-auth-compliance`
-
-#### Tags
-
-- MCP
-- OAuth
-- Compliance
-- Rust
-- Conformance
-
-#### Properties
-
-- [Repository](https://github.com/barndoor-ai/mcp-auth-compliance)
-- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Barndoor + Crew AI Example
-
-Reference Python demo application showing how to plug Barndoor-governed MCP tools into a Crew AI multi-agent workflow.
-
-- **Human URL:** [https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example](https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example)
-- **Base URL:** `https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example`
-
-#### Tags
-
-- Crew AI
-- Python
-- Example
-- MCP
-
-#### Properties
-
-- [Repository](https://github.com/barndoor-ai/barndoor-ai-crew-ai-python-example)
-- [Postman Collection](collections/barndoor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/barndoor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/barndoor-ai)
 - [Website](https://barndoor.ai/)
 - [Documentation](https://docs.barndoor.ai/)
-- [API Reference](https://docs.barndoor.ai/api-reference/introduction)
-- [OpenAPI](openapi/barndoor-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Authentication](https://docs.barndoor.ai/api-reference/introduction)
-- [SDK](https://docs.barndoor.ai/sdks/introduction)
-- [Portal](https://app.barndoor.ai/)
-- [Sign Up](https://app.barndoor.ai/auth/signup/trial)
-- [Tokens Management](https://app.barndoor.ai/settings/tokens)
+- [API reference](https://docs.barndoor.ai/api-reference/introduction)
 - [Pricing](https://barndoor.ai/pricing)
-- [Plans](plans/barndoor-plans-pricing.yml)
-- [Rate Limits](rate-limits/barndoor-rate-limits.yml)
-- [Fin Ops](finops/barndoor-finops.yml)
-- [Git Hub](https://github.com/barndoor-ai)
+- [Blog](http://barndoor.ai/feed/)
 - [Security](https://barndoor.ai/security/)
-- [Trust Center](https://trust.barndoor.ai)
-- [About](https://barndoor.ai/about-us/)
-- [M C P Catalog](https://docs.barndoor.ai/mcp-servers/servers)
-- [I P Allowlist](https://docs.barndoor.ai/how-tos/ip-whitelisting)
-- [Log Export](https://docs.barndoor.ai/how-tos/log-export)
-- [Spectral Rules](rules/barndoor-spectral-rules.yml)
-- [Vocabulary](vocabulary/barndoor-vocabulary.yaml)
-- [JSON-LD](json-ld/barndoor-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Solutions](undefined)
-- [Compliance](undefined)
-- [L L Ms Txt](https://docs.barndoor.ai/llms.txt)
+- [Trust centre](https://trust.barndoor.ai)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 54.7** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 59.6 |
+| Contract governance | 27.3 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 48.8 |
+| Access clarity | 47.4 |
+
+**Agent readiness 36.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 27.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/barndoor/](https://apis.io/providers/barndoor/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Barndoor: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/barndoor/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
